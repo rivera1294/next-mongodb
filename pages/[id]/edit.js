@@ -4,6 +4,8 @@ import fetch from 'isomorphic-unfetch';
 import { Button, Form, Loader } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
 
+const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
+
 const EditNote = ({ note }) => {
     const [form, setForm] = useState({ title: note.title, description: note.description });
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -23,7 +25,7 @@ const EditNote = ({ note }) => {
 
     const updateNote = async () => {
         try {
-            const res = await fetch(`http://localhost:3000/api/notes/${router.query.id}`, {
+            const res = await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes/${router.query.id}`, {
                 method: 'PUT',
                 headers: {
                     "Accept": "application/json",
@@ -99,7 +101,7 @@ const EditNote = ({ note }) => {
 }
 
 EditNote.getInitialProps = async ({ query: { id } }) => {
-    const res = await fetch(`http://localhost:3000/api/notes/${id}`);
+    const res = await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes/${id}`);
     const { data } = await res.json();
 
     return { note: data }

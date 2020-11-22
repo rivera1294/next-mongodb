@@ -2,6 +2,8 @@ import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
 import { Button, Card } from 'semantic-ui-react';
 
+const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
+
 const Index = ({ notes }) => {
   return (
     <div className="notes-container">
@@ -36,7 +38,7 @@ const Index = ({ notes }) => {
 }
 
 Index.getInitialProps = async () => {
-  const res = await fetch('http://localhost:3000/api/notes');
+  const res = await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes`);
   const { data } = await res.json();
 
   return { notes: data }

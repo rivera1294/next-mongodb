@@ -4,6 +4,8 @@ import fetch from 'isomorphic-unfetch';
 import { Button, Form, Loader } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
 
+const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
+
 const NewNote = () => {
     const [form, setForm] = useState({ title: '', description: '' });
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -23,7 +25,7 @@ const NewNote = () => {
 
     const createNote = async () => {
         try {
-            const res = await fetch('http://localhost:3000/api/notes', {
+            const res = await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes`, {
                 method: 'POST',
                 headers: {
                     "Accept": "application/json",

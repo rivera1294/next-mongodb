@@ -8,6 +8,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ```bash
 MONGO_URI=<YOUR_MONGODB_CONNECTION_STRING>
+NEXT_APP_API_ENDPOINT=http://localhost:9000
 ```
 
 ### Production
@@ -16,6 +17,7 @@ MONGO_URI=<YOUR_MONGODB_CONNECTION_STRING>
 
 ```bash
 MONGO_URI=<YOUR_MONGODB_CONNECTION_STRING>
+NEXT_APP_API_ENDPOINT=http://localhost:9000
 ```
 
 First, run the development server:

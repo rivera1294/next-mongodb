@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Confirm, Button, Loader } from 'semantic-ui-react';
 
+const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
+
 const Note = ({ note }) => {
     const [confirm, setConfirm] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
@@ -21,7 +23,7 @@ const Note = ({ note }) => {
     const deleteNote = async () => {
         const noteId = router.query.id;
         try {
-            const deleted = await fetch(`http://localhost:3000/api/notes/${noteId}`, {
+            const deleted = await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes/${noteId}`, {
                 method: "Delete"
             });
 
@@ -57,7 +59,7 @@ const Note = ({ note }) => {
 }
 
 Note.getInitialProps = async ({ query: { id } }) => {
-    const res = await fetch(`http://localhost:3000/api/notes/${id}`);
+    const res = await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes/${id}`);
     const { data } = await res.json();
 
     return { note: data }
