@@ -48,7 +48,8 @@ export default async (req, res) => {
                         response.success = true
                         response.pagination = {
                             totalPages: Math.ceil(count / normalizedLimit),
-                            currentPage: normalizedPage
+                            currentPage: normalizedPage,
+                            totalNotes: count,
                         }
                         status = 200
                     } catch (error) {
@@ -67,6 +68,7 @@ export default async (req, res) => {
                         response.pagination = {
                             totalPages: Math.ceil(count / normalizedLimit),
                             currentPage: 1,
+                            totalNotes: count,
                         }
                         response.success = true
                     } catch (error) {
