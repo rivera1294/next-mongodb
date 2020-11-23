@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app).
 
+## API
+
+_TODO_
+
 ## Getting Started
 
 ### Development
@@ -7,7 +11,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 `.env.dev`
 
 ```bash
-MONGO_URI=<YOUR_MONGODB_CONNECTION_STRING>
+MONGO_URI=<YOUR>
 NEXT_APP_API_ENDPOINT=http://localhost:9000
 ```
 
@@ -16,7 +20,7 @@ NEXT_APP_API_ENDPOINT=http://localhost:9000
 `.env.prod`
 
 ```bash
-MONGO_URI=<YOUR_MONGODB_CONNECTION_STRING>
+MONGO_URI=<YOUR>
 NEXT_APP_API_ENDPOINT=http://localhost:9000
 ```
 
@@ -31,6 +35,37 @@ yarn dev
 Open [http://localhost:9000](http://localhost:9000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+
+
+## Extra info (MongoDB)
+
+Mongoose allows you to query your collections in different ways like: [Official Documentation](https://mongoosejs.com/docs/api.html#model_Model.find)
+
+```js
+// named john and at least 18
+MyModel.find({ name: 'john', age: { $gte: 18 }});
+
+// executes, passing results to callback
+MyModel.find({ name: 'john', age: { $gte: 18 }}, function (err, docs) {});
+
+// executes, name LIKE john and only selecting the "name" and "friends" fields
+MyModel.find({ name: /john/i }, 'name friends', function (err, docs) { })
+
+// passing options
+MyModel.find({ name: /john/i }, null, { skip: 10 })
+
+// passing options and executes
+MyModel.find({ name: /john/i }, null, { skip: 10 }, function (err, docs) {});
+
+// executing a query explicitly
+var query = MyModel.find({ name: /john/i }, null, { skip: 10 })
+query.exec(function (err, docs) {});
+
+// using the promise returned from executing a query
+var query = MyModel.find({ name: /john/i }, null, { skip: 10 });
+var promise = query.exec();
+promise.addBack(function (err, docs) {});
+```
 
 ## Learn More
 
