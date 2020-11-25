@@ -10,10 +10,32 @@ h1 {
 }
 .search-wrapper {
     display: flex;
-    flex-direction: row;
 }
-.search-wrapper > *:not(:last-child) {
-    margin-right: 8px !important;
+@media(min-width: 768px) {
+    .search-wrapper {
+        flex-direction: row;
+    }
+    .search-wrapper > *:not(:last-child) {
+        margin-right: 8px !important;
+    }
+    .search-wrapper > div:last-child {
+        margin-left: auto !important;
+    }
+}
+@media(max-width: 767px) {
+    .search-wrapper {
+        flex-direction: column;
+    }
+    .search-wrapper > * {
+        width: auto;
+    }
+    .search-wrapper > *:not(:last-child) {
+        margin-bottom: 8px !important;
+    }
+    /* .search-wrapper > *:nth-child(2) {
+        position: sticky;
+        top: 10px;
+    } */
 }
 
 .navbar {

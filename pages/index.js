@@ -55,7 +55,23 @@ const Index = ({ notes, pagination: initPag }) => {
   return (
     <div className="notes-container">
       <h1>Notes</h1>
-      <div className='wrapper search-wrapper '>
+      <div className='wrapper search-wrapper'>
+        <Input
+          icon
+          placeholder='Search by title...'
+          // icon={<Icon name='search' inverted circular link />}
+          onChange={(e) => {
+            dispatch({ type: 'SEARCH_TEXT@SET', payload: e.target.value })
+          }}
+        >
+          <input />
+          <Icon name='search' />
+        </Input>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <Label>
+            <Icon name='mail' /> {totalNotes}
+          </Label>
+        </div>
         {!!state.pagination && (
           <Pagination
             boundaryRange={0}
@@ -68,16 +84,6 @@ const Index = ({ notes, pagination: initPag }) => {
             onPageChange={handlePageChange}
           />
         )}
-        <Input
-          icon={<Icon name='search' inverted circular link />}
-          placeholder='Search by title...'
-          onChange={(e) => {
-            dispatch({ type: 'SEARCH_TEXT@SET', payload: e.target.value })
-          }}
-        />
-        <Label>
-          <Icon name='mail' /> {totalNotes}
-        </Label>
       </div>
       <div className="grid wrapper">
         {state.notes.map(note => {
