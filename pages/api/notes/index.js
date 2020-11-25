@@ -41,7 +41,7 @@ export default async (req, res) => {
                     try {
                         const notes = await Note.find(options).limit(normalizedLimit).skip((normalizedPage - 1) * normalizedLimit).exec();
                         // Get total documents in the Posts collection:
-                        const count = await Note.countDocuments();
+                        const count = await Note.find(options).countDocuments();
         
                         // res.status(200).json({ success: true, data: notes })
                         response.data = notes
@@ -60,7 +60,7 @@ export default async (req, res) => {
                 } else {
                     try {
                         const notes = await Note.find(options).limit(normalizedLimit);
-                        const count = await Note.countDocuments();
+                        const count = await Note.find(options).countDocuments();
         
                         // res.status(200).json({ success: true, data: notes })
                         status = 200

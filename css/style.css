@@ -6,6 +6,14 @@ h1 {
     max-width: 1200px;
     padding: 0 16px;
     margin: auto;
+    margin-bottom: 20px;
+}
+.search-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+.search-wrapper > *:not(:last-child) {
+    margin-right: 8px !important;
 }
 
 .navbar {
