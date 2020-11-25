@@ -40,10 +40,9 @@ const Index = ({ notes, pagination: initPag }) => {
     renderCountRef.current += 1;
     if (renderCountRef.current === 1) return;
 
-    // console.log(renderCountRef.current)
     const fetchData = async () => {
       const res = await fetch(
-        `/api/notes?q_title=${state.searchText}&page=${page}`,
+        `/api/notes?q_title=${debouncedSearchText}&page=${debouncedPage}`,
       );
       const { data, pagination } = await res.json();
  
@@ -71,7 +70,7 @@ const Index = ({ notes, pagination: initPag }) => {
         )}
         <Input
           icon={<Icon name='search' inverted circular link />}
-          placeholder='Search...'
+          placeholder='Search by title...'
           onChange={(e) => {
             dispatch({ type: 'SEARCH_TEXT@SET', payload: e.target.value })
           }}
