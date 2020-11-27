@@ -84,10 +84,16 @@ export default async (req, res) => {
         case 'POST':
             try {
                 const note = await Note.create(req.body);
+                const count = await Note.countDocuments();
 
                 // res.status(201).json({ success: true, data: note })
                 response.data = note
                 response.success = true
+                response.pagination = {
+                    // totalPages: Math.ceil(count / normalizedLimit),
+                    // currentPage: 1,
+                    totalNotes: count,
+                }
                 status = 201
             } catch (error) {
                 // res.status(400).json({ success: false });

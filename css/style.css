@@ -8,6 +8,13 @@ h1 {
     margin-bottom: 20px;
 }
 
+.note-title-wrapper {
+    cursor: pointer;
+}
+.note-title-wrapper:hover {
+    color: #008cba;
+}
+
 .main {
     display: flex;
     margin: 0 auto;
@@ -17,7 +24,7 @@ h1 {
         flex-direction: row;
     }
     .main > div:first-child {
-        margin-right: 20px;
+        margin-right: 8px;
         min-width: 490px;
         width: 490px;
     }
@@ -51,7 +58,7 @@ h1 {
     display: flex;
 }
 .search-wrapper > div > .ui.input {
-    margin-right: 10px !important;
+    margin-right: 8px !important;
 }
 @media(min-width: 768px) {
     .search-wrapper {
@@ -78,6 +85,13 @@ h1 {
         position: sticky;
         top: 10px;
     } */
+}
+
+.ui.card {
+    border: 2px solid #E8E8E8;
+}
+.active-card-wrapper > .ui.card {
+    border: 2px solid #008cba;
 }
 
 .navbar {

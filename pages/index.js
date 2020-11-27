@@ -4,6 +4,8 @@ import fetch from 'isomorphic-unfetch';
 import { Button, Card, Icon, Input, Label, Pagination  } from 'semantic-ui-react';
 import { useDebounce } from '~/hooks/useDebounce'
 import { ActiveNote } from '~/components/ActiveNote'
+import buildUrl from 'build-url'
+import clsx from 'clsx'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
 
@@ -52,9 +54,21 @@ const Index = ({ notes, pagination: initPag }) => {
 
     const fetchData = async () => {
       setIsLoading(true)
-      const res = await fetch(
-        `/api/notes?q_title=${debouncedSearchByTitle}&q_description=${debouncedSearchByDescription}&page=${debouncedPage}`,
-      );
+      const queryParams = {}
+      if (!!debouncedSearchByTitle) {
+        queryParams.q_title = debouncedSearchByTitle
+      }
+      if (!!debouncedSearchByDescription) {
+        queryParams.q_description = debouncedSearchByDescription
+      }
+      if (!!page && page !== 1) {
+        queryParams.page = debouncedPage
+      }
+      const url = buildUrl(NEXT_APP_API_ENDPOINT, {
+        path: '/api/notes',
+        queryParams,
+      });
+      const res = await fetch(url);
       setIsLoading(false)
       const { data, pagination } = await res.json();
 
@@ -137,15 +151,17 @@ const Index = ({ notes, pagination: initPag }) => {
           
           <div className="grid wrapper">
             {state.notes.map(note => {
+              const isActive = !!state.activeNote?._id && state.activeNote._id === note._id
+
               return (
-                <div key={note._id}>
+                <div key={note._id} className={clsx({ 'active-card-wrapper': isActive })}>
                   <Card>
                     <Card.Content>
                       <Card.Header>
                         {/* <Link href={`/${note._id}`} hrefAs='/[id]'>
                           <a>{note.title}</a>
                         </Link> */}
-                        <div onClick={() => handleSetAsActiveNote(note)}>
+                        <div onClick={() => handleSetAsActiveNote(note)} className='note-title-wrapper'>
                           <b>
                             {note.title}
                           </b>
