@@ -39,7 +39,7 @@ export default async (req, res) => {
             if (!!normalizedLimit && isNumeric(normalizedLimit)) {
                 if (!!normalizedPage && isNumeric(normalizedPage)) {
                     try {
-                        const notes = await Note.find(options).limit(normalizedLimit).skip((normalizedPage - 1) * normalizedLimit).exec();
+                        const notes = await Note.find(options).sort({ priority: 'desc' }).limit(normalizedLimit).skip((normalizedPage - 1) * normalizedLimit).exec();
                         // Get total documents in the Posts collection:
                         const count = await Note.find(options).countDocuments();
         
@@ -59,7 +59,7 @@ export default async (req, res) => {
                     }
                 } else {
                     try {
-                        const notes = await Note.find(options).limit(normalizedLimit);
+                        const notes = await Note.find(options).sort({ priority: 'desc' }).limit(normalizedLimit);
                         const count = await Note.find(options).countDocuments();
         
                         // res.status(200).json({ success: true, data: notes })

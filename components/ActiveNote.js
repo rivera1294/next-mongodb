@@ -29,7 +29,7 @@ export const ActiveNote = ({ note }) => {
       <div
         style={{ marginBottom: '20px' }}
       >
-        <h3>{note.title}</h3>
+        <h3>{note.title}{note.priority ? <span className='muted'> <i class="fas fa-star"></i> {note.priority}</span> : null}</h3>
         <div style={{ borderBottom: '2px solid lightgray' }} />
       </div>
       <div
