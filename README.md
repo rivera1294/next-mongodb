@@ -1,12 +1,42 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app).
 
-## API
+- [Roadmap](#roadmap)
+- [API](#api)
+- [Getting Started](#getting-started)
+- [Environments](#envs)
+  - [dev](#development)
+  - [prod](#production)
+- [Extra info (MongoDB)](#mongodb-extra-info)
+- [Learn More](#learn-more)
+- [Deploy on ZEIT Now](#deploy-on-zeit-now)
+
+## roadmap
+
+- [x] markdown syntax support
+- [ ] auth
+  - [ ] context; provider
+  - [ ] express session?
+  - [ ] https? Auth0?
+- [ ] login page
+- [ ] pubic page
+- [ ] prod
+  - [ ] quick deploy
+
+## api
 
 _TODO_
 
-## Getting Started
+## getting-started
 
-### Development
+```bash
+npm i
+# or
+yarn
+```
+
+## envs
+
+### development
 
 `.env.dev`
 
@@ -15,7 +45,7 @@ MONGO_URI=<YOUR>
 NEXT_APP_API_ENDPOINT=http://localhost:9000
 ```
 
-### Production
+### production
 
 `.env.prod`
 
@@ -37,7 +67,7 @@ Open [http://localhost:9000](http://localhost:9000) with your browser to see the
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
 
-## Extra info (MongoDB)
+## mongodb-extra-info
 
 Mongoose allows you to query your collections in different ways like: [Official Documentation](https://mongoosejs.com/docs/api.html#model_Model.find)
 
@@ -67,7 +97,7 @@ var promise = query.exec();
 promise.addBack(function (err, docs) {});
 ```
 
-## Learn More
+## learn-more
 
 To learn more about Next.js, take a look at the following resources:
 
@@ -76,7 +106,7 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/zeit/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on ZEIT Now
+## deploy-on-zeit-now
 
 The easiest way to deploy your Next.js app is to use the [ZEIT Now Platform](https://zeit.co/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
