@@ -163,6 +163,9 @@ h1 {
     border-left: 10px solid rgba(47, 47, 47, 0.4);
     color: gray;
 }
+.description-markdown pre {
+    border-radius: 4px;
+}
 .description-markdown pre code {
     box-shadow: unset;
     padding-left: 0px !important;

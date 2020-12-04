@@ -83,9 +83,9 @@ const NewNote = () => {
                                 onChange={handleChange}
                             />
                             <Form.TextArea
-                                fluid
+                                fluid="true"
                                 label='Descriprtion'
-                                placeholder='Description'
+                                placeholder='Use markdown syntax'
                                 name='description'
                                 error={errors.description ? { content: 'Please enter a description', pointing: 'below' } : null}
                                 onChange={handleChange}

@@ -130,7 +130,7 @@ const Index = ({ notes, pagination: initPag }) => {
             <Icon name='file' /> {totalNotes}
           </Label>
         </div>
-        {!!state.pagination && (
+        {state.notes.length > 0 && !!state.pagination && (
           <Pagination
             // boundaryRange={0}
             defaultActivePage={page}
@@ -185,7 +185,7 @@ const Index = ({ notes, pagination: initPag }) => {
           
         </div>
       </div>
-      {!!state.pagination && (
+      {state.notes.length > 0 && !!state.pagination && (
         <div className='standard-container search-wrapper'>
           <Pagination
             // boundaryRange={0}
