@@ -27,7 +27,8 @@ export default async (req, res) => {
             try {
                 const note = await Note.findByIdAndUpdate(id, req.body, {
                     new: true,
-                    runValidators: true
+                    runValidators: true,
+                    useFindAndModify: false,
                 });
 
                 if (!note) {
