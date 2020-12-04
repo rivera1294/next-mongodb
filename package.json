@@ -11,14 +11,21 @@
     "analyze:browser": "BUNDLE_ANALYZE=browser next build"
   },
   "dependencies": {
+    "@loadable/component": "^5.14.1",
     "build-url": "^6.0.1",
     "clsx": "^1.1.1",
     "dotenv": "^8.2.0",
     "isomorphic-unfetch": "^3.0.0",
+    "markdown-it": "^12.0.2",
     "mongoose": "^5.9.6",
     "next": "^9.3.6",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-markdown": "^5.0.3",
+    "react-markdown-editor-lite": "^1.2.2",
+    "react-syntax-highlighter": "^15.3.1",
+    "react-use": "^15.3.4",
+    "remark-gfm": "^1.0.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.2"
   },

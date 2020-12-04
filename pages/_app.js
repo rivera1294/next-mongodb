@@ -4,6 +4,7 @@ import Layout from '~/components/Layout';
 import '~/css/style.css';
 import '~/css/old.styles.css';
 import '~/css/old.build.editor-js.css';
+import 'react-markdown-editor-lite/lib/index.css'
 
 function MyApp({ Component, pageProps }) {
 

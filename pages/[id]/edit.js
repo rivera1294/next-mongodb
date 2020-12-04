@@ -1,10 +1,19 @@
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
+// import Link from 'next/link';
+import { useState, useEffect, useMemo } from 'react';
 import fetch from 'isomorphic-unfetch';
 import { Button, Form, Loader } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
+import { useWindowSize } from 'react-use'
+import MarkdownIt from 'markdown-it'
+import loadable from '@loadable/component'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
+const mdParser = new MarkdownIt({
+    html: false,
+    langPrefix: 'language-',
+})
+
+const MDEditor = loadable(() => import('react-markdown-editor-lite')); // Ленивая загрузка
 
 const EditNote = ({ note }) => {
     const [form, setForm] = useState({ title: note.title, description: note.description });
@@ -65,10 +74,12 @@ const EditNote = ({ note }) => {
 
         return err;
     }
+    const { width } = useWindowSize()
+    const minHeight = useMemo(() => width > 767 ? '450px' : '300px', [width])
 
     return (
-        <div className="form-container">
-            <h1>Update Note</h1>
+        <div className='standard-container'>
+            <h1>Update Note {String(width > 767)}</h1>
             <div>
                 {
                     isSubmitting
@@ -83,7 +94,7 @@ const EditNote = ({ note }) => {
                                 value={form.title}
                                 onChange={handleChange}
                             />
-                            <Form.TextArea
+                            {/* <Form.TextArea
                                 fluid
                                 label='Descriprtion'
                                 placeholder='Description'
@@ -91,6 +102,24 @@ const EditNote = ({ note }) => {
                                 error={errors.description ? { content: 'Please enter a description', pointing: 'below' } : null}
                                 value={form.description}
                                 onChange={handleChange}
+                            /> */}
+                            <MDEditor
+                                value={form.description}
+                                style={{ minHeight }}
+                                renderHTML={(text) => mdParser.render(text)}
+                                onChange={({ text }) => {
+                                    handleChange({ target: { value: text, name: 'description' } })
+                                }}
+                                config={{
+                                    view: { menu: false, md: true, html: width > 767 },
+                                    canView: {
+                                        menu: false,
+                                        md: true,
+                                        html: width > 767,
+                                        fullScreen: true,
+                                        hideMenu: true,
+                                    },
+                                }}
                             />
                             <Button type='submit'>Update</Button>
                         </Form>

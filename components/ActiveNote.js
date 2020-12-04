@@ -1,7 +1,15 @@
 import { useEffect } from 'react'
 import { openLinkInNewTab } from '~/utils/openLinkInNewTab'
+import ReactMarkdown from 'react-markdown'
+import gfm from 'remark-gfm'
+import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
+import { materialDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 
-const rawMarkup = (html) => ({ __html: html });
+const renderers = {
+  code: ({ language, value }) => {
+    return <SyntaxHighlighter style={materialDark} language={language} children={value} />
+  }
+}
 
 export const ActiveNote = ({ note }) => {
   if (!note) return null;
@@ -29,14 +37,20 @@ export const ActiveNote = ({ note }) => {
       <div
         style={{ marginBottom: '20px' }}
       >
-        <h3>{note.title}{note.priority ? <span className='muted'> <i class="fas fa-star"></i> {note.priority}</span> : null}</h3>
+        <h3>{note.title}{note.priority ? <span className='muted'> <i className="fas fa-star"></i> {note.priority}</span> : null}</h3>
         <div style={{ borderBottom: '2px solid lightgray' }} />
       </div>
       <div
         className='description-markdown'
-        style={{ whiteSpace: 'pre-wrap' }}
-        dangerouslySetInnerHTML={rawMarkup(note.description)}
-      />
+        // style={{ whiteSpace: 'pre-wrap' }}
+        // dangerouslySetInnerHTML={rawMarkup(note.description)}
+      >
+        <ReactMarkdown
+          plugins={[gfm, {singleTilde: false}]}
+          renderers={renderers}
+          children={note.description}
+        />
+      </div>
       {/* <pre style={{ whiteSpace: 'pre-wrap' }}>{JSON.stringify(note, null, 2)}</pre> */}
     </div>
   )
