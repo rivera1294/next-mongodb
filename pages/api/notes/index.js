@@ -1,7 +1,6 @@
 import dbConnect from '~/utils/dbConnect';
 import Note from '~/models/Note';
-
-const isNumeric = n => !Number.isNaN(parseFloat(n));
+import { isNumeric } from '~/utils/isNumeric'
 
 dbConnect();
 
