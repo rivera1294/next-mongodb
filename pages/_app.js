@@ -5,10 +5,16 @@ import '~/css/style.css';
 import '~/css/old.styles.css';
 import '~/css/old.build.editor-js.css';
 import 'react-markdown-editor-lite/lib/index.css'
+import { GlobalAppContextProvider } from '~/context/GlobalAppContext'
 
 function MyApp({ Component, pageProps }) {
-
-    return <Layout><Component {...pageProps} /></Layout>
+    return (
+        <GlobalAppContextProvider>
+            <Layout>
+                <Component {...pageProps} />
+            </Layout>
+        </GlobalAppContextProvider>
+    )
 }
 
 // Only uncomment this method if you have blocking data requirements for
