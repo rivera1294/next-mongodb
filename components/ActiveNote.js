@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { openLinkInNewTab } from '~/utils/openLinkInNewTab'
 import ReactMarkdown from 'react-markdown'
 import gfm from 'remark-gfm'
-import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { materialDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 
 const renderers = {

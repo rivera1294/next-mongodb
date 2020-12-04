@@ -154,6 +154,10 @@ h1 {
     }
 }
 
+.todo-item {
+    cursor: default;
+}
+
 .description-markdown {
     white-space: pre-wrap;
 }
@@ -173,6 +177,9 @@ h1 {
 .description-markdown ul {
     margin: 15px 0 15px 15px;
     list-style-type: none;
+}
+.description-markdown ul li input[type=checkbox] {
+    transform: translateY(3px);
 }
 .description-markdown ul ul {
     margin: 5px 0 5px 15px;

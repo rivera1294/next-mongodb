@@ -4,14 +4,25 @@ import fetch from 'isomorphic-unfetch';
 import { Button, Form, Loader } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
 import { useWindowSize } from 'react-use'
-import MarkdownIt from 'markdown-it'
+// import MarkdownIt from 'markdown-it'
 import loadable from '@loadable/component'
 
+import ReactMarkdown from 'react-markdown'
+import gfm from 'remark-gfm'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { materialDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
+
+const renderers = {
+  code: ({ language, value }) => {
+    return <SyntaxHighlighter style={materialDark} language={language} children={value} />
+  }
+}
+
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
-const mdParser = new MarkdownIt({
-    html: false,
-    langPrefix: 'language-',
-})
+// const mdParser = new MarkdownIt({
+//     html: false,
+//     langPrefix: 'language-',
+// })
 
 const MDEditor = loadable(() => import('react-markdown-editor-lite')); // Ленивая загрузка
 
@@ -106,7 +117,14 @@ const EditNote = ({ note }) => {
                             <MDEditor
                                 value={form.description}
                                 style={{ minHeight }}
-                                renderHTML={(text) => mdParser.render(text)}
+                                // renderHTML={(text) => mdParser.render(text)}
+                                renderHTML={(text) => (
+                                    <ReactMarkdown
+                                        plugins={[gfm, {singleTilde: false}]}
+                                        renderers={renderers}
+                                        children={text}
+                                    />
+                                )}
                                 onChange={({ text }) => {
                                     handleChange({ target: { value: text, name: 'description' } })
                                 }}
