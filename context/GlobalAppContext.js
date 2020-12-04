@@ -65,8 +65,7 @@ function reducer(state, action) {
     case 'NOTES_RESPONSE@SET':
       return {
         ...state,
-        notes: action.payload.notes,
-        pagination: action.payload.pagination,
+        ...action.payload,
       }
     case 'INIT_STATE':
       return action.payload;

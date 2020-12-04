@@ -30,7 +30,7 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
   const {
     totalPages,
     totalNotes,
-    curentPage,
+    currentPage,
   } = state.pagination;
   const renderCountRef = useRef(0)
   useEffect(() => {
@@ -81,7 +81,7 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
             <Icon name='file' /> {totalNotes}
           </Label>
         </div>
-        {state.notes.length > 0 && totalPages > 0 && !!curentPage && !!state.pagination && (
+        {state.notes.length > 0 && totalPages > 0 && !!currentPage && !!state.pagination && (
           <Pagination
             // boundaryRange={0}
             defaultActivePage={page}
@@ -132,7 +132,7 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
           </div>
         </div>
       </div>
-      {state.notes.length > 0 && totalPages > 0 && !!curentPage && !!state.pagination && (
+      {state.notes.length > 0 && totalPages > 0 && !!currentPage && !!state.pagination && (
         <div className='standard-container search-wrapper'>
           <Pagination
             // boundaryRange={0}
