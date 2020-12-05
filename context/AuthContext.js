@@ -11,18 +11,18 @@ export const getInitialState = (base) => ({
   // clientData: null,
   isLoading: false,
   isLogged: false,
+  
+  ...base,
+})
+
+export const AuthContext = createContext({
+  state: getInitialState({}),
   handleLogout: () => {
     throw new Error('handleLogout method should be implemented')
   },
   handleLogin: () => {
     throw new Error('handleLogin method should be implemented')
   },
-
-  ...base,
-})
-
-export const AuthContext = createContext({
-  state: getInitialState({}),
 })
 
 function reducer(state, action) {
