@@ -81,8 +81,6 @@ export default async (req, res) => {
             }
             break;
         case 'POST':
-            // console.log('POST: New note should be created')
-            // console.log(req.body)
             try {
                 const note = await Note.create(req.body);
                 const count = await Note.countDocuments();

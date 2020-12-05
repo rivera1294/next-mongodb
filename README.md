@@ -5,8 +5,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [Getting Started](#getting-started)
   - [PM2](#pm2)
 - [Environments](#envs)
-  - [dev](#development)
-  - [prod](#production)
+  - [Development](#development)
+  - [Production](#production)
 - [Extra info (MongoDB)](#mongodb-extra-info)
 - [Learn More](#learn-more)
 - [Deploy on ZEIT Now](#deploy-on-zeit-now)
@@ -14,11 +14,12 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## roadmap
 
 - [x] markdown syntax support
-- [ ] auth
-  - [ ] context; provider
-  - [ ] express session?
-  - [ ] https? Auth0?
-- [ ] login page
+- [x] auth
+  - [x] context; provider
+  - [x] jwt
+- [x] pages
+  - [x] `/users/auth/signup`
+  - [x] `/users/auth/signin`
 - [ ] pubic page
 - [ ] prod
   - [ ] quick deploy
@@ -52,7 +53,6 @@ module.exports = {
     interpreter: 'none',
     env: {
       MONGO_URI: '<YOUR>',
-      NEXT_APP_API_ENDPOINT: 'http://localhost:9000',
     }
   }],
 };
@@ -67,6 +67,7 @@ module.exports = {
 ```bash
 MONGO_URI=<YOUR>
 NEXT_APP_API_ENDPOINT=http://localhost:9000
+NEXT_APP_COOKIE_MAXAGE_IN_DAYS=2
 ```
 
 ### production
@@ -76,6 +77,7 @@ NEXT_APP_API_ENDPOINT=http://localhost:9000
 ```bash
 MONGO_URI=<YOUR>
 NEXT_APP_API_ENDPOINT=http://localhost:9000
+NEXT_APP_COOKIE_MAXAGE_IN_DAYS=2
 ```
 
 First, run the development server:

@@ -100,7 +100,13 @@ h1 {
     background: #008cba;
     color: #fff;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+}
+.navbar > *:not(:last-child) {
+    margin-right: 20px;
+}
+.navbar > *:first-child {
+    margin-right: auto;
 }
 
 .navbar .create {

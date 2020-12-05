@@ -5,15 +5,20 @@ import '~/css/style.css';
 import '~/css/old.styles.css';
 import '~/css/old.build.editor-js.css';
 import 'react-markdown-editor-lite/lib/index.css'
-import { GlobalAppContextProvider } from '~/context/GlobalAppContext'
+import { AuthContextProvider, GlobalAppContextProvider } from '~/context'
+import { CookiesProvider } from 'react-cookie';
 
 function MyApp({ Component, pageProps }) {
     return (
-        <GlobalAppContextProvider>
-            <Layout>
-                <Component {...pageProps} />
-            </Layout>
-        </GlobalAppContextProvider>
+        <CookiesProvider>
+            <AuthContextProvider>
+                <GlobalAppContextProvider>
+                    <Layout>
+                        <Component {...pageProps} />
+                    </Layout>
+                </GlobalAppContextProvider>
+            </AuthContextProvider>
+        </CookiesProvider>
     )
 }
 

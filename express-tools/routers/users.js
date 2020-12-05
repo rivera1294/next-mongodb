@@ -1,14 +1,18 @@
 const express = require("express")
-const { check, validationResult } = require("express-validator/check")
+const { body, validationResult } = require("express-validator")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const router = express()
 const auth = require("~/express-tools/middlewares/auth");
 const User = require("~/models/User")
+const bodyParser = require('body-parser')
 
 import dbConnect from '~/utils/dbConnect';
 
 dbConnect()
+
+// create application/json parser
+const jsonParser = bodyParser.json()
 
 /**
  * @method - POST
@@ -18,12 +22,13 @@ dbConnect()
 
 router.post(
     "/signup",
+    jsonParser,
     [
-        check("username", "Please Enter a Valid Username")
+        body("username", "Please Enter a Valid Username")
             .not()
             .isEmpty(),
-        check("email", "Please enter a valid email").isEmail(),
-        check("password", "Please enter a valid password").isLength({
+        body("email", "Please enter a valid email").isEmail(),
+        body("password", "Please enter a valid password").isLength({
             min: 6
         })
     ],
@@ -94,9 +99,10 @@ router.post(
 
 router.post(
     "/login",
+    jsonParser,
     [
-        check("email", "Please enter a valid email").isEmail(),
-        check("password", "Please enter a valid password").isLength({
+        body("email", "Please enter a valid email").isEmail(),
+        body("password", "Please enter a valid password").isLength({
         min: 6
         })
     ],

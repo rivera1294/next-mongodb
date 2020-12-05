@@ -41,7 +41,7 @@ const EditNote = ({ note }) => {
                 setIsSubmitting(false);
             }
         }
-    }, [errors])
+    }, [errors, isSubmitting])
 
     const updateNote = async () => {
         try {
