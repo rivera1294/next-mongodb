@@ -118,10 +118,10 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
                       </Card.Header>
                     </Card.Content>
                     <Card.Content extra>
-                      <Link href={`/${note._id}`} hrefAs='/[id]'>
+                      <Link href={`/notes/${note._id}`} hrefAs='/[id]'>
                         <Button primary>View</Button>
                       </Link>
-                      <Link href={`/${note._id}/edit`} hrefAs='/[id]'>
+                      <Link href={`/notes/${note._id}/edit`} hrefAs='/[id]'>
                         <Button primary>Edit</Button>
                       </Link>
                     </Card.Content>

@@ -3,6 +3,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [Roadmap](#roadmap)
 - [API](#api)
 - [Getting Started](#getting-started)
+  - [PM2](#pm2)
 - [Environments](#envs)
   - [dev](#development)
   - [prod](#production)
@@ -32,6 +33,29 @@ _TODO_
 npm i
 # or
 yarn
+```
+
+### pm2
+
+```bash
+pm2 start ecosystem.dev.config.js
+```
+
+_Sample:_
+```js
+module.exports = {
+  apps : [{
+    name: 'notes-2020-next-mongoose-dev',
+    cwd: __dirname + '/.',
+    script: 'yarn',
+    args: 'dev',
+    interpreter: 'none',
+    env: {
+      MONGO_URI: '<YOUR>',
+      NEXT_APP_API_ENDPOINT: 'http://localhost:9000',
+    }
+  }],
+};
 ```
 
 ## envs

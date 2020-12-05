@@ -17,9 +17,13 @@
 
 # misc
 .DS_Store
-.env*
+.env.*
+ecosystem.*
 
 # debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# server dist dir
+/server-dist/*

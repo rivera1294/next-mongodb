@@ -90,7 +90,7 @@ const EditNote = ({ note }) => {
 
     return (
         <div className='standard-container'>
-            <h1>Update Note {String(width > 767)}</h1>
+            <h1>Update Note</h1>
             <div>
                 {
                     isSubmitting
