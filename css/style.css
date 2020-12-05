@@ -7,6 +7,9 @@ h1 {
     padding: 10px;
     margin-bottom: 20px;
 }
+.no-padded {
+    padding: 0;
+}
 
 .note-title-wrapper {
     cursor: pointer;
@@ -99,24 +102,37 @@ h1 {
     margin-bottom: 20px;
     background: #008cba;
     color: #fff;
+    
+}
+.navbar > div {
+    width: 100%;
     display: flex;
     justify-content: flex-start;
 }
-.navbar > *:not(:last-child) {
+@media(min-width: 768px) {
+    .navbar > div {
+        max-width: 1500px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+}
+
+/* @media(max-width: 767px) {} */
+.navbar > div > *:not(:last-child) {
     margin-right: 20px;
 }
-.navbar > *:first-child {
+.navbar > div > *:first-child {
     margin-right: auto;
 }
 
 .navbar .create {
     color: #fff;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
 .navbar .navbar-brand {
     color: #fff;
-    font-size: 2rem;
+    font-size: 1.2rem;
 }
 
 .navbar-brand:hover, .create:hover {
@@ -168,7 +184,7 @@ h1 {
     white-space: pre-wrap;
 }
 .description-markdown blockquote {
-    margin-left: 15px;
+    margin-left: 0px;
     padding: 5px 0px 5px 15px;
     border-left: 10px solid rgba(47, 47, 47, 0.4);
     color: gray;
@@ -194,6 +210,19 @@ h1 {
 .description-markdown ul input[type=checkbox] {
     margin-right: 10px;
 }
+.description-markdown > table {
+    margin-bottom: 15px;
+    border-collapse: collapse;
+}
+.description-markdown > table,
+.description-markdown > table th,
+.description-markdown > table td {
+    border: 1px solid lightgray;
+}
+.description-markdown > table th,
+.description-markdown > table td {
+    padding: 5px;
+}
 
 .custom-html-style code {
     box-shadow: unset;
@@ -203,4 +232,9 @@ h1 {
 }
 .ui.form textarea:not([rows]) {
     max-height: unset;
+}
+
+.custom-html-style > pre {
+    margin-left: 0;
+    margin-right: 0;
 }

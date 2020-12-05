@@ -95,7 +95,7 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
         )}
       </div>
       <div className='main standard-container'>
-        <div>
+        <div style={{ maxHeight: 'calc(100vh - 60px)', overflowY: 'auto', borderRadius: '6px' }} >
           <ActiveNote note={state.activeNote} />
         </div>
         <div>

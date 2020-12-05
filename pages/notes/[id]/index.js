@@ -2,6 +2,8 @@ import fetch from 'isomorphic-unfetch';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Confirm, Button, Loader } from 'semantic-ui-react';
+import { ActiveNote } from '~/components/ActiveNote'
+import { useAuthContext } from '~/context'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
 
@@ -17,9 +19,7 @@ const Note = ({ note }) => {
     }, [isDeleting])
 
     const open = () => setConfirm(true);
-
     const close = () => setConfirm(false);
-
     const deleteNote = async () => {
         const noteId = router.query.id;
         try {
@@ -32,29 +32,36 @@ const Note = ({ note }) => {
             console.log(error)
         }
     }
-
     const handleDelete = async () => {
         setIsDeleting(true);
         close();
     }
+    const { isLogged } = useAuthContext()
 
     return (
-        <div className="note-container">
-            {isDeleting
-                ? <Loader active />
-                :
-                <>
-                    <h1>{note.title}</h1>
-                    <p>{note.description}</p>
-                    <Button color='red' onClick={open}>Delete</Button>
-                </>
-            }
-            <Confirm
-                open={confirm}
-                onCancel={close}
-                onConfirm={handleDelete}
-            />
-        </div>
+        <>
+            <div className="standard-container no-padded">
+                {isDeleting
+                    ? <Loader active />
+                    :
+                    <div style={{ marginBottom: '20px' }}>
+                        <ActiveNote note={note} />
+                    </div>
+                }
+                <Confirm
+                    open={confirm}
+                    onCancel={close}
+                    onConfirm={handleDelete}
+                />
+            </div>
+            <div className="standard-container">
+                {
+                    isLogged && (
+                        <Button color='red' onClick={open}>Delete</Button>
+                    )
+                }
+            </div>
+        </>
     )
 }
 

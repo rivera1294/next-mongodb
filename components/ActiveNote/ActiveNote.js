@@ -33,7 +33,7 @@ export const ActiveNote = ({ note }) => {
   }, [])
 
   return (
-    <div style={{ maxHeight: 'calc(100vh - 60px)', overflowY: 'auto', borderRadius: '6px' }} className='todo-item'>
+    <div className='todo-item'>
       <div
         style={{ marginBottom: '20px' }}
       >

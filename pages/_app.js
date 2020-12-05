@@ -1,9 +1,9 @@
 // import App from 'next/app'
 import 'semantic-ui-css/semantic.min.css'
 import Layout from '~/components/Layout';
-import '~/css/style.css';
 import '~/css/old.styles.css';
 import '~/css/old.build.editor-js.css';
+import '~/css/style.css';
 import 'react-markdown-editor-lite/lib/index.css'
 import { AuthContextProvider, GlobalAppContextProvider } from '~/context'
 import { CookiesProvider } from 'react-cookie';

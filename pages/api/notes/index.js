@@ -95,6 +95,9 @@ export default async (req, res) => {
                 }
                 status = 201
             } catch (error) {
+                if (!!error?._message) {
+                    response.msg = error._message
+                }
                 // res.status(400).json({ success: false });
                 status = 400
             }
