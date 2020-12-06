@@ -52,7 +52,9 @@ export default async (req, res) => {
                         }
                         status = 200
                     } catch (error) {
-                        console.log(error)
+                        if (!!error?._message) {
+                            response.msg = error._message
+                        }
                         // res.status(400).json({ success: false });
                         status = 400
                     }
@@ -71,6 +73,9 @@ export default async (req, res) => {
                         }
                         response.success = true
                     } catch (error) {
+                        if (!!error?._message) {
+                            response.msg = error._message
+                        }
                         // res.status(400).json({ success: false });
                         status = 400
                     }
