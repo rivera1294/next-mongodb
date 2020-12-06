@@ -94,7 +94,7 @@ export const GlobalAppContextProvider = ({ children }) => {
 
   useEffect(() => {
     renderCountRef.current += 1;
-    if (renderCountRef.current >= 1 && renderCountRef.current <= 2) return;
+    if (renderCountRef.current >= 1 && renderCountRef.current <= 3) return;
 
     const fetchData = async () => {
       setIsLoading(true)
