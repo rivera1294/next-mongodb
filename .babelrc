@@ -1,5 +1,12 @@
 {
   "plugins": [
+    "syntax-dynamic-import",
+    [
+      "@babel/plugin-proposal-class-properties",
+      { "loose": true }
+    ],
+    "transform-async-to-generator",
+    "@babel/transform-runtime",
     [
       "module-resolver",
       {
@@ -13,16 +20,7 @@
     ]
   ],
   "presets": [
-    "next/babel",
-    [
-      "@babel/preset-env",
-      {
-        "useBuiltIns": "entry",
-        "corejs": {
-          "version": 2
-        }
-      }
-    ]
+    "next/babel"
   ],
   "compact": true
 }
