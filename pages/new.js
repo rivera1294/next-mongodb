@@ -40,8 +40,7 @@ const NewNote = () => {
                     }
                     return res
                 })
-                .then(({ token }) => {
-                    handleLogin(token)
+                .then((_res) => {
                     router.push("/");
                 })
                 .catch((err) => {

@@ -57,7 +57,7 @@ const Note = ({ note }) => {
             <div className="standard-container">
                 {
                     isLogged && (
-                        <Button color='red' onClick={open}>Delete</Button>
+                        <Button basic color='red' onClick={open}>Delete</Button>
                     )
                 }
             </div>

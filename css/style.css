@@ -5,6 +5,7 @@ h1 {
     max-width: 1500px;
     margin: 0 auto;
     padding: 10px;
+    margin-top: 20px;
     margin-bottom: 20px;
 }
 .no-padded {
@@ -15,7 +16,7 @@ h1 {
     cursor: pointer;
 }
 .note-title-wrapper:hover {
-    color: #008cba;
+    color: #2185d0;
 }
 
 .main {
@@ -34,8 +35,17 @@ h1 {
     .main > div:first-child > div {
         padding: 10px 10px 40px 10px !important;
         border: 2px solid lightgray;
+        
+    }
+    .active-note-external-sticky-wrapper {
         position: sticky;
         top: 30px;
+        max-height: calc(100vh - 60px);
+    }
+    .active-note-external-sticky-wrapper > div {
+        max-height: 100%;
+        overflow-y: auto;
+        border-radius: 6px;
     }
     .main > div:nth-child(2) {
         width: 100%;
@@ -91,18 +101,17 @@ h1 {
 }
 
 .ui.card {
-    border: 2px solid #E8E8E8;
+    border: 2px solid transparent;
 }
 .active-card-wrapper > .ui.card {
-    border: 2px solid #008cba;
+    border: 2px dashed #2185d0;
 }
 
 .navbar {
     padding: 20px;
     margin-bottom: 20px;
-    background: #008cba;
+    background: #2f2f2f;
     color: #fff;
-    
 }
 .navbar > div {
     width: 100%;
