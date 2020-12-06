@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import { useAuthContext } from '~/context'
-import { Icon } from 'semantic-ui-react'
+import { Icon, Popup } from 'semantic-ui-react'
 import Headroom from 'react-headroom'
+import { useRouter } from 'next/router'
+import clsx from 'clsx'
 
 const Navbar = () => {
     const { isLogged, handleLogout } = useAuthContext()
@@ -9,6 +11,7 @@ const Navbar = () => {
         e.preventDefault()
         handleLogout()
     }
+    const router = useRouter()
 
     return (
         <Headroom
@@ -32,15 +35,39 @@ const Navbar = () => {
                     {
                         isLogged ? (
                             <>
-                            <Link href="/new" hrefAs='/new'>
-                                <a className="create"><Icon name='add' /></a>
-                            </Link>
-                            <a href="#" className="create" onClick={logout}><Icon name='sign-out' /></a>
+                                <Popup
+                                    trigger={<div><Link href="/new" hrefAs='/new'>
+                                        <a className={clsx("create", { ['active-link']: router.pathname === '/new' })}><Icon name='add' /></a>
+                                    </Link></div>}
+                                    content='Create new'
+                                    // offset={[0, 50]}
+                                    on='hover'
+                                    position='bottom center'
+                                    inverted
+                                    style={{ marginTop: '30px' }}
+                                />
+                                <Popup
+                                    trigger={<div><a href="#" className="create" onClick={logout}><Icon name='sign-out' /></a></div>}
+                                    content='Logout'
+                                    // offset={[0, 50]}
+                                    on='hover'
+                                    position='bottom right'
+                                    inverted
+                                    style={{ marginTop: '30px' }}
+                                />
                             </>
                         ) : (
-                            <Link href="/users/auth/signin" hrefAs='/users/auth/signin'>
-                                <a className="create"><Icon name='sign-in' /></a>
-                            </Link>
+                            <Popup
+                                trigger={<div><Link href="/users/auth/signin" hrefAs='/users/auth/signin'>
+                                    <a className={clsx("create", { ['active-link']: router.pathname === '/users/auth/signin' })}><Icon name='sign-in' /></a>
+                                </Link></div>}
+                                content='Sign In'
+                                // offset={[0, 50]}
+                                on='hover'
+                                position='bottom right'
+                                inverted
+                                style={{ marginTop: '30px' }}
+                            />
                         )
                     }
                 </div>

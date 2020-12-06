@@ -14,6 +14,7 @@ h1 {
 
 .note-title-wrapper {
     cursor: pointer;
+    user-select: none;
 }
 .note-title-wrapper:hover {
     color: #2185d0;
@@ -104,7 +105,7 @@ h1 {
     border: 2px solid transparent;
 }
 .active-card-wrapper > .ui.card {
-    border: 2px dashed #2185d0;
+    border: 2px dashed #6dffff;
 }
 
 .navbar {
@@ -137,6 +138,9 @@ h1 {
 .navbar .create {
     color: #fff;
     font-size: 1.2rem;
+}
+.navbar .active-link {
+    color: #6dffff;
 }
 
 .navbar .navbar-brand {

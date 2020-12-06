@@ -35,9 +35,9 @@ export const ActiveNote = ({ note }) => {
   return (
     <div className='todo-item'>
       <div
-        style={{ marginBottom: '20px' }}
+        style={{ marginBottom: '20px', userSelect: 'none' }}
       >
-        <h3>{note.title}{note.priority ? <span className='muted'> <i className="fas fa-star"></i> {note.priority}</span> : null}</h3>
+        <h3>{note.title}{!!note.priority ? <span className='muted'> <i className="fas fa-star"></i> {note.priority}</span> : null}</h3>
         <div style={{ borderBottom: '2px solid lightgray' }} />
       </div>
       <div className='description-markdown'>
