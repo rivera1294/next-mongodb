@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 
+mongoose.set('useCreateIndex', true);
+
 const connection = {};
 
 async function dbConnect() {

@@ -3,55 +3,89 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [Roadmap](#roadmap)
 - [API](#api)
 - [Getting Started](#getting-started)
+  - [PM2 ecosystem config](#pm2)
 - [Environments](#envs)
-  - [dev](#development)
-  - [prod](#production)
+  - [Development](#envs-development)
+  - [Production](#envs-production)
 - [Extra info (MongoDB)](#mongodb-extra-info)
 - [Learn More](#learn-more)
 - [Deploy on ZEIT Now](#deploy-on-zeit-now)
 
 ## roadmap
-
 - [x] markdown syntax support
-- [ ] auth
-  - [ ] context; provider
-  - [ ] express session?
-  - [ ] https? Auth0?
-- [ ] login page
+- [x] auth
+  - [x] context; provider
+  - [x] jwt
+- [x] pages
+  - [x] `/users/auth/signup`
+  - [x] `/users/auth/signin`
 - [ ] pubic page
 - [ ] prod
   - [ ] quick deploy
+- [ ] socket connection support
+  - [ ] webhooks & notifs
+    - [ ] create
+    - [ ] update
+    - [ ] delete
 
 ## api
-
 _TODO_
 
 ## getting-started
-
 ```bash
 npm i
 # or
 yarn
 ```
 
-## envs
-
-### development
-
-`.env.dev`
-
-```bash
-MONGO_URI=<YOUR>
-NEXT_APP_API_ENDPOINT=http://localhost:9000
+### pm2
+### `pm2 start ecosystem.dev.config.js`
+```js
+module.exports = {
+  apps : [{
+    name: 'notes-2020-next-mongoose-dev',
+    cwd: __dirname + '/.',
+    script: 'yarn',
+    args: 'dev',
+    interpreter: 'none',
+    env: {
+      MONGO_URI: '<YOUR>',
+    }
+  }],
+};
 ```
 
-### production
+### `pm2 start ecosystem.prod.config.js`
+```js
+module.exports = {
+  apps : [{
+    name: 'notes-2020-next-mongoose',
+    cwd: __dirname + '/.',
+    script: 'yarn',
+    args: 'start',
+    interpreter: 'none',
+    env: {
+      MONGO_URI: '<YOUR>',
+    }
+  }],
+};
+```
 
-`.env.prod`
-
+## envs
+### envs-development
+`.env.dev`
 ```bash
 MONGO_URI=<YOUR>
 NEXT_APP_API_ENDPOINT=http://localhost:9000
+NEXT_APP_COOKIE_MAXAGE_IN_DAYS=2
+```
+
+### envs-production
+`.env.prod`
+```bash
+MONGO_URI=<YOUR>
+NEXT_APP_API_ENDPOINT=http://localhost:9000
+NEXT_APP_COOKIE_MAXAGE_IN_DAYS=2
 ```
 
 First, run the development server:

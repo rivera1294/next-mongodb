@@ -1,8 +1,9 @@
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import fetch from 'isomorphic-unfetch';
-import { Button, Form, Loader } from 'semantic-ui-react';
+import { Button, Form, Loader, Message } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
+import { useAuthContext } from '~/context'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
 
@@ -12,20 +13,14 @@ const NewNote = () => {
     const [errors, setErrors] = useState({});
     const router = useRouter();
 
-    useEffect(() => {
-        if (isSubmitting) {
-            if (Object.keys(errors).length === 0) {
-                createNote();
-            }
-            else {
-                setIsSubmitting(false);
-            }
-        }
-    }, [errors])
+    const isCorrect = useMemo(() => Object.keys(errors).length === 0, [JSON.stringify(errors)])
 
     const createNote = async () => {
+        let errs = validate();
+        setErrors(errs);
+        setIsSubmitting(true);
         try {
-            const res = await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes`, {
+            await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes`, {
                 method: 'POST',
                 headers: {
                     "Accept": "application/json",
@@ -33,7 +28,25 @@ const NewNote = () => {
                 },
                 body: JSON.stringify(form)
             })
-            router.push("/");
+                .then((res) => {
+                    return res.json()
+                })
+                .then((res) => {
+                    if (!res.success) {
+                    if (!!res?.errors && Array.isArray(res.errors)) {
+                        throw new Error(res.errors.map(({ msg }) => msg || 'No msg').join('; '))
+                    }
+                    throw new Error(res?.msg || 'No success: Что-то пошло не так')
+                    }
+                    return res
+                })
+                .then((_res) => {
+                    router.push("/");
+                })
+                .catch((err) => {
+                    setIsSubmitting(false);
+                    setErrors({ response: err.message });
+              })
         } catch (error) {
             console.log(error);
         }
@@ -41,9 +54,7 @@ const NewNote = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        let errs = validate();
-        setErrors(errs);
-        setIsSubmitting(true);
+        createNote()
     }
 
     const handleChange = (e) => {
@@ -65,6 +76,7 @@ const NewNote = () => {
 
         return err;
     }
+    const { isLogged } = useAuthContext()
 
     return (
         <div className="form-container">
@@ -89,11 +101,24 @@ const NewNote = () => {
                                 name='description'
                                 error={errors.description ? { content: 'Please enter a description', pointing: 'below' } : null}
                                 onChange={handleChange}
+                                rows={8}
                             />
-                            <Button type='submit'>Create</Button>
+                            {
+                                isLogged && (
+                                    <Button disabled={isSubmitting || !isCorrect} type='submit'>Create</Button>
+                                )
+                            }
                         </Form>
                 }
             </div>
+            {
+            !!errors.response && (
+                <Message negative>
+                <Message.Header>Error</Message.Header>
+                <p>{errors.response}</p>
+                </Message>
+            )
+            }
         </div>
     )
 }

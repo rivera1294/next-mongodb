@@ -5,14 +5,18 @@ h1 {
     max-width: 1500px;
     margin: 0 auto;
     padding: 10px;
+    margin-top: 20px;
     margin-bottom: 20px;
+}
+.no-padded {
+    padding: 0;
 }
 
 .note-title-wrapper {
     cursor: pointer;
 }
 .note-title-wrapper:hover {
-    color: #008cba;
+    color: #2185d0;
 }
 
 .main {
@@ -31,8 +35,17 @@ h1 {
     .main > div:first-child > div {
         padding: 10px 10px 40px 10px !important;
         border: 2px solid lightgray;
+        
+    }
+    .active-note-external-sticky-wrapper {
         position: sticky;
         top: 30px;
+        max-height: calc(100vh - 60px);
+    }
+    .active-note-external-sticky-wrapper > div {
+        max-height: 100%;
+        overflow-y: auto;
+        border-radius: 6px;
     }
     .main > div:nth-child(2) {
         width: 100%;
@@ -88,29 +101,47 @@ h1 {
 }
 
 .ui.card {
-    border: 2px solid #E8E8E8;
+    border: 2px solid transparent;
 }
 .active-card-wrapper > .ui.card {
-    border: 2px solid #008cba;
+    border: 2px dashed #2185d0;
 }
 
 .navbar {
     padding: 20px;
     margin-bottom: 20px;
-    background: #008cba;
+    background: #2f2f2f;
     color: #fff;
+}
+.navbar > div {
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+}
+@media(min-width: 768px) {
+    .navbar > div {
+        max-width: 1500px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+}
+
+/* @media(max-width: 767px) {} */
+.navbar > div > *:not(:last-child) {
+    margin-right: 20px;
+}
+.navbar > div > *:first-child {
+    margin-right: auto;
 }
 
 .navbar .create {
     color: #fff;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
 .navbar .navbar-brand {
     color: #fff;
-    font-size: 2rem;
+    font-size: 1.2rem;
 }
 
 .navbar-brand:hover, .create:hover {
@@ -162,7 +193,7 @@ h1 {
     white-space: pre-wrap;
 }
 .description-markdown blockquote {
-    margin-left: 15px;
+    margin-left: 0px;
     padding: 5px 0px 5px 15px;
     border-left: 10px solid rgba(47, 47, 47, 0.4);
     color: gray;
@@ -188,6 +219,19 @@ h1 {
 .description-markdown ul input[type=checkbox] {
     margin-right: 10px;
 }
+.description-markdown > table {
+    margin-bottom: 15px;
+    border-collapse: collapse;
+}
+.description-markdown > table,
+.description-markdown > table th,
+.description-markdown > table td {
+    border: 1px solid lightgray;
+}
+.description-markdown > table th,
+.description-markdown > table td {
+    padding: 5px;
+}
 
 .custom-html-style code {
     box-shadow: unset;
@@ -197,4 +241,9 @@ h1 {
 }
 .ui.form textarea:not([rows]) {
     max-height: unset;
+}
+
+.custom-html-style > pre {
+    margin-left: 0;
+    margin-right: 0;
 }

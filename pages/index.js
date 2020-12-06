@@ -4,7 +4,7 @@ import fetch from 'isomorphic-unfetch';
 import { Button, Card, Icon, Input, Label, Pagination  } from 'semantic-ui-react';
 import { ActiveNote } from '~/components/ActiveNote'
 import clsx from 'clsx';
-import { useGlobalAppContext, getInitialState } from '~/context/GlobalAppContext'
+import { useGlobalAppContext, getInitialState, useAuthContext } from '~/context'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
 
@@ -37,9 +37,10 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
     renderCountRef.current += 1
   })
   const notes = renderCountRef.current > 1 ? state.notes : initNotes
+  const { isLogged } = useAuthContext()
 
   return (
-    <div className="notes-container">
+    <div style={{ marginTop: '20px' }}>
       <h1>Notes</h1>
       <div className='standard-container search-wrapper'>
         <div>
@@ -95,7 +96,7 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
         )}
       </div>
       <div className='main standard-container'>
-        <div>
+        <div className='active-note-external-sticky-wrapper'>
           <ActiveNote note={state.activeNote} />
         </div>
         <div>
@@ -118,12 +119,16 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
                       </Card.Header>
                     </Card.Content>
                     <Card.Content extra>
-                      <Link href={`/${note._id}`} hrefAs='/[id]'>
+                      <Link href={`/notes/${note._id}`} hrefAs='/[id]'>
                         <Button primary>View</Button>
                       </Link>
-                      <Link href={`/${note._id}/edit`} hrefAs='/[id]'>
-                        <Button primary>Edit</Button>
-                      </Link>
+                      {
+                        isLogged && (
+                          <Link href={`/notes/${note._id}/edit`} hrefAs='/[id]'>
+                            <Button basic color='blue'>Edit</Button>
+                          </Link>
+                        )
+                      }
                     </Card.Content>
                   </Card>
                 </div>

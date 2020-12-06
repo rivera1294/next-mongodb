@@ -3,24 +3,33 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 9000",
+    "transpile-server": "bash ./bin/transpile-server.sh",
+    "dev": "yarn transpile-server && PORT=9000 NODE_ENV=development node server-dist/run.js",
     "build": "next build",
-    "start": "next start -p 9000",
+    "start": "PORT=9000 NODE_ENV=production node run.js",
     "analyze": "BUNDLE_ANALYZE=both next build",
     "analyze:server": "BUNDLE_ANALYZE=server next build",
     "analyze:browser": "BUNDLE_ANALYZE=browser next build"
   },
   "dependencies": {
     "@loadable/component": "^5.14.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
     "build-url": "^6.0.1",
     "clsx": "^1.1.1",
+    "core-js": "2",
     "dotenv": "^8.2.0",
+    "email-validator": "^2.0.4",
+    "express-validator": "^6.7.0",
     "isomorphic-unfetch": "^3.0.0",
+    "jsonwebtoken": "^8.5.1",
     "markdown-it": "^12.0.2",
     "mongoose": "^5.9.6",
     "next": "^9.3.6",
     "react": "16.13.1",
+    "react-cookie": "^4.0.3",
     "react-dom": "16.13.1",
+    "react-headroom": "^3.1.0",
     "react-markdown": "^5.0.3",
     "react-markdown-editor-lite": "^1.2.2",
     "react-syntax-highlighter": "^15.3.1",
@@ -30,6 +39,9 @@
     "semantic-ui-react": "^0.88.2"
   },
   "devDependencies": {
-    "@zeit/next-bundle-analyzer": "^0.1.2"
+    "@babel/cli": "^7.12.8",
+    "@babel/preset-env": "^7.12.7",
+    "@zeit/next-bundle-analyzer": "^0.1.2",
+    "babel-plugin-module-resolver": "^4.0.0"
   }
 }
