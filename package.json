@@ -6,6 +6,7 @@
     "transpile-server": "bash ./bin/transpile-server.sh",
     "dev": "yarn transpile-server && PORT=9000 NODE_ENV=development node server-dist/run.js",
     "build": "next build",
+    "start:prod": "yarn transpile-server && PORT=9000 NODE_ENV=production node server-dist/run.js",
     "start": "PORT=9000 NODE_ENV=production node run.js",
     "analyze": "BUNDLE_ANALYZE=both next build",
     "analyze:server": "BUNDLE_ANALYZE=server next build",
