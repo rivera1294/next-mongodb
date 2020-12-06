@@ -3,16 +3,15 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [Roadmap](#roadmap)
 - [API](#api)
 - [Getting Started](#getting-started)
-  - [PM2](#pm2)
+  - [PM2 ecosystem config](#pm2)
 - [Environments](#envs)
-  - [Development](#development)
-  - [Production](#production)
+  - [Development](#envs-development)
+  - [Production](#envs-production)
 - [Extra info (MongoDB)](#mongodb-extra-info)
 - [Learn More](#learn-more)
 - [Deploy on ZEIT Now](#deploy-on-zeit-now)
 
 ## roadmap
-
 - [x] markdown syntax support
 - [x] auth
   - [x] context; provider
@@ -23,13 +22,16 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [ ] pubic page
 - [ ] prod
   - [ ] quick deploy
+- [ ] socket connection support
+  - [ ] webhooks & notifs
+    - [ ] create
+    - [ ] update
+    - [ ] delete
 
 ## api
-
 _TODO_
 
 ## getting-started
-
 ```bash
 npm i
 # or
@@ -37,12 +39,7 @@ yarn
 ```
 
 ### pm2
-
-```bash
-pm2 start ecosystem.dev.config.js
-```
-
-_Sample:_
+### `pm2 start ecosystem.dev.config.js`
 ```js
 module.exports = {
   apps : [{
@@ -58,22 +55,33 @@ module.exports = {
 };
 ```
 
+### `pm2 start ecosystem.prod.config.js`
+```js
+module.exports = {
+  apps : [{
+    name: 'notes-2020-next-mongoose',
+    cwd: __dirname + '/.',
+    script: 'yarn',
+    args: 'start',
+    interpreter: 'none',
+    env: {
+      MONGO_URI: '<YOUR>',
+    }
+  }],
+};
+```
+
 ## envs
-
-### development
-
+### envs-development
 `.env.dev`
-
 ```bash
 MONGO_URI=<YOUR>
 NEXT_APP_API_ENDPOINT=http://localhost:9000
 NEXT_APP_COOKIE_MAXAGE_IN_DAYS=2
 ```
 
-### production
-
+### envs-production
 `.env.prod`
-
 ```bash
 MONGO_URI=<YOUR>
 NEXT_APP_API_ENDPOINT=http://localhost:9000
