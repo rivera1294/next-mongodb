@@ -3,7 +3,7 @@ import { Button, Form, Loader, Message } from 'semantic-ui-react';
 import { validate } from './validate'
 import { useRouter } from 'next/router'
 
-const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
+const NEXT_APP_EXPRESS_API_ENDPOINT = process.env.NEXT_APP_EXPRESS_API_ENDPOINT
 
 export const SignUpPage = () => {
   const [form, setForm] = useState({ username: '', email: '', password: '', });
@@ -18,7 +18,7 @@ export const SignUpPage = () => {
     setIsSubmitting(true);
     setErrors({});
     try {
-        await fetch(`${NEXT_APP_API_ENDPOINT}/users/signup`, {
+        await fetch(`${NEXT_APP_EXPRESS_API_ENDPOINT}/users/signup`, {
             method: 'POST',
             headers: {
                 "Accept": "application/json",

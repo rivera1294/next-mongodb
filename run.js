@@ -1,7 +1,7 @@
 const express = require('express')
 const next = require('next')
 // const bodyParser = require("body-parser")
-const usersRouter = require("./express-tools/routers/users") // New addition
+const expressRouter = require("./express-tools/e-api") // New addition
 
 const isDev = process.env.NODE_ENV !== 'production'
 const app = next({ dev: isDev })
@@ -39,10 +39,10 @@ app.prepare()
 
     /**
      * Router Middleware
-     * Router - /users/*
+     * Router - /e-api/*
      * Method - *
      */
-    server.use("/users", usersRouter);
+    server.use('/e-api', expressRouter)
 
     server.all('*', (req, res) => {
       return handle(req, res)

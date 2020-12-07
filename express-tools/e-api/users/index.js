@@ -103,7 +103,7 @@ router.post(
     [
         body("email", "Please enter a valid email").isEmail(),
         body("password", "Please enter a valid password").isLength({
-        min: 6
+            min: 6
         })
     ],
     async (req, res) => {

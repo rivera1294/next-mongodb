@@ -2,7 +2,7 @@ import { createContext, useReducer, useEffect, useRef, useContext } from 'react'
 import fetch from 'isomorphic-unfetch';
 import { useCookies } from 'react-cookie'
 
-const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
+const NEXT_APP_EXPRESS_API_ENDPOINT = process.env.NEXT_APP_EXPRESS_API_ENDPOINT
 const NEXT_APP_COOKIE_MAXAGE_IN_DAYS = process.env.NEXT_APP_COOKIE_MAXAGE_IN_DAYS
   ? parseInt(process.env.NEXT_APP_COOKIE_MAXAGE_IN_DAYS)
   : 1
@@ -61,7 +61,7 @@ export const AuthContextProvider = ({ children }) => {
         headers.token = cookies['token']
       }
 
-      const res = await fetch(`${NEXT_APP_API_ENDPOINT}/users/me`, {
+      const res = await fetch(`${NEXT_APP_EXPRESS_API_ENDPOINT}/users/me`, {
         method: 'GET',
         headers,
       })

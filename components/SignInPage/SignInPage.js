@@ -4,7 +4,7 @@ import { validate } from './validate'
 import { useRouter } from 'next/router'
 import { useAuthContext } from '~/context'
 
-const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
+const NEXT_APP_EXPRESS_API_ENDPOINT = process.env.NEXT_APP_EXPRESS_API_ENDPOINT
 
 export const SignInPage = () => {
   const [form, setForm] = useState({ email: '', password: '', });
@@ -19,7 +19,7 @@ export const SignInPage = () => {
     setIsSubmitting(true);
     setErrors({});
     try {
-        await fetch(`${NEXT_APP_API_ENDPOINT}/users/login`, {
+        await fetch(`${NEXT_APP_EXPRESS_API_ENDPOINT}/users/login`, {
             method: 'POST',
             headers: {
                 "Accept": "application/json",
