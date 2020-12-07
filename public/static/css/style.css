@@ -2,9 +2,9 @@ h1 {
     text-align: center;
 }
 .standard-container {
-    max-width: 1500px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 10px;
+    padding: 10px 0 10px 0;
     margin-top: 20px;
     margin-bottom: 20px;
 }
@@ -40,8 +40,8 @@ h1 {
     }
     .active-note-external-sticky-wrapper {
         position: sticky;
-        top: 30px;
-        max-height: calc(100vh - 60px);
+        top: 70px;
+        max-height: calc(100vh - 60px - 20px);
     }
     .active-note-external-sticky-wrapper > div {
         max-height: 100%;
@@ -121,7 +121,7 @@ h1 {
 }
 @media(min-width: 768px) {
     .navbar > div {
-        max-width: 1500px;
+        max-width: 1200px;
         margin-right: auto;
         margin-left: auto;
     }
