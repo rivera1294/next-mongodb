@@ -1,26 +1,37 @@
 import NextApp from 'next/app';
 import 'semantic-ui-css/semantic.min.css'
 import Layout from '~/components/Layout';
-import '~/css/old.styles.css';
-import '~/css/old.build.editor-js.css';
-import '~/css/style.css';
 import 'react-markdown-editor-lite/lib/index.css'
 import { AuthContextProvider, GlobalAppContextProvider } from '~/context'
 import { CookiesProvider } from 'react-cookie';
+import Head from 'next/head';
 
 class MyApp extends NextApp {
     render() {
         const { Component, pageProps } = this.props;
         return (
-            <CookiesProvider>
-                <AuthContextProvider>
-                    <GlobalAppContextProvider>
-                        <Layout>
-                            <Component {...pageProps} />
-                        </Layout>
-                    </GlobalAppContextProvider>
-                </AuthContextProvider>
-            </CookiesProvider>
+            <>
+                <Head>
+                    <meta charSet="utf-8" />
+                    <link rel="icon" href="/static/favicon.ico" />
+                    <meta name="theme-color" content="#2f2f2f" />
+                    <meta name="viewport" content="width=device-width" />
+                    <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
+                    <title>Code Samples</title>
+                    <link rel="stylesheet" href="/static/css/old.styles.css" />
+                    <link rel="stylesheet" href="/static/css/old.build.editor-js.css" />
+                    <link rel="stylesheet" href="/static/css/style.css" />
+                </Head>
+                <CookiesProvider>
+                    <AuthContextProvider>
+                        <GlobalAppContextProvider>
+                            <Layout>
+                                <Component {...pageProps} />
+                            </Layout>
+                        </GlobalAppContextProvider>
+                    </AuthContextProvider>
+                </CookiesProvider>
+            </>
         )
     }
 }
