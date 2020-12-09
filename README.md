@@ -50,6 +50,7 @@ module.exports = {
     interpreter: 'none',
     env: {
       MONGO_URI: '<YOUR>',
+      EXPRESS_JWT_MAXAGE_IN_DAYS: 3,
     }
   }],
 };
@@ -66,6 +67,7 @@ module.exports = {
     interpreter: 'none',
     env: {
       MONGO_URI: '<YOUR>',
+      EXPRESS_JWT_MAXAGE_IN_DAYS: 3,
     }
   }],
 };

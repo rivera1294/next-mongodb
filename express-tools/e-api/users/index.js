@@ -11,7 +11,12 @@ import dbConnect from '~/utils/dbConnect';
 
 dbConnect()
 
-// create application/json parser
+const EXPRESS_JWT_MAXAGE_IN_DAYS = !!process.env.EXPRESS_JWT_MAXAGE_IN_DAYS ? parseInt(process.env.EXPRESS_JWT_MAXAGE_IN_DAYS) : 1
+
+console.log('--- EXPRESS_JWT_MAXAGE_IN_DAYS')
+console.log(EXPRESS_JWT_MAXAGE_IN_DAYS)
+
+// Create application/json parser
 const jsonParser = bodyParser.json()
 
 /**
@@ -75,7 +80,7 @@ router.post(
             jwt.sign(
                 payload,
                 "randomString", {
-                    expiresIn: 10000
+                    expiresIn: EXPRESS_JWT_MAXAGE_IN_DAYS * 24 * 60 * 60,
                 },
                 (err, token) => {
                     if (err) throw err;
@@ -141,13 +146,11 @@ router.post(
             payload,
             "randomString",
             {
-            expiresIn: 3600
+                expiresIn: EXPRESS_JWT_MAXAGE_IN_DAYS * 24 * 60 * 60,
             },
             (err, token) => {
             if (err) throw err;
-            res.status(200).json({
-                token
-            });
+            res.status(200).json({ token });
             }
         );
         } catch (e) {
