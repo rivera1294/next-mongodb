@@ -12,9 +12,7 @@ import dbConnect from '~/utils/dbConnect';
 dbConnect()
 
 const EXPRESS_JWT_MAXAGE_IN_DAYS = !!process.env.EXPRESS_JWT_MAXAGE_IN_DAYS ? parseInt(process.env.EXPRESS_JWT_MAXAGE_IN_DAYS) : 1
-
-console.log('--- EXPRESS_JWT_MAXAGE_IN_DAYS')
-console.log(EXPRESS_JWT_MAXAGE_IN_DAYS)
+const JWT_SECRET = process.env.JWT_SECRET || 'randomString'
 
 // Create application/json parser
 const jsonParser = bodyParser.json()
@@ -79,7 +77,7 @@ router.post(
 
             jwt.sign(
                 payload,
-                "randomString", {
+                JWT_SECRET, {
                     expiresIn: EXPRESS_JWT_MAXAGE_IN_DAYS * 24 * 60 * 60,
                 },
                 (err, token) => {
@@ -144,20 +142,20 @@ router.post(
 
         jwt.sign(
             payload,
-            "randomString",
+            JWT_SECRET,
             {
                 expiresIn: EXPRESS_JWT_MAXAGE_IN_DAYS * 24 * 60 * 60,
             },
             (err, token) => {
-            if (err) throw err;
-            res.status(200).json({ token });
+                if (err) throw err;
+                res.status(200).json({ token });
             }
         );
         } catch (e) {
-        console.error(e);
-        res.status(500).json({
-            message: "Server Error"
-        });
+            console.error(e);
+            res.status(500).json({
+                message: "Server Error"
+            });
         }
     }
 );
