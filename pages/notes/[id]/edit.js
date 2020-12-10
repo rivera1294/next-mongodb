@@ -11,6 +11,7 @@ import loadable from '@loadable/component'
 // import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 // import { materialDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import { useAuthContext } from '~/context'
+import { Rating } from 'semantic-ui-react'
 
 // const renderers = {
 //   code: ({ language, value }) => {
@@ -27,7 +28,7 @@ const mdParser = new MarkdownIt({
 const MDEditor = loadable(() => import('react-markdown-editor-lite')); // Ленивая загрузка
 
 const EditNote = ({ note }) => {
-    const [form, setForm] = useState({ title: note.title, description: note.description });
+    const [form, setForm] = useState({ title: note.title, description: note.description, priority: note.priority || 1 });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [errors, setErrors] = useState({});
     const router = useRouter();
@@ -59,7 +60,7 @@ const EditNote = ({ note }) => {
             console.log(error);
         }
     }
-
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         let errs = validate();
@@ -72,6 +73,10 @@ const EditNote = ({ note }) => {
             ...form,
             [e.target.name]: e.target.value
         })
+    }
+
+    const handleSetRate = (e, { rating, maxRating }) => {
+        handleChange({ target: { name: 'priority', value: rating } })
     }
 
     const validate = () => {
@@ -91,7 +96,7 @@ const EditNote = ({ note }) => {
 
     return (
         <div className='standard-container'>
-            <h1>Update Note</h1>
+            <h1>Edit Note <Rating onRate={handleSetRate} maxRating={5} defaultRating={form.priority} disabled={isSubmitting} /></h1>
             <div>
                 {
                     isSubmitting

@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown'
 import gfm from 'remark-gfm'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { materialDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
+import { Rating } from 'semantic-ui-react'
 
 const renderers = {
   code: ({ language, value }) => {
@@ -13,6 +14,8 @@ const renderers = {
 
 export const ActiveNote = ({ note }) => {
   if (!note) return null;
+
+  const { description, priority, title } = note
 
   // Links should be opened in new tab:
   useEffect(() => {
@@ -31,20 +34,30 @@ export const ActiveNote = ({ note }) => {
       }
     }
   }, [])
+  // const handleSetRate = (e, { rating, maxRating }) => {}
 
   return (
     <div className='todo-item'>
       <div
+        style={{ marginBottom: '5px', userSelect: 'none' }}
+      >
+        <h3>{title}</h3>
+      </div>
+      <div
         style={{ marginBottom: '20px', userSelect: 'none' }}
       >
-        <h3>{note.title}{!!note.priority ? <span className='muted'> <i className="fas fa-star"></i> {note.priority}</span> : null}</h3>
+        <div
+          style={{ marginBottom: '10px', userSelect: 'none' }}
+        >
+          <Rating key={priority} maxRating={5} rating={priority} disabled />
+        </div>
         <div style={{ borderBottom: '2px solid lightgray' }} />
       </div>
       <div className='description-markdown'>
         <ReactMarkdown
           plugins={[gfm, {singleTilde: false}]}
           renderers={renderers}
-          children={note.description}
+          children={description}
         />
       </div>
       {/* <pre style={{ whiteSpace: 'pre-wrap' }}>{JSON.stringify(note, null, 2)}</pre> */}

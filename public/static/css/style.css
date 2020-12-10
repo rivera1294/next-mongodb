@@ -21,6 +21,7 @@ h1 {
 .note-title-wrapper {
     cursor: pointer;
     user-select: none;
+    text-shadow: none;
 }
 .note-title-wrapper:hover {
     color: #2185d0;

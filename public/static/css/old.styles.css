@@ -1060,7 +1060,7 @@ div.box.box-blue {
 }
 div.box.box-blue a { color: #FFF; }
 
-.muted { opacity: 0.4; }
+.muted { opacity: 0.3; }
 .through { text-decoration: line-through; }
 .big-text { font-size: 3em; line-height: 1.1em; }
 .big-text { text-shadow: 2px 2px lightgray, 4px 4px white, 6px 6px lightgray; }

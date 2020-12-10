@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
-import { Button, Card, Icon, Input, Label, Pagination  } from 'semantic-ui-react';
+import { Button, Card, Icon, Input, Label, Pagination, Rating } from 'semantic-ui-react';
 import { ActiveNote } from '~/components/ActiveNote'
 import clsx from 'clsx';
 import { useGlobalAppContext, getInitialState, useAuthContext } from '~/context'
@@ -113,7 +113,12 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
                         {/* <Link href={`/${note._id}`} hrefAs='/[id]'><a>{note.title}</a></Link> */}
                         <div onClick={() => handleSetAsActiveNote(note)} className='note-title-wrapper'>
                           <b>
-                            {note.title}
+                            {note.title}{
+                              !!note.priority
+                              // ? <span className='muted'> <i className="fas fa-star"></i> {note.priority}</span>
+                              ? <span> <Rating disabled size='large' /> <span className='muted'>{note.priority}</span></span>
+                              : null
+                            }
                           </b>
                         </div>
                       </Card.Header>
