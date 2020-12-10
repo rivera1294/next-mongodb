@@ -163,7 +163,11 @@ h1 {
     max-width: 300px;
     margin: 20px auto;
 }
-
+@media(max-width: 1199px) {
+    .form-container {
+        padding: 10px;
+    }
+}
 
 .note-container {
     text-align: center;
