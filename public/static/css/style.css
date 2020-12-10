@@ -159,9 +159,11 @@ h1 {
 }
 
 .form-container {
-    width: 400px;
+    width: 100%;
+    max-width: 300px;
     margin: 20px auto;
 }
+
 
 .note-container {
     text-align: center;
