@@ -1,5 +1,6 @@
 import dbConnect from '~/utils/dbConnect';
 import Note from '~/models/Note';
+import { actionTypes as eTypes } from '~/utils/socket'
 
 dbConnect();
 
@@ -35,6 +36,7 @@ export default async (req, res) => {
                     return res.status(400).json({ success: false });
                 }
 
+                req.io.emit(eTypes.NOTE_UPDATED, { data: note })
                 res.status(200).json({ success: true, data: note });
             } catch (error) {
                 res.status(400).json({ success: false });
@@ -48,6 +50,7 @@ export default async (req, res) => {
                     return res.status(400).json({ success: false })
                 }
 
+                req.io.emit(eTypes.NOTE_DELETED, { data: deletedNote })
                 res.status(200).json({ success: true, data: {} });
             } catch (error) {
                 res.status(400).json({ success: false })

@@ -1,6 +1,7 @@
 import dbConnect from '~/utils/dbConnect';
 import Note from '~/models/Note';
 import { isNumeric } from '~/utils/isNumeric'
+import { actionTypes as eTypes } from '~/utils/socket'
 
 dbConnect();
 
@@ -99,7 +100,12 @@ export default async (req, res) => {
                     totalNotes: count,
                 }
                 status = 201
+
+                req.io.emit(eTypes.NOTE_CREATED, { data: note })
             } catch (error) {
+                if (!!error?.message) {
+                    response.msg = error.message
+                } 
                 if (!!error?._message) {
                     response.msg = error._message
                 }

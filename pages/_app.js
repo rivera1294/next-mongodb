@@ -3,7 +3,7 @@ import 'semantic-ui-css/semantic.min.css'
 import Layout from '~/components/Layout';
 import 'react-markdown-editor-lite/lib/index.css'
 import '~/public/static/css/style.css'
-import { AuthContextProvider, GlobalAppContextProvider } from '~/context'
+import { AuthContextProvider, GlobalAppContextProvider, SocketContextProvider } from '~/context'
 import { CookiesProvider } from 'react-cookie';
 import Head from 'next/head';
 
@@ -22,15 +22,17 @@ class MyApp extends NextApp {
                     <link rel="stylesheet" href="/static/css/old.styles.css" />
                     <link rel="stylesheet" href="/static/css/old.build.editor-js.css" />
                 </Head>
-                <CookiesProvider>
-                    <AuthContextProvider>
-                        <GlobalAppContextProvider>
-                            <Layout>
-                                <Component {...pageProps} />
-                            </Layout>
-                        </GlobalAppContextProvider>
-                    </AuthContextProvider>
-                </CookiesProvider>
+                <SocketContextProvider>
+                    <CookiesProvider>
+                        <AuthContextProvider>
+                            <GlobalAppContextProvider>
+                                <Layout>
+                                    <Component {...pageProps} />
+                                </Layout>
+                            </GlobalAppContextProvider>
+                        </AuthContextProvider>
+                    </CookiesProvider>
+                </SocketContextProvider>
             </>
         )
     }

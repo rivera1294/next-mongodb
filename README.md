@@ -12,21 +12,40 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [Deploy on ZEIT Now](#deploy-on-zeit-now)
 
 ## roadmap
-- [x] markdown syntax support
-- [x] auth
-  - [x] context; provider
-  - [x] jwt
-- [x] pages
-  - [x] `/users/auth/signup`
-  - [x] `/users/auth/signin`
-- [ ] pubic page
-- [ ] prod
-  - [ ] quick deploy
-- [ ] socket connection support
-  - [ ] webhooks & notifs
-    - [ ] create
-    - [ ] update
-    - [ ] delete
+- [ ] **project DE**
+  - [ ] eslint; prettier
+  - [ ] git hooks
+  - [ ] qucik deploy
+  - [x] could be started by pm2
+- [ ] **backend**
+  - [ ] socket
+    - [ ] connection support
+      - [ ] set filter settings to params? (*)
+      - [ ] req for update list on connection
+    - [ ] webhooks
+      - [ ] create
+      - [ ] update
+      - [ ] delete
+  - [x] jwt auth
+- [ ] **frontend**
+  - [ ] set filter settings to params (*)
+  - [ ] **UI**
+    - [ ] **socket**
+        - [ ] connection support
+        - [ ] notifs
+          - [ ] create
+          - [ ] update
+          - [ ] delete
+    - [ ] fullscreen modal for main pg
+    - [ ] edit btn from view pg
+    - [ ] progress line for page loading
+    - [x] priority stars
+    - [x] markdown syntax support
+    - [x] auth
+      - [x] context; provider
+    - [x] pages
+      - [x] `/users/auth/signup`
+      - [x] `/users/auth/signin`
 
 ## api
 _TODO_
@@ -81,6 +100,7 @@ module.exports = {
 ```bash
 MONGO_URI=<YOUR>
 NEXT_APP_API_ENDPOINT=http://localhost:9000
+NEXT_APP_SOCKET_API_ENDPOINT=http://localhost:9000
 NEXT_APP_EXPRESS_API_ENDPOINT=http://localhost:9000/e-api
 NEXT_APP_COOKIE_MAXAGE_IN_DAYS=2
 ```
@@ -90,6 +110,7 @@ NEXT_APP_COOKIE_MAXAGE_IN_DAYS=2
 ```bash
 MONGO_URI=<YOUR>
 NEXT_APP_API_ENDPOINT=http://<DOMAIN>
+NEXT_APP_SOCKET_API_ENDPOINT=http://<DOMAIN>
 NEXT_APP_EXPRESS_API_ENDPOINT=http://<DOMAIN>/e-api
 NEXT_APP_COOKIE_MAXAGE_IN_DAYS=2
 ```
