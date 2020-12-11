@@ -19,19 +19,19 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [x] could be started by pm2
 - [ ] **backend**
   - [ ] socket
-    - [ ] connection support
-      - [ ] set filter settings to params? (*)
-      - [ ] req for update list on connection
-    - [ ] webhooks
-      - [ ] create
-      - [ ] update
-      - [ ] delete
+    - [x] connection support
+    - [ ] set filter settings to params? (*)
+    - [ ] req for update list on connection
+    - [x] webhooks
+      - [x] create
+      - [x] update
+      - [x] delete
   - [x] jwt auth
 - [ ] **frontend**
   - [ ] set filter settings to params (*)
   - [ ] **UI**
     - [ ] **socket**
-        - [ ] connection support
+        - [x] connection support
         - [ ] notifs
           - [ ] create
           - [ ] update
