@@ -19,8 +19,12 @@ function reducer(state, action) {
   }
 }
 
+const initialState = {
+  socket: null,
+}
+
 export const SocketContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, getInitialState({}))
+  const [state, dispatch] = useReducer(reducer, initialState)
   const isClient = useMemo(() => typeof window !== 'undefined', [typeof window])
   const handleConnectUser = (arg, socket) => {
     console.log(arg);
