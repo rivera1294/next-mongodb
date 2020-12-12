@@ -1,5 +1,5 @@
 import { createContext, useReducer, useEffect, useRef, useContext } from 'react'
-import fetch from 'isomorphic-unfetch';
+import fetch from 'isomorphic-unfetch'
 import { useCookies } from 'react-cookie'
 
 const NEXT_APP_EXPRESS_API_ENDPOINT = process.env.NEXT_APP_EXPRESS_API_ENDPOINT
@@ -11,7 +11,7 @@ export const getInitialState = (base) => ({
   // clientData: null,
   isLoading: false,
   isLogged: false,
-  
+
   ...base,
 })
 
@@ -40,7 +40,7 @@ function reducer(state, action) {
 
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, getInitialState({}))
-  
+
   const setIsLoading = (val) => {
     dispatch({ type: 'SET_IS_LOADING', payload: val })
   }
@@ -48,8 +48,8 @@ export const AuthContextProvider = ({ children }) => {
   const [cookies, setCookie, removeCookie] = useCookies(['token'])
 
   useEffect(() => {
-    renderCountRef.current += 1;
-    if (renderCountRef.current > 1) return;
+    renderCountRef.current += 1
+    if (renderCountRef.current > 1) return
 
     const fetchData = async () => {
       setIsLoading(true)
@@ -57,7 +57,6 @@ export const AuthContextProvider = ({ children }) => {
 
       // console.log(cookies)
       if (!!cookies['token']) {
-
         headers.token = cookies['token']
       }
 
@@ -69,37 +68,37 @@ export const AuthContextProvider = ({ children }) => {
           if (!res.ok) {
             if (res.status === 401) {
               removeCookie('token')
-              dispatch({ type: 'SET_IS_LOGGED', payload: false });
+              dispatch({ type: 'SET_IS_LOGGED', payload: false })
             }
             throw new Error(res.status)
           }
           return res.json()
         })
         .then(() => {
-          dispatch({ type: 'SET_IS_LOGGED', payload: true });
+          dispatch({ type: 'SET_IS_LOGGED', payload: true })
         })
         .catch((err) => {
           return err.message || 'No msg'
-        });
+        })
 
       // console.log(res)
-      setIsLoading(false)     
-    };
- 
-    fetchData();
+      setIsLoading(false)
+    }
+
+    fetchData()
   }, [])
   const handleLogout = () => {
     removeCookie('token')
-    dispatch({ type: 'SET_IS_LOGGED', payload: false });
+    dispatch({ type: 'SET_IS_LOGGED', payload: false })
   }
   const handleLogin = (token) => {
     setCookie('token', token, {
       path: '/',
       maxAge: NEXT_APP_COOKIE_MAXAGE_IN_DAYS * 24 * 60 * 60,
-    });
-    dispatch({ type: 'SET_IS_LOGGED', payload: true });
+    })
+    dispatch({ type: 'SET_IS_LOGGED', payload: true })
   }
-  
+
   return (
     <AuthContext.Provider
       value={{
@@ -116,7 +115,7 @@ export const AuthContextProvider = ({ children }) => {
 }
 
 export const useAuthContext = () => {
-  const globalAppContext = useContext(AuthContext);
+  const globalAppContext = useContext(AuthContext)
 
-  return globalAppContext;
+  return globalAppContext
 }

@@ -1,9 +1,7 @@
 import { SignUpPage } from '~/components/SignUpPage'
 
 const SignUp = () => {
-  return (
-    <SignUpPage />
-  )
+  return <SignUpPage />
 }
 
 export default SignUp

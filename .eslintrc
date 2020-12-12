@@ -1,0 +1,22 @@
+{
+  "extends": ["react-app", "prettier", "plugin:react-hooks/recommended"],
+  "rules": {
+    "prettier/prettier": "error",
+    "react-hooks/exhaustive-deps": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "no-console": "error",
+    "no-unused-vars": [
+      "off",
+      {
+        "vars": "local",
+        "args": "none",
+        "ignoreRestSiblings": false,
+        "varsIgnorePattern": "React",
+        "argsIgnorePattern": "^_",
+        "caughtErrors": "none"
+      }
+    ]
+  },
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["react", "prettier", "standard", "@typescript-eslint", "react-hooks"]
+}

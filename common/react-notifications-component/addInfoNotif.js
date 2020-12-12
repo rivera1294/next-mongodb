@@ -8,5 +8,5 @@ export const addInfoNotif = ({ title, message }) => {
 
     title,
     message,
-  });
+  })
 }

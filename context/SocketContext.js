@@ -30,62 +30,68 @@ export const SocketContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const isClient = useMemo(() => typeof window !== 'undefined', [typeof window])
   const handleConnectUser = (arg, socket) => {
-    console.log(arg);
+    console.log(arg)
     dispatch({ type: evt.USER_CONNECTED, payload: socket })
   }
   const handleCreateNote = (arg) => {
-    console.log(arg);
+    console.log(arg)
     try {
-      const { data: { title } } = arg;
+      const {
+        data: { title },
+      } = arg
 
       addInfoNotif({
         title: 'Created',
         message: `${title}`,
-        type: 'info', 
+        type: 'info',
       })
     } catch (err) {
       console.log(err)
     }
   }
   const handleUpdateNote = (arg) => {
-    console.log(arg);
+    console.log(arg)
     try {
-      const { data: { _id } } = arg;
+      const {
+        data: { _id },
+      } = arg
 
       addInfoNotif({
         title: 'Updated',
         message: `${_id}`,
-        type: 'info', 
+        type: 'info',
       })
     } catch (err) {
       console.log(err)
     }
   }
   const handleDeleteNote = (arg) => {
-    console.log(arg);
+    console.log(arg)
     try {
-      const { data: { _id } } = arg;
+      const {
+        data: { _id },
+      } = arg
 
       addInfoNotif({
         title: 'Deleted',
         message: `${_id}`,
-        type: 'info', 
+        type: 'info',
       })
     } catch (err) {
       console.log(err)
     }
   }
-  
+
   useEffect(() => {
     if (isClient) {
       const socket = io.connect(NEXT_APP_SOCKET_API_ENDPOINT)
-    
+
       socket.on(evt.USER_CONNECTED, (arg) => {
         handleConnectUser(arg, socket)
-      });
-      socket.on(evt.NOTE_CREATED, handleCreateNote);
-      socket.on(evt.NOTE_UPDATED, handleUpdateNote);
-      socket.on(evt.NOTE_DELETED, handleDeleteNote);
+      })
+      socket.on(evt.NOTE_CREATED, handleCreateNote)
+      socket.on(evt.NOTE_UPDATED, handleUpdateNote)
+      socket.on(evt.NOTE_DELETED, handleDeleteNote)
 
       return () => {
         socket.disconnect()
@@ -94,7 +100,7 @@ export const SocketContextProvider = ({ children }) => {
       }
     }
   }, [isClient])
-  
+
   return (
     <SocketContext.Provider
       value={{
@@ -107,7 +113,7 @@ export const SocketContextProvider = ({ children }) => {
 }
 
 export const useSocketContext = () => {
-  const socketContext = useContext(SocketContext);
+  const socketContext = useContext(SocketContext)
 
-  return socketContext;
+  return socketContext
 }

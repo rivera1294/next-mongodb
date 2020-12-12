@@ -1,8 +1,8 @@
 // import Link from 'next/link';
-import { useState, useEffect, useMemo } from 'react';
-import fetch from 'isomorphic-unfetch';
-import { Button, Form, Loader } from 'semantic-ui-react';
-import { useRouter } from 'next/router';
+import { useState, useEffect, useMemo } from 'react'
+import fetch from 'isomorphic-unfetch'
+import { Button, Form, Loader } from 'semantic-ui-react'
+import { useRouter } from 'next/router'
 import { useWindowSize } from 'react-use'
 import MarkdownIt from 'markdown-it'
 import loadable from '@loadable/component'
@@ -21,97 +21,99 @@ import { Rating } from 'semantic-ui-react'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
 const mdParser = new MarkdownIt({
-    html: false,
-    langPrefix: 'language-',
+  html: false,
+  langPrefix: 'language-',
 })
 
-const MDEditor = loadable(() => import('react-markdown-editor-lite')); // Ленивая загрузка
+const MDEditor = loadable(() => import('react-markdown-editor-lite')) // Ленивая загрузка
 
 const EditNote = ({ note }) => {
-    const [form, setForm] = useState({ title: note.title, description: note.description, priority: note.priority || 1 });
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [errors, setErrors] = useState({});
-    const router = useRouter();
-    const { isLogged } = useAuthContext()
+  const [form, setForm] = useState({ title: note.title, description: note.description, priority: note.priority || 1 })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [errors, setErrors] = useState({})
+  const router = useRouter()
+  const { isLogged } = useAuthContext()
 
-    useEffect(() => {
-        if (isSubmitting) {
-            if (Object.keys(errors).length === 0) {
-                updateNote();
-            }
-            else {
-                setIsSubmitting(false);
-            }
-        }
-    }, [errors, isSubmitting])
-
-    const updateNote = async () => {
-        try {
-            const res = await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes/${router.query.id}`, {
-                method: 'PUT',
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(form)
-            })
-            router.push("/");
-        } catch (error) {
-            console.log(error);
-        }
+  useEffect(() => {
+    if (isSubmitting) {
+      if (Object.keys(errors).length === 0) {
+        updateNote()
+      } else {
+        setIsSubmitting(false)
+      }
     }
-    
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        let errs = validate();
-        setErrors(errs);
-        setIsSubmitting(true);
+  }, [errors, isSubmitting])
+
+  const updateNote = async () => {
+    try {
+      const _res = await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes/${router.query.id}`, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      })
+      router.push('/')
+    } catch (_err) {
+      // console.log(err)
+      // TODO: logger
+    }
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    let errs = validate()
+    setErrors(errs)
+    setIsSubmitting(true)
+  }
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    })
+  }
+
+  const handleSetRate = (e, { rating, maxRating }) => {
+    handleChange({ target: { name: 'priority', value: rating } })
+  }
+
+  const validate = () => {
+    let err = {}
+
+    if (!form.title) {
+      err.title = 'Title is required'
+    }
+    if (!form.description) {
+      err.description = 'Description is required'
     }
 
-    const handleChange = (e) => {
-        setForm({
-            ...form,
-            [e.target.name]: e.target.value
-        })
-    }
+    return err
+  }
+  const { width } = useWindowSize()
+  const minHeight = useMemo(() => (width > 767 ? '450px' : '300px'), [width])
 
-    const handleSetRate = (e, { rating, maxRating }) => {
-        handleChange({ target: { name: 'priority', value: rating } })
-    }
-
-    const validate = () => {
-        let err = {};
-
-        if (!form.title) {
-            err.title = 'Title is required';
-        }
-        if (!form.description) {
-            err.description = 'Description is required';
-        }
-
-        return err;
-    }
-    const { width } = useWindowSize()
-    const minHeight = useMemo(() => width > 767 ? '450px' : '300px', [width])
-
-    return (
-        <div className='standard-container'>
-            <h1>Edit Note <Rating onRate={handleSetRate} maxRating={5} defaultRating={form.priority} disabled={isSubmitting} /></h1>
-            <div>
-                {
-                    isSubmitting
-                        ? <Loader active inline='centered' />
-                        : <Form onSubmit={handleSubmit}>
-                            <Form.Input
-                                fluid
-                                error={errors.title ? { content: 'Please enter a title', pointing: 'below' } : null}
-                                label='Title'
-                                placeholder='Title'
-                                name='title'
-                                value={form.title}
-                                onChange={handleChange}
-                            />
-                            {/* <Form.TextArea
+  return (
+    <div className="standard-container">
+      <h1>
+        Edit Note <Rating onRate={handleSetRate} maxRating={5} defaultRating={form.priority} disabled={isSubmitting} />
+      </h1>
+      <div>
+        {isSubmitting ? (
+          <Loader active inline="centered" />
+        ) : (
+          <Form onSubmit={handleSubmit}>
+            <Form.Input
+              fluid
+              error={errors.title ? { content: 'Please enter a title', pointing: 'below' } : null}
+              label="Title"
+              placeholder="Title"
+              name="title"
+              value={form.title}
+              onChange={handleChange}
+            />
+            {/* <Form.TextArea
                                 fluid
                                 label='Descriprtion'
                                 placeholder='Description'
@@ -120,48 +122,44 @@ const EditNote = ({ note }) => {
                                 value={form.description}
                                 onChange={handleChange}
                             /> */}
-                            <MDEditor
-                                value={form.description}
-                                style={{ minHeight }}
-                                renderHTML={(text) => mdParser.render(text)}
-                                // renderHTML={(text) => (
-                                //     <ReactMarkdown
-                                //         plugins={[gfm, {singleTilde: false}]}
-                                //         renderers={renderers}
-                                //         children={text}
-                                //     />
-                                // )}
-                                onChange={({ text }) => {
-                                    handleChange({ target: { value: text, name: 'description' } })
-                                }}
-                                config={{
-                                    view: { menu: false, md: true, html: width > 767 },
-                                    canView: {
-                                        menu: false,
-                                        md: true,
-                                        html: width > 767,
-                                        fullScreen: true,
-                                        hideMenu: true,
-                                    },
-                                }}
-                            />
-                            {
-                                isLogged && (
-                                    <Button type='submit'>Update</Button>
-                                )
-                            }
-                        </Form>
-                }
-            </div>
-        </div>
-    )
+            <MDEditor
+              value={form.description}
+              style={{ minHeight }}
+              renderHTML={(text) => mdParser.render(text)}
+              // renderHTML={(text) => (
+              //     <ReactMarkdown
+              //         plugins={[gfm, {singleTilde: false}]}
+              //         renderers={renderers}
+              //         children={text}
+              //     />
+              // )}
+              onChange={({ text }) => {
+                handleChange({ target: { value: text, name: 'description' } })
+              }}
+              config={{
+                view: { menu: false, md: true, html: width > 767 },
+                canView: {
+                  menu: false,
+                  md: true,
+                  html: width > 767,
+                  fullScreen: true,
+                  hideMenu: true,
+                },
+              }}
+            />
+            {isLogged && <Button type="submit">Update</Button>}
+          </Form>
+        )}
+      </div>
+    </div>
+  )
 }
 
 EditNote.getInitialProps = async ({ query: { id } }) => {
-    const res = await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes/${id}`);
-    const { data } = await res.json();
+  const res = await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes/${id}`)
+  const { data } = await res.json()
 
-    return { note: data }
+  return { note: data }
 }
 
-export default EditNote;
+export default EditNote

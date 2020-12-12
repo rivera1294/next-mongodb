@@ -1,0 +1,6 @@
+.next
+node_modules
+scripts
+bin
+server.*.js
+server_dist/*

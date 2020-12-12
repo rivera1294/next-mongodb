@@ -1,1 +1,1 @@
-export const isNumeric = n => !Number.isNaN(parseFloat(n));
+export const isNumeric = (n) => !Number.isNaN(parseFloat(n))

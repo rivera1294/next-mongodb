@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react'
-import Link from 'next/link';
-import fetch from 'isomorphic-unfetch';
-import { Button, Card, Icon, Input, Label, Pagination, Rating } from 'semantic-ui-react';
+import Link from 'next/link'
+import fetch from 'isomorphic-unfetch'
+import { Button, Card, Icon, Input, Label, Pagination, Rating } from 'semantic-ui-react'
 import { ActiveNote } from '~/components/ActiveNote'
-import clsx from 'clsx';
+import clsx from 'clsx'
 import { useGlobalAppContext, getInitialState, useAuthContext } from '~/context'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
@@ -27,11 +27,7 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
   useEffect(() => {
     init()
   }, [])
-  const {
-    totalPages,
-    totalNotes,
-    currentPage,
-  } = state.pagination;
+  const { totalPages, totalNotes, currentPage } = state.pagination
   const renderCountRef = useRef(0)
   useEffect(() => {
     renderCountRef.current += 1
@@ -42,15 +38,15 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
   return (
     <div style={{ marginTop: '20px' }}>
       <h1>Notes</h1>
-      <div className='standard-container search-wrapper'>
+      <div className="standard-container search-wrapper">
         <div>
           <Input
             loading={isLoading}
             disabled={isLoading}
-            iconPosition='left'
+            iconPosition="left"
             // fluid
             // icon
-            placeholder='Search by title...'
+            placeholder="Search by title..."
             // icon={<Icon name='search' inverted circular link />}
             onChange={(e) => {
               // setPage(1)
@@ -64,10 +60,10 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
           <Input
             loading={isLoading}
             disabled={isLoading}
-            iconPosition='left'
+            iconPosition="left"
             // fluid
             // icon
-            placeholder='Search by description...'
+            placeholder="Search by description..."
             // icon={<Icon name='search' inverted circular link />}
             onChange={(e) => {
               // setPage(1)
@@ -79,7 +75,7 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
         </div>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Label>
-            <Icon name='file' /> {totalNotes}
+            <Icon name="file" /> {totalNotes}
           </Label>
         </div>
         {state.notes.length > 0 && totalPages > 0 && !!currentPage && !!state.pagination && (
@@ -95,14 +91,13 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
           />
         )}
       </div>
-      <div className='main standard-container'>
-        <div className='active-note-external-sticky-wrapper'>
+      <div className="main standard-container">
+        <div className="active-note-external-sticky-wrapper">
           <ActiveNote note={state.activeNote} />
         </div>
         <div>
-          
           <div className="grid wrapper">
-            {notes.map(note => {
+            {notes.map((note) => {
               const isActive = !!state.activeNote?._id && state.activeNote._id === note._id
 
               return (
@@ -111,29 +106,31 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
                     <Card.Content>
                       <Card.Header>
                         {/* <Link href={`/${note._id}`} hrefAs='/[id]'><a>{note.title}</a></Link> */}
-                        <div onClick={() => handleSetAsActiveNote(note)} className='note-title-wrapper'>
+                        <div onClick={() => handleSetAsActiveNote(note)} className="note-title-wrapper">
                           <b>
-                            {note.title}{
-                              !!note.priority
+                            {note.title}
+                            {!!note.priority ? (
                               // ? <span className='muted'> <i className="fas fa-star"></i> {note.priority}</span>
-                              ? <span> <Rating disabled size='large' /> <span className='muted'>{note.priority}</span></span>
-                              : null
-                            }
+                              <span>
+                                {' '}
+                                <Rating disabled size="large" /> <span className="muted">{note.priority}</span>
+                              </span>
+                            ) : null}
                           </b>
                         </div>
                       </Card.Header>
                     </Card.Content>
                     <Card.Content extra>
-                      <Link href={`/notes/${note._id}`} hrefAs='/[id]'>
+                      <Link href={`/notes/${note._id}`} hrefAs="/[id]">
                         <Button primary>View</Button>
                       </Link>
-                      {
-                        isLogged && (
-                          <Link href={`/notes/${note._id}/edit`} hrefAs='/[id]'>
-                            <Button basic color='blue'>Edit</Button>
-                          </Link>
-                        )
-                      }
+                      {isLogged && (
+                        <Link href={`/notes/${note._id}/edit`} hrefAs="/[id]">
+                          <Button basic color="blue">
+                            Edit
+                          </Button>
+                        </Link>
+                      )}
                     </Card.Content>
                   </Card>
                 </div>
@@ -143,7 +140,7 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
         </div>
       </div>
       {state.notes.length > 0 && totalPages > 0 && !!currentPage && !!state.pagination && (
-        <div className='standard-container search-wrapper'>
+        <div className="standard-container search-wrapper">
           <Pagination
             // boundaryRange={0}
             defaultActivePage={page}
@@ -161,10 +158,10 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
 }
 
 Index.getInitialProps = async () => {
-  const res = await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes`);
-  const { data, pagination } = await res.json();
+  const res = await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes`)
+  const { data, pagination } = await res.json()
 
   return { notes: data, pagination }
 }
 
-export default Index;
+export default Index

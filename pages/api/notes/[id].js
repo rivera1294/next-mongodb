@@ -1,63 +1,65 @@
-import dbConnect from '~/utils/dbConnect';
-import Note from '~/models/Note';
+import dbConnect from '~/utils/dbConnect'
+import Note from '~/models/Note'
 import { actionTypes as eTypes } from '~/utils/socket'
 
-dbConnect();
+dbConnect()
 
-export default async (req, res) => {
-    const {
-        query: { id },
-        method
-    } = req;
+const idApi = async (req, res) => {
+  const {
+    query: { id },
+    method,
+  } = req
 
-    switch (method) {
-        case 'GET':
-            try {
-                const note = await Note.findById(id);
+  switch (method) {
+    case 'GET':
+      try {
+        const note = await Note.findById(id)
 
-                if (!note) {
-                    return res.status(400).json({ success: false });
-                }
+        if (!note) {
+          return res.status(400).json({ success: false })
+        }
 
-                res.status(200).json({ success: true, data: note });
-            } catch (error) {
-                res.status(400).json({ success: false });
-            }
-            break;
-        case 'PUT':
-            try {
-                const note = await Note.findByIdAndUpdate(id, req.body, {
-                    new: true,
-                    runValidators: true,
-                    // useFindAndModify: false,
-                });
+        res.status(200).json({ success: true, data: note })
+      } catch (error) {
+        res.status(400).json({ success: false })
+      }
+      break
+    case 'PUT':
+      try {
+        const note = await Note.findByIdAndUpdate(id, req.body, {
+          new: true,
+          runValidators: true,
+          // useFindAndModify: false,
+        })
 
-                if (!note) {
-                    return res.status(400).json({ success: false });
-                }
+        if (!note) {
+          return res.status(400).json({ success: false })
+        }
 
-                req.io.emit(eTypes.NOTE_UPDATED, { data: note })
-                res.status(200).json({ success: true, data: note });
-            } catch (error) {
-                res.status(400).json({ success: false });
-            }
-            break;
-        case 'DELETE':
-            try {
-                const deletedNote = await Note.deleteOne({ _id: id });
+        req.io.emit(eTypes.NOTE_UPDATED, { data: note })
+        res.status(200).json({ success: true, data: note })
+      } catch (error) {
+        res.status(400).json({ success: false })
+      }
+      break
+    case 'DELETE':
+      try {
+        const deletedNote = await Note.deleteOne({ _id: id })
 
-                if (!deletedNote) {
-                    return res.status(400).json({ success: false })
-                }
+        if (!deletedNote) {
+          return res.status(400).json({ success: false })
+        }
 
-                req.io.emit(eTypes.NOTE_DELETED, { data: deletedNote })
-                res.status(200).json({ success: true, data: {} });
-            } catch (error) {
-                res.status(400).json({ success: false })
-            }
-            break;
-        default:
-            res.status(400).json({ success: false })
-            break;
-    }
+        req.io.emit(eTypes.NOTE_DELETED, { data: deletedNote })
+        res.status(200).json({ success: true, data: {} })
+      } catch (error) {
+        res.status(400).json({ success: false })
+      }
+      break
+    default:
+      res.status(400).json({ success: false })
+      break
+  }
 }
+
+export default idApi

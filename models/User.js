@@ -1,25 +1,25 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 // mongoose.set('useFindAndModify', false);
-mongoose.set('useCreateIndex', true);
+mongoose.set('useCreateIndex', true)
 
 const UserSchema = mongoose.Schema({
   username: {
     type: String,
-    required: true
+    required: true,
   },
   email: {
     type: String,
-    required: true
+    required: true,
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   createdAt: {
     type: Date,
-    default: Date.now()
-  }
-});
+    default: Date.now(),
+  },
+})
 
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model('User', UserSchema)

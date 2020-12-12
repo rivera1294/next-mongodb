@@ -8,5 +8,5 @@ export const addSuccessNotif = ({ title, message }) => {
 
     title,
     message,
-  });
+  })
 }

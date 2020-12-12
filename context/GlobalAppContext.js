@@ -22,33 +22,33 @@ export const getInitialState = (base) => ({
 export const GlobalAppContext = createContext({
   state: getInitialState({}),
   setPage: () => {
-    throw new Error('setPage method should be implemented');
+    throw new Error('setPage method should be implemented')
   },
   handleSearchByTitleClear: () => {
-    throw new Error('handleSearchByTitleClear method should be implemented');
+    throw new Error('handleSearchByTitleClear method should be implemented')
   },
   handleSearchByDescriptionClear: () => {
-    throw new Error('handleSearchByDescriptionClear method should be implemented');
+    throw new Error('handleSearchByDescriptionClear method should be implemented')
   },
   handleSetAsActiveNote: () => {
-    throw new Error('handleSetAsActiveNote method should be implemented');
+    throw new Error('handleSetAsActiveNote method should be implemented')
   },
   handlePageChange: () => {
-    throw new Error('handlePageChange method should be implemented');
+    throw new Error('handlePageChange method should be implemented')
   },
   isNotesLoading: false,
   initPagination: () => {
-    throw new Error('initPagination method should be implemented');
+    throw new Error('initPagination method should be implemented')
   },
   initState: () => {
-    throw new Error('initState method should be implemented');
+    throw new Error('initState method should be implemented')
   },
   page: 1,
   handleSearchByDescriptionSetText: () => {
-    throw new Error('handleSearchByDescriptionSetText method should be implemented');
+    throw new Error('handleSearchByDescriptionSetText method should be implemented')
   },
   handleSearchByTitleSetText: () => {
-    throw new Error('handleSearchByTitleSetText method should be implemented');
+    throw new Error('handleSearchByTitleSetText method should be implemented')
   },
 })
 
@@ -68,7 +68,7 @@ function reducer(state, action) {
         ...action.payload,
       }
     case 'INIT_STATE':
-      return action.payload;
+      return action.payload
     case 'SET_LOCAL_PAGE':
       return {
         ...state,
@@ -83,18 +83,18 @@ export const GlobalAppContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, getInitialState({}))
   const debouncedSearchByTitle = useDebounce(state.searchByTitle, 1000)
   const debouncedSearchByDescription = useDebounce(state.searchByDescription, 1000)
-  
+
   const handlePageChange = (_ev, data) => {
     dispatch({ type: 'SET_LOCAL_PAGE', payload: data.activePage })
   }
   const debouncedPage = useDebounce(state.page, 1000)
   const renderCountRef = useRef(0)
-  
+
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    renderCountRef.current += 1;
-    if (renderCountRef.current >= 1 && renderCountRef.current <= 3) return;
+    renderCountRef.current += 1
+    if (renderCountRef.current >= 1 && renderCountRef.current <= 3) return
 
     const fetchData = async () => {
       setIsLoading(true)
@@ -111,15 +111,15 @@ export const GlobalAppContextProvider = ({ children }) => {
       const url = buildUrl(NEXT_APP_API_ENDPOINT, {
         path: '/api/notes',
         queryParams,
-      });
-      const res = await fetch(url);
+      })
+      const res = await fetch(url)
       setIsLoading(false)
-      const { data, pagination } = await res.json();
+      const { data, pagination } = await res.json()
 
-      dispatch({ type: 'NOTES_RESPONSE@SET', payload: { notes: data, pagination } });
-    };
- 
-    fetchData();
+      dispatch({ type: 'NOTES_RESPONSE@SET', payload: { notes: data, pagination } })
+    }
+
+    fetchData()
   }, [debouncedPage, debouncedSearchByTitle, debouncedSearchByDescription])
   const handleSearchByTitleClear = () => {
     dispatch({ type: 'SEARCH_BY_TITLE@SET', payload: '' })
@@ -139,7 +139,7 @@ export const GlobalAppContextProvider = ({ children }) => {
   const handleSearchByTitleSetText = (text) => {
     dispatch({ type: 'SEARCH_BY_TITLE@SET', payload: text })
   }
-  
+
   return (
     <GlobalAppContext.Provider
       value={{
@@ -161,7 +161,7 @@ export const GlobalAppContextProvider = ({ children }) => {
 }
 
 export const useGlobalAppContext = () => {
-  const globalAppContext = useContext(GlobalAppContext);
+  const globalAppContext = useContext(GlobalAppContext)
 
-  return globalAppContext;
+  return globalAppContext
 }
