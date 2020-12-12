@@ -5,6 +5,7 @@ import gfm from 'remark-gfm'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { materialDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import { Rating } from 'semantic-ui-react'
+import { useFreshNote } from '~/hooks'
 
 const renderers = {
   code: ({ language, value }) => {
@@ -12,8 +13,9 @@ const renderers = {
   },
 }
 
-export const ActiveNote = ({ note }) => {
-  if (!note) return null
+export const ActiveNote = ({ note: initialNote }) => {
+  // if (!!initialNote) return null
+  const note = useFreshNote(initialNote)
 
   const { description, priority, title } = note
 

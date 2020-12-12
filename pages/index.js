@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useMemo } from 'react'
 import Link from 'next/link'
 import fetch from 'isomorphic-unfetch'
 import { Button, Card, Icon, Input, Label, Pagination, Rating } from 'semantic-ui-react'
@@ -34,6 +34,7 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
   })
   const notes = renderCountRef.current > 1 ? state.notes : initNotes
   const { isLogged } = useAuthContext()
+  const activeNote = useMemo(() => state.activeNote, [JSON.stringify(state.activeNote)])
 
   return (
     <div style={{ marginTop: '20px' }}>
@@ -93,12 +94,12 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
       </div>
       <div className="main standard-container">
         <div className="active-note-external-sticky-wrapper">
-          <ActiveNote note={state.activeNote} />
+          {!!activeNote && <ActiveNote note={activeNote} key={activeNote._id} />}
         </div>
         <div>
           <div className="grid wrapper">
             {notes.map((note) => {
-              const isActive = !!state.activeNote?._id && state.activeNote._id === note._id
+              const isActive = !!activeNote?._id && activeNote._id === note._id
 
               return (
                 <div key={note._id} className={clsx({ 'active-card-wrapper': isActive })}>

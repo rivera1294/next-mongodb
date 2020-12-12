@@ -7,6 +7,7 @@ import {
   IDisconnectUserBroadcast,
 } from '~/socket-logic'
 import { addInfoNotif } from '~/common/react-notifications-component/addInfoNotif'
+import { useGlobalAppContext } from './GlobalAppContext'
 
 const NEXT_APP_SOCKET_API_ENDPOINT = process.env.NEXT_APP_SOCKET_API_ENDPOINT
 
@@ -53,6 +54,9 @@ export const SocketContextProvider = ({ children }: any) => {
       console.log(err)
     }
   }
+  // ---
+  const { handleUpdateOneNote } = useGlobalAppContext()
+  // ---
   const handleUpdateNote = (arg: any) => {
     console.log(arg)
     try {
@@ -66,6 +70,8 @@ export const SocketContextProvider = ({ children }: any) => {
         type: 'info',
       })
       dispatch({ type: 'REFRESH_UPDATED_NOTE', payload: arg.data })
+      // @ts-ignore
+      handleUpdateOneNote(arg.data)
     } catch (err) {
       console.log(err)
     }

@@ -1,34 +1,13 @@
 import fetch from 'isomorphic-unfetch'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Confirm, Button, Loader } from 'semantic-ui-react'
 import { ActiveNote } from '~/components/ActiveNote'
 import { useAuthContext } from '~/context'
-// import { actionTypes as evt, IUpdatedNote } from '~/socket-logic'
-import { useSocketContext } from '~/context'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
 
-const Note = ({ note: initialNote }) => {
-  const [note, setNote] = useState(initialNote)
-  const handleUpdateThisNote = (data) => {
-    setNote(data)
-  }
-  const currentNoteIdRef = useRef(note._id)
-  const currentNoteUpdatedAtRef = useRef(!!note.updatedAt ? new Date(note.updatedAt) : new Date())
-  const { state } = useSocketContext()
-
-  useEffect(() => {
-    if (
-      !!state.updatedNote?._id &&
-      state.updatedNote?._id === currentNoteIdRef.current &&
-      !!state.updatedNote?.updatedAt &&
-      new Date(state.updatedNote?.updatedAt) > currentNoteUpdatedAtRef.current
-    ) {
-      handleUpdateThisNote(state.updatedNote)
-    }
-  }, [JSON.stringify(state.updatedNote)])
-
+const Note = ({ note }) => {
   const [confirm, setConfirm] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
   const router = useRouter()
@@ -66,9 +45,7 @@ const Note = ({ note: initialNote }) => {
         {isDeleting ? (
           <Loader active />
         ) : (
-          <div style={{ marginBottom: '20px' }}>
-            <ActiveNote note={note} />
-          </div>
+          <div style={{ marginBottom: '20px' }}>{!!note && <ActiveNote note={note} />}</div>
         )}
         <Confirm open={confirm} onCancel={close} onConfirm={handleDelete} />
       </div>

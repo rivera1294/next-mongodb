@@ -27,17 +27,18 @@ class MyApp extends NextApp {
           <link rel="stylesheet" href="/static/css/old.build.editor-js.css" />
         </Head>
         <ReactNotification />
-        <SocketContextProvider>
-          <CookiesProvider>
-            <AuthContextProvider>
-              <GlobalAppContextProvider>
+
+        <CookiesProvider>
+          <AuthContextProvider>
+            <GlobalAppContextProvider>
+              <SocketContextProvider>
                 <Layout>
                   <Component {...pageProps} />
                 </Layout>
-              </GlobalAppContextProvider>
-            </AuthContextProvider>
-          </CookiesProvider>
-        </SocketContextProvider>
+              </SocketContextProvider>
+            </GlobalAppContextProvider>
+          </AuthContextProvider>
+        </CookiesProvider>
       </>
     )
   }

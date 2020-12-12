@@ -50,9 +50,14 @@ export const GlobalAppContext = createContext({
   handleSearchByTitleSetText: () => {
     throw new Error('handleSearchByTitleSetText method should be implemented')
   },
+  handleUpdateOneNote: () => {
+    throw new Error('handleUpdateOneNote method should be implemented')
+  },
 })
 
 function reducer(state, action) {
+  let newState = { ...state }
+
   switch (action.type) {
     case 'SEARCH_BY_TITLE@SET':
       return { ...state, searchByTitle: action.payload, localPage: 1 }
@@ -74,6 +79,17 @@ function reducer(state, action) {
         ...state,
         localPage: action.payload,
       }
+    case 'UPDATE_ONE_NOTE':
+      const theNoteIndex = state.notes.findIndex(({ _id }) => _id === action.payload._id)
+
+      // console.log(theNoteIndex)
+
+      if (theNoteIndex !== -1) {
+        newState.notes[theNoteIndex] = action.payload
+        return newState
+      }
+
+      return state
     default:
       return state
   }
@@ -139,6 +155,9 @@ export const GlobalAppContextProvider = ({ children }) => {
   const handleSearchByTitleSetText = (text) => {
     dispatch({ type: 'SEARCH_BY_TITLE@SET', payload: text })
   }
+  const handleUpdateOneNote = (note) => {
+    dispatch({ type: 'UPDATE_ONE_NOTE', payload: note })
+  }
 
   return (
     <GlobalAppContext.Provider
@@ -153,6 +172,7 @@ export const GlobalAppContextProvider = ({ children }) => {
         page: state.localPage,
         handleSearchByDescriptionSetText,
         handleSearchByTitleSetText,
+        handleUpdateOneNote,
       }}
     >
       {children}
