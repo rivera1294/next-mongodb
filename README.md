@@ -12,38 +12,43 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [Deploy on ZEIT Now](#deploy-on-zeit-now)
 
 ## roadmap
-- [ ] **project DE**
+- [ ] **project DX**
   - [ ] eslint; prettier
   - [ ] git hooks
   - [ ] qucik deploy
   - [x] could be started by pm2
 - [ ] **backend**
   - [ ] socket
-    - [x] connection support
     - [ ] set filter settings to params? (*)
-      - [ ] req for update list on connection
+    - [ ] req for update list on connection
     - [x] webhooks: create/update/delete
+    - [x] connection support
   - [x] jwt auth
 - [ ] **frontend**
-  - [ ] set filter settings to params (*)
   - [ ] **UI**
-    - [ ] **socket**
-        - [x] connection support
-        - [x] notifs:create/delete
+    - [ ] socket
         - [ ] update: refresh note when:
-          - [ ] `isActive` on /notes pg
+          - [ ] `isActive` on /notes page
           - [ ] inactive on /notes page
           - [ ] update state on /notes/[id]
-    - [ ] fullscreen modal for main pg
-    - [ ] edit btn from view pg
+        - [ ] detete: remove from list
+          - [ ] `isActive` on /notes page
+          - [ ] inactive on /notes page
+          - [ ] update state on /notes/[id] (Empty template)
+        - [x] ~~create: nothing?~~
+        - [x] notifs: [react-notifications-component](https://github.com/teodosii/react-notifications-component) create/delete/update
+        - [x] connection support
     - [ ] progress line for page loading
     - [x] priority stars
-    - [x] markdown syntax support
     - [x] auth
       - [x] context; provider
-    - [x] pages
-      - [x] `/users/auth/signup`
-      - [x] `/users/auth/signin`
+      - [x] signup; signin
+  - [ ] **UX**
+    - [ ] set filter settings to params (*)
+    - [ ] mobile: fullscreen modal for main pg
+    - [ ] edit btn from view pg
+    - [ ] scroll top btn
+    - [x] markdown syntax support
 
 ## api
 _TODO_
