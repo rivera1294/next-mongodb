@@ -6,6 +6,10 @@ import '~/public/static/css/style.css'
 import { AuthContextProvider, GlobalAppContextProvider, SocketContextProvider } from '~/context'
 import { CookiesProvider } from 'react-cookie';
 import Head from 'next/head';
+import ReactNotification from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
+// preferred way to import (from `v4`). Uses `animate__` prefix.
+import 'animate.css/animate.min.css';
 
 class MyApp extends NextApp {
     render() {
@@ -22,6 +26,7 @@ class MyApp extends NextApp {
                     <link rel="stylesheet" href="/static/css/old.styles.css" />
                     <link rel="stylesheet" href="/static/css/old.build.editor-js.css" />
                 </Head>
+                <ReactNotification />
                 <SocketContextProvider>
                     <CookiesProvider>
                         <AuthContextProvider>

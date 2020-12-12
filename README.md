@@ -21,21 +21,19 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [ ] socket
     - [x] connection support
     - [ ] set filter settings to params? (*)
-    - [ ] req for update list on connection
-    - [x] webhooks
-      - [x] create
-      - [x] update
-      - [x] delete
+      - [ ] req for update list on connection
+    - [x] webhooks: create/update/delete
   - [x] jwt auth
 - [ ] **frontend**
   - [ ] set filter settings to params (*)
   - [ ] **UI**
     - [ ] **socket**
         - [x] connection support
-        - [ ] notifs
-          - [ ] create
-          - [ ] update
-          - [ ] delete
+        - [x] notifs:create/delete
+        - [ ] update: refresh note when:
+          - [ ] `isActive` on /notes pg
+          - [ ] inactive on /notes page
+          - [ ] update state on /notes/[id]
     - [ ] fullscreen modal for main pg
     - [ ] edit btn from view pg
     - [ ] progress line for page loading

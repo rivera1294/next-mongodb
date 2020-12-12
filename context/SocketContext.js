@@ -2,6 +2,9 @@ import { createContext, useReducer, useEffect, useMemo, useContext } from 'react
 import io from 'socket.io-client'
 import { actionTypes as evt } from '~/utils/socket/actionTypes'
 
+// const types = ['success', 'danger', 'warning', 'default', 'info', 'awesome'];
+import { addInfoNotif } from '~/common/react-notifications-component/addInfoNotif'
+
 const NEXT_APP_SOCKET_API_ENDPOINT = process.env.NEXT_APP_SOCKET_API_ENDPOINT
 
 export const SocketContext = createContext({
@@ -32,12 +35,45 @@ export const SocketContextProvider = ({ children }) => {
   }
   const handleCreateNote = (arg) => {
     console.log(arg);
+    try {
+      const { data: { title } } = arg;
+
+      addInfoNotif({
+        title: 'Created',
+        message: `${title}`,
+        type: 'info', 
+      })
+    } catch (err) {
+      console.log(err)
+    }
   }
   const handleUpdateNote = (arg) => {
     console.log(arg);
+    try {
+      const { data: { _id } } = arg;
+
+      addInfoNotif({
+        title: 'Updated',
+        message: `${_id}`,
+        type: 'info', 
+      })
+    } catch (err) {
+      console.log(err)
+    }
   }
   const handleDeleteNote = (arg) => {
     console.log(arg);
+    try {
+      const { data: { _id } } = arg;
+
+      addInfoNotif({
+        title: 'Deleted',
+        message: `${_id}`,
+        type: 'info', 
+      })
+    } catch (err) {
+      console.log(err)
+    }
   }
   
   useEffect(() => {

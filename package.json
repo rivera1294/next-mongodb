@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@loadable/component": "^5.14.1",
+    "animate.css": "^4.1.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "build-url": "^6.0.1",
@@ -33,6 +34,7 @@
     "react-headroom": "^3.1.0",
     "react-markdown": "^5.0.3",
     "react-markdown-editor-lite": "^1.2.2",
+    "react-notifications-component": "^3.0.3",
     "react-syntax-highlighter": "^15.3.1",
     "react-use": "^15.3.4",
     "remark-gfm": "^1.0.0",
