@@ -1,5 +1,7 @@
 import Head from 'next/head'
 import Navbar from './Navbar'
+import NextNProgress from 'nextjs-progressbar'
+// <NextNProgress color="#FFF" startPosition={0.3} stopDelayMs={200} height={2} options={{ showSpinner: false }} />
 
 const Layout = ({ children }) => (
   <>
@@ -15,8 +17,18 @@ const Layout = ({ children }) => (
         crossOrigin="anonymous"
       />
     </Head>
+    <NextNProgress color="#6dffff" startPosition={0.3} stopDelayMs={200} height={2} options={{ showSpinner: true }} />
     <Navbar />
     {children}
+    <style jsx global>{`
+      #nprogress .spinner {
+        display: block;
+        position: fixed;
+        z-index: 1031;
+        top: 20px;
+        right: 15px;
+      }
+    `}</style>
   </>
 )
 
