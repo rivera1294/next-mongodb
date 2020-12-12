@@ -13,7 +13,8 @@
     "analyze:browser": "BUNDLE_ANALYZE=browser next build",
     "lint": "eslint --debug 'pages/**/*.{js,jsx,ts,tsx}'",
     "lint:fix": "eslint 'pages/**/*.{js,jsx,ts,tsx}' --fix",
-    "postinstall": "husky install .config/husky"
+    "postinstall": "husky install .config/husky",
+    "deploy-app:init": "node_modules/.bin/deploy-app init"
   },
   "lint-staged": {
     "*.{js, jsx, ts, tsx} !.storybook/*": [
@@ -34,6 +35,7 @@
     "build-url": "^6.0.1",
     "clsx": "^1.1.1",
     "core-js": "2",
+    "deploy-app": "^1.0.3",
     "dotenv": "^8.2.0",
     "email-validator": "^2.0.4",
     "express-validator": "^6.7.0",

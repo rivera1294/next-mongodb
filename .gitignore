@@ -27,3 +27,6 @@ yarn-error.log*
 
 # server dist dir
 /server-dist
+
+# deploy tool
+deploy-app-config.json

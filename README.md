@@ -13,11 +13,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## roadmap
 
-- [ ] **project DX**
-  - [ ] git hooks
-  - [ ] qucik deploy
-  - [x] eslint; prettier
-  - [x] could be started by pm2
 - [ ] **backend**
   - [ ] socket
     - [ ] set filter settings to params? (\*)
@@ -28,15 +23,16 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [ ] **frontend**
   - [ ] **UI**
     - [ ] socket
-      - [ ] update: refresh note when:
-        - [ ] `isActive` on /notes page
-        - [ ] inactive on /notes page
-        - [ ] update state on /notes/[id]
-      - [ ] detete: remove from list
-        - [ ] `isActive` on /notes page
-        - [ ] inactive on /notes page
-        - [ ] update state on /notes/[id] (Empty template)
-      - [x] ~~create: nothing?~~
+      - [ ] subscribers for webhooks
+        - [ ] update: refresh note when:
+          - [ ] is `activeNote` on /notes page
+          - [ ] inactive on /notes page
+          - [ ] update state on /notes/[id]
+        - [ ] detete: remove from list
+          - [ ] is `activeNote` on /notes page
+          - [ ] inactive on /notes page
+          - [ ] update state on /notes/[id] (Empty template)
+        - [x] ~~create: nothing?~~
       - [x] notifs: [react-notifications-component](https://github.com/teodosii/react-notifications-component) create/delete/update
       - [x] connection support
     - [ ] progress line for page loading
@@ -46,10 +42,15 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
       - [x] signup; signin
   - [ ] **UX**
     - [ ] set filter settings to params (\*)
-    - [ ] mobile: fullscreen modal for main pg
+    - [ ] mobile: fullscreen modal for `activeNote` on main pg
     - [ ] edit btn from view pg
     - [ ] scroll top btn
     - [x] markdown syntax support
+- [x] **project DX**
+  - [x] qucik deploy
+  - [x] git hooks
+  - [x] eslint; prettier
+  - [x] could be started by pm2
 
 ## api
 
