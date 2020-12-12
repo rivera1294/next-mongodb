@@ -12,14 +12,15 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [Deploy on ZEIT Now](#deploy-on-zeit-now)
 
 ## roadmap
+
 - [ ] **project DX**
-  - [ ] eslint; prettier
   - [ ] git hooks
   - [ ] qucik deploy
+  - [x] eslint; prettier
   - [x] could be started by pm2
 - [ ] **backend**
   - [ ] socket
-    - [ ] set filter settings to params? (*)
+    - [ ] set filter settings to params? (\*)
     - [ ] req for update list on connection
     - [x] webhooks: create/update/delete
     - [x] connection support
@@ -27,33 +28,35 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [ ] **frontend**
   - [ ] **UI**
     - [ ] socket
-        - [ ] update: refresh note when:
-          - [ ] `isActive` on /notes page
-          - [ ] inactive on /notes page
-          - [ ] update state on /notes/[id]
-        - [ ] detete: remove from list
-          - [ ] `isActive` on /notes page
-          - [ ] inactive on /notes page
-          - [ ] update state on /notes/[id] (Empty template)
-        - [x] ~~create: nothing?~~
-        - [x] notifs: [react-notifications-component](https://github.com/teodosii/react-notifications-component) create/delete/update
-        - [x] connection support
+      - [ ] update: refresh note when:
+        - [ ] `isActive` on /notes page
+        - [ ] inactive on /notes page
+        - [ ] update state on /notes/[id]
+      - [ ] detete: remove from list
+        - [ ] `isActive` on /notes page
+        - [ ] inactive on /notes page
+        - [ ] update state on /notes/[id] (Empty template)
+      - [x] ~~create: nothing?~~
+      - [x] notifs: [react-notifications-component](https://github.com/teodosii/react-notifications-component) create/delete/update
+      - [x] connection support
     - [ ] progress line for page loading
     - [x] priority stars
     - [x] auth
       - [x] context; provider
       - [x] signup; signin
   - [ ] **UX**
-    - [ ] set filter settings to params (*)
+    - [ ] set filter settings to params (\*)
     - [ ] mobile: fullscreen modal for main pg
     - [ ] edit btn from view pg
     - [ ] scroll top btn
     - [x] markdown syntax support
 
 ## api
+
 _TODO_
 
 ## getting-started
+
 ```bash
 npm i
 # or
@@ -61,45 +64,55 @@ yarn
 ```
 
 ### pm2
+
 ### `pm2 start ecosystem.dev.config.js`
+
 ```js
 module.exports = {
-  apps : [{
-    name: 'notes-2020-next-mongoose-dev',
-    cwd: __dirname + '/.',
-    script: 'yarn',
-    args: 'dev',
-    interpreter: 'none',
-    env: {
-      MONGO_URI: '<YOUR>',
-      JWT_SECRET: '<RANDOM_STRING>',
-      EXPRESS_JWT_MAXAGE_IN_DAYS: 3,
-    }
-  }],
-};
+  apps: [
+    {
+      name: 'notes-2020-next-mongoose-dev',
+      cwd: __dirname + '/.',
+      script: 'yarn',
+      args: 'dev',
+      interpreter: 'none',
+      env: {
+        MONGO_URI: '<YOUR>',
+        JWT_SECRET: '<RANDOM_STRING>',
+        EXPRESS_JWT_MAXAGE_IN_DAYS: 3,
+      },
+    },
+  ],
+}
 ```
 
 ### `pm2 start ecosystem.prod.config.js`
+
 ```js
 module.exports = {
-  apps : [{
-    name: 'notes-2020-next-mongoose',
-    cwd: __dirname + '/.',
-    script: 'yarn',
-    args: 'start',
-    interpreter: 'none',
-    env: {
-      MONGO_URI: '<YOUR>',
-      JWT_SECRET: '<RANDOM_STRING>',
-      EXPRESS_JWT_MAXAGE_IN_DAYS: 3,
-    }
-  }],
-};
+  apps: [
+    {
+      name: 'notes-2020-next-mongoose',
+      cwd: __dirname + '/.',
+      script: 'yarn',
+      args: 'start',
+      interpreter: 'none',
+      env: {
+        MONGO_URI: '<YOUR>',
+        JWT_SECRET: '<RANDOM_STRING>',
+        EXPRESS_JWT_MAXAGE_IN_DAYS: 3,
+      },
+    },
+  ],
+}
 ```
 
 ## envs
+
 ### envs-development
+
 `.env.dev`
+
 ```bash
 MONGO_URI=<YOUR>
 NEXT_APP_API_ENDPOINT=http://localhost:9000
@@ -109,7 +122,9 @@ NEXT_APP_COOKIE_MAXAGE_IN_DAYS=2
 ```
 
 ### envs-production
+
 `.env.prod`
+
 ```bash
 MONGO_URI=<YOUR>
 NEXT_APP_API_ENDPOINT=http://<DOMAIN>
@@ -130,35 +145,34 @@ Open [http://localhost:9000](http://localhost:9000) with your browser to see the
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-
 ## mongodb-extra-info
 
 Mongoose allows you to query your collections in different ways like: [Official Documentation](https://mongoosejs.com/docs/api.html#model_Model.find)
 
 ```js
 // named john and at least 18
-MyModel.find({ name: 'john', age: { $gte: 18 }});
+MyModel.find({ name: 'john', age: { $gte: 18 } })
 
 // executes, passing results to callback
-MyModel.find({ name: 'john', age: { $gte: 18 }}, function (err, docs) {});
+MyModel.find({ name: 'john', age: { $gte: 18 } }, function (err, docs) {})
 
 // executes, name LIKE john and only selecting the "name" and "friends" fields
-MyModel.find({ name: /john/i }, 'name friends', function (err, docs) { })
+MyModel.find({ name: /john/i }, 'name friends', function (err, docs) {})
 
 // passing options
 MyModel.find({ name: /john/i }, null, { skip: 10 })
 
 // passing options and executes
-MyModel.find({ name: /john/i }, null, { skip: 10 }, function (err, docs) {});
+MyModel.find({ name: /john/i }, null, { skip: 10 }, function (err, docs) {})
 
 // executing a query explicitly
 var query = MyModel.find({ name: /john/i }, null, { skip: 10 })
-query.exec(function (err, docs) {});
+query.exec(function (err, docs) {})
 
 // using the promise returned from executing a query
-var query = MyModel.find({ name: /john/i }, null, { skip: 10 });
-var promise = query.exec();
-promise.addBack(function (err, docs) {});
+var query = MyModel.find({ name: /john/i }, null, { skip: 10 })
+var promise = query.exec()
+promise.addBack(function (err, docs) {})
 ```
 
 ## learn-more

@@ -12,7 +12,19 @@
     "analyze:server": "BUNDLE_ANALYZE=server next build",
     "analyze:browser": "BUNDLE_ANALYZE=browser next build",
     "lint": "eslint --debug 'pages/**/*.{js,jsx,ts,tsx}'",
-    "lint:fix": "eslint 'pages/**/*.{js,jsx,ts,tsx}' --fix"
+    "lint:fix": "eslint 'pages/**/*.{js,jsx,ts,tsx}' --fix",
+    "postinstall": "husky install .config/husky"
+  },
+  "lint-staged": {
+    "*.{js, jsx, ts, tsx} !.storybook/*": [
+      "node_modules/.bin/eslint --max-warnings=0",
+      "node_modules/.bin/prettier --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "dependencies": {
     "@loadable/component": "^5.14.1",
@@ -70,6 +82,8 @@
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-standard": "^5.0.0",
+    "husky": "^4.3.5",
+    "lint-staged": "^10.5.3",
     "prettier": "^2.2.1",
     "typescript": "^4.1.3"
   }
