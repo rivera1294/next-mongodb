@@ -1,6 +1,6 @@
 import dbConnect from '~/utils/dbConnect'
 import Note from '~/models/Note'
-import { actionTypes as eTypes } from '~/utils/socket'
+import { actionTypes as eTypes } from '~/socket-logic'
 
 dbConnect()
 
@@ -37,6 +37,8 @@ const idApi = async (req, res) => {
         }
 
         req.io.emit(eTypes.NOTE_UPDATED, { data: note })
+        // console.log(req.io.stateMap.size)
+        // req.socketBroadcast.emit(eTypes.NOTE_UPDATED, { data: note })
         res.status(200).json({ success: true, data: note })
       } catch (error) {
         res.status(400).json({ success: false })
@@ -50,7 +52,7 @@ const idApi = async (req, res) => {
           return res.status(400).json({ success: false })
         }
 
-        req.io.emit(eTypes.NOTE_DELETED, { data: deletedNote })
+        req.io.emit(eTypes.NOTE_DELETED, { data: { ...deletedNote, id } })
         res.status(200).json({ success: true, data: {} })
       } catch (error) {
         res.status(400).json({ success: false })

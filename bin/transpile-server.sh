@@ -6,8 +6,8 @@ for path in \
     run.js \
     express-tools \
     models \
-    utils \
-    socket-logic
+    utils
+    # socket-logic
 do
     arg='--out-file'
 

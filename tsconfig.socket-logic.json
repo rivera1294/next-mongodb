@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "target": "es5",
+    "module": "commonjs",
+    "lib": [
+      "es2015",
+      "es5"
+    ],
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": false,
+    "isolatedModules": false,
+    "baseUrl": ".",
+    "paths": {
+      "~/*": [
+        "./*"
+      ]
+    },
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "outDir": "./server-dist/socket-logic"
+  },
+  "include": [
+    "./socket-logic/index.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/__tests__/*",
+    "utils"
+  ]
+}

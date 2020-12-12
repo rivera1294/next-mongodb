@@ -35,7 +35,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
         - [x] ~~create: nothing?~~
       - [x] notifs: [react-notifications-component](https://github.com/teodosii/react-notifications-component) create/delete/update
       - [x] connection support
-    - [ ] progress line for page loading
+    - [x] progress line for page loading
     - [x] priority stars
     - [x] auth
       - [x] context; provider
@@ -46,7 +46,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
     - [ ] edit btn from view pg
     - [ ] scroll top btn
     - [x] markdown syntax support
-- [x] **project DX**
+- [ ] **project DX**
+  - [ ] typescript?
   - [x] qucik deploy
   - [x] git hooks
   - [x] eslint; prettier
@@ -96,7 +97,7 @@ module.exports = {
       name: 'notes-2020-next-mongoose',
       cwd: __dirname + '/.',
       script: 'yarn',
-      args: 'start',
+      args: 'start:prod',
       interpreter: 'none',
       env: {
         MONGO_URI: '<YOUR>',

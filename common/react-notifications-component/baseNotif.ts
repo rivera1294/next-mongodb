@@ -1,4 +1,6 @@
-export const baseNotif = {
+import { ReactNotificationOptions as IReactNotificationOptions } from 'react-notifications-component'
+
+export const baseNotif: Partial<IReactNotificationOptions> = {
   // slidingExit: { delay: 300 },
   // animationOut: htmlClasses,
   container: 'bottom-left',

@@ -1,55 +1,59 @@
 import { createContext, useReducer, useEffect, useMemo, useContext } from 'react'
 import io from 'socket.io-client'
-import { actionTypes as evt } from '~/utils/socket/actionTypes'
-
-// const types = ['success', 'danger', 'warning', 'default', 'info', 'awesome'];
+import {
+  actionTypes as evt,
+  IDeletedNote,
+  IConnectUserBroadcast,
+  IDisconnectUserBroadcast,
+} from '~/socket-logic'
 import { addInfoNotif } from '~/common/react-notifications-component/addInfoNotif'
 
 const NEXT_APP_SOCKET_API_ENDPOINT = process.env.NEXT_APP_SOCKET_API_ENDPOINT
 
-export const SocketContext = createContext({
+const initialState = {
   socket: null,
+  updatedNote: null,
+}
+
+export const SocketContext = createContext({
+  state: initialState,
 })
 
-function reducer(state, action) {
+function reducer(state: any, action: any) {
   switch (action.type) {
-    case evt.USER_CONNECTED:
+    case evt.ME_CONNECTED:
       return { ...state, socket: action.payload }
     case 'UNMOUNT':
       return { ...state, socket: null }
+    case 'REFRESH_UPDATED_NOTE':
+      return { ...state, updatedNote: action.payload }
     default:
       return state
   }
 }
 
-const initialState = {
-  socket: null,
-}
-
-export const SocketContextProvider = ({ children }) => {
+export const SocketContextProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const isClient = useMemo(() => typeof window !== 'undefined', [typeof window])
-  const handleConnectUser = (arg, socket) => {
+  const handleMeConnected = (arg: IConnectUserBroadcast, socket: any) => {
     console.log(arg)
-    dispatch({ type: evt.USER_CONNECTED, payload: socket })
+    dispatch({ type: evt.ME_CONNECTED, payload: socket })
   }
-  const handleCreateNote = (arg) => {
+  const handleCreateNote = (arg: any) => {
     console.log(arg)
     try {
-      const {
-        data: { title },
-      } = arg
+      const title: string = arg.data.title
 
       addInfoNotif({
         title: 'Created',
-        message: `${title}`,
+        message: title,
         type: 'info',
       })
     } catch (err) {
       console.log(err)
     }
   }
-  const handleUpdateNote = (arg) => {
+  const handleUpdateNote = (arg: any) => {
     console.log(arg)
     try {
       const {
@@ -61,20 +65,53 @@ export const SocketContextProvider = ({ children }) => {
         message: `${_id}`,
         type: 'info',
       })
+      dispatch({ type: 'REFRESH_UPDATED_NOTE', payload: arg.data })
     } catch (err) {
       console.log(err)
     }
   }
-  const handleDeleteNote = (arg) => {
+  const handleDeleteNote = (arg: IDeletedNote) => {
     console.log(arg)
     try {
       const {
-        data: { _id },
+        data: { id },
       } = arg
 
       addInfoNotif({
         title: 'Deleted',
-        message: `${_id}`,
+        message: id,
+        type: 'info',
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  const handleSomebodyConnected = (arg: any) => {
+    console.log(arg)
+    try {
+      const {
+        data: { msg },
+      } = arg
+
+      addInfoNotif({
+        title: 'Somebody connected',
+        message: msg,
+        type: 'info',
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  const handleSomebodyDisconnected = (arg: IDisconnectUserBroadcast) => {
+    console.log(arg)
+    try {
+      const {
+        data: { msg },
+      } = arg
+
+      addInfoNotif({
+        title: 'Somebody disconnected',
+        message: msg,
         type: 'info',
       })
     } catch (err) {
@@ -84,14 +121,17 @@ export const SocketContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (isClient) {
+      // @ts-ignore
       const socket = io.connect(NEXT_APP_SOCKET_API_ENDPOINT)
 
-      socket.on(evt.USER_CONNECTED, (arg) => {
-        handleConnectUser(arg, socket)
+      socket.on(evt.ME_CONNECTED, (arg: any) => {
+        handleMeConnected(arg, socket)
       })
       socket.on(evt.NOTE_CREATED, handleCreateNote)
       socket.on(evt.NOTE_UPDATED, handleUpdateNote)
       socket.on(evt.NOTE_DELETED, handleDeleteNote)
+      socket.on(evt.USER_SOMEBODY_CONNECTED, handleSomebodyConnected)
+      socket.on(evt.USER_SOMEBODY_DISCONNECTED, handleSomebodyDisconnected)
 
       return () => {
         socket.disconnect()
@@ -104,7 +144,7 @@ export const SocketContextProvider = ({ children }) => {
   return (
     <SocketContext.Provider
       value={{
-        socket: state.socket,
+        state,
       }}
     >
       {children}

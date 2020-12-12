@@ -16,17 +16,6 @@ const nextApp = next({ dev: isDev })
 const nextHanlder = nextApp.getRequestHandler()
 const PORT = process.env.PORT ? Number(process.env.PORT) : 3000
 
-// fake DB
-// const messages = []
-
-// socket.io server
-// io.on('connection', socket => {
-//   socket.on('message', (data) => {
-//     messages.push(data)
-//     socket.broadcast.emit('message', data)
-//   })
-// })
-
 const _customIO = socketLogic(io)
 
 nextApp

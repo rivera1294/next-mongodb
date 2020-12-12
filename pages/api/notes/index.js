@@ -1,7 +1,7 @@
 import dbConnect from '~/utils/dbConnect'
 import Note from '~/models/Note'
 import { isNumeric } from '~/utils/isNumeric'
-import { actionTypes as eTypes } from '~/utils/socket'
+import { actionTypes as eTypes } from '~/socket-logic'
 
 dbConnect()
 
