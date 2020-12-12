@@ -24,14 +24,14 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [ ] **UI**
     - [ ] socket
       - [ ] subscribers for webhooks
-        - [ ] update: refresh note when:
-          - [ ] is `activeNote` on /notes page
-          - [ ] inactive on /notes page
-          - [ ] update state on /notes/[id]
         - [ ] detete: remove from list
           - [ ] is `activeNote` on /notes page
           - [ ] inactive on /notes page
           - [ ] update state on /notes/[id] (Empty template)
+        - [x] update: refresh note when:
+          - [x] is `activeNote` on /notes page (useFreshNote hook)
+          - [x] inactive on /notes page
+          - [x] update state on /notes/[id]
         - [x] ~~create: nothing?~~
       - [x] notifs: [react-notifications-component](https://github.com/teodosii/react-notifications-component) create/delete/update
       - [x] connection support
