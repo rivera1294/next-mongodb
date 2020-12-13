@@ -50,8 +50,11 @@ export const GlobalAppContext = createContext({
   handleSearchByTitleSetText: () => {
     throw new Error('handleSearchByTitleSetText method should be implemented')
   },
-  handleUpdateOneNote: () => {
+  handleUpdateOneNote: (note) => {
     throw new Error('handleUpdateOneNote method should be implemented')
+  },
+  handleRemoveOneNote: (id) => {
+    throw new Error('handleRemoveOneNote method should be implemented')
   },
 })
 
@@ -90,6 +93,12 @@ function reducer(state, action) {
       }
 
       return state
+    case 'REMOVE_ONE_NOTE':
+      // console.log(state.notes)
+
+      newState.notes = newState.notes.filter(({ _id }) => _id !== action.payload)
+
+      return newState
     default:
       return state
   }
@@ -158,6 +167,9 @@ export const GlobalAppContextProvider = ({ children }) => {
   const handleUpdateOneNote = (note) => {
     dispatch({ type: 'UPDATE_ONE_NOTE', payload: note })
   }
+  const handleRemoveOneNote = (id) => {
+    dispatch({ type: 'REMOVE_ONE_NOTE', payload: id })
+  }
 
   return (
     <GlobalAppContext.Provider
@@ -173,6 +185,7 @@ export const GlobalAppContextProvider = ({ children }) => {
         handleSearchByDescriptionSetText,
         handleSearchByTitleSetText,
         handleUpdateOneNote,
+        handleRemoveOneNote,
       }}
     >
       {children}

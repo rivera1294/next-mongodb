@@ -19,8 +19,11 @@ export function useFreshNote(initialNote) {
     ) {
       handleUpdateThisNote(state.updatedNote)
       currentNoteUpdatedAtRef.current = new Date(state.updatedNote.updatedAt)
+    } else if (!!state.deletedNoteId && state.deletedNoteId === currentNoteIdRef.current) {
+      handleUpdateThisNote({ title: 'DELETED' })
+      currentNoteUpdatedAtRef.current = new Date()
     }
-  }, [JSON.stringify(state.updatedNote), JSON.stringify(initialNote)])
+  }, [JSON.stringify(state.updatedNote), state.deletedNoteId, JSON.stringify(initialNote)])
 
   return refreshedNote
 }

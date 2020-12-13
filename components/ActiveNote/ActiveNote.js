@@ -14,9 +14,7 @@ const renderers = {
 }
 
 export const ActiveNote = ({ note: initialNote }) => {
-  // if (!!initialNote) return null
   const note = useFreshNote(initialNote)
-
   const { description, priority, title } = note
 
   // Links should be opened in new tab:
@@ -39,15 +37,19 @@ export const ActiveNote = ({ note: initialNote }) => {
       <div style={{ marginBottom: '5px', userSelect: 'none' }}>
         <h3>{title}</h3>
       </div>
-      <div style={{ marginBottom: '20px', userSelect: 'none' }}>
-        <div style={{ marginBottom: '10px', userSelect: 'none' }}>
-          <Rating key={priority} maxRating={5} rating={priority} disabled />
+      {!!priority && (
+        <div style={{ marginBottom: '20px', userSelect: 'none' }}>
+          <div style={{ marginBottom: '10px', userSelect: 'none' }}>
+            <Rating key={priority} maxRating={5} rating={priority} disabled />
+          </div>
+          <div style={{ borderBottom: '2px solid lightgray' }} />
         </div>
-        <div style={{ borderBottom: '2px solid lightgray' }} />
-      </div>
-      <div className="description-markdown">
-        <ReactMarkdown plugins={[gfm, { singleTilde: false }]} renderers={renderers} children={description} />
-      </div>
+      )}
+      {!!description && (
+        <div className="description-markdown">
+          <ReactMarkdown plugins={[gfm, { singleTilde: false }]} renderers={renderers} children={description} />
+        </div>
+      )}
       {/* <pre style={{ whiteSpace: 'pre-wrap' }}>{JSON.stringify(note, null, 2)}</pre> */}
     </div>
   )

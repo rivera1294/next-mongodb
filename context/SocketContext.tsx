@@ -14,6 +14,7 @@ const NEXT_APP_SOCKET_API_ENDPOINT = process.env.NEXT_APP_SOCKET_API_ENDPOINT
 const initialState = {
   socket: null,
   updatedNote: null,
+  deletedNoteId: null,
 }
 
 export const SocketContext = createContext({
@@ -28,6 +29,8 @@ function reducer(state: any, action: any) {
       return { ...state, socket: null }
     case 'REFRESH_UPDATED_NOTE':
       return { ...state, updatedNote: action.payload }
+    case 'UPDATE_DELETED_NOTE_ID':
+      return { ...state, deletedNoteId: action.payload }
     default:
       return state
   }
@@ -55,7 +58,7 @@ export const SocketContextProvider = ({ children }: any) => {
     }
   }
   // ---
-  const { handleUpdateOneNote } = useGlobalAppContext()
+  const { handleUpdateOneNote, handleRemoveOneNote } = useGlobalAppContext()
   // ---
   const handleUpdateNote = (arg: any) => {
     console.log(arg)
@@ -76,6 +79,11 @@ export const SocketContextProvider = ({ children }: any) => {
       console.log(err)
     }
   }
+  // ---
+  const handleUpdateDeletedNoteId = (id: string) => {
+    dispatch({ type: 'UPDATE_DELETED_NOTE_ID', payload: id })
+  }
+  // ---
   const handleDeleteNote = (arg: IDeletedNote) => {
     console.log(arg)
     try {
@@ -88,6 +96,8 @@ export const SocketContextProvider = ({ children }: any) => {
         message: id,
         type: 'info',
       })
+      handleUpdateDeletedNoteId(id)
+      handleRemoveOneNote(id)
     } catch (err) {
       console.log(err)
     }
