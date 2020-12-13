@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "git:pull": "git pull",
+    "git:pull": "bash ./bin/pull.sh",
     "make-js-server": "bash ./bin/transpile-server.sh && yarn transpile-socket-logic",
     "transpile-socket-logic": "node_modules/.bin/tsc --project ./tsconfig.socket-logic.json --downlevelIteration",
     "dev": "yarn make-js-server && PORT=9000 NODE_ENV=development node server-dist/run.js",
