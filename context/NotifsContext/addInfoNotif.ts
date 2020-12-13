@@ -3,13 +3,12 @@ import { baseNotif } from './baseNotif'
 
 // const types = ['success', 'danger', 'warning', 'default', 'info', 'awesome'];
 
-export const addInfoNotif = ({ title, message }: Partial<IReactNotificationOptions>): void => {
+export const addInfoNotif = (props: Partial<IReactNotificationOptions>): void => {
   // @ts-ignore
   store.addNotification({
     ...baseNotif,
     type: 'info',
 
-    title,
-    message,
+    ...props,
   })
 }

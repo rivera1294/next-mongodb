@@ -1,12 +1,7 @@
 import { createContext, useReducer, useEffect, useMemo, useContext } from 'react'
 import io from 'socket.io-client'
-import {
-  actionTypes as evt,
-  IDeletedNote,
-  IConnectSelf,
-  IDisconnectUserBroadcast,
-} from '~/socket-logic'
-import { addInfoNotif } from '~/common/react-notifications-component/addInfoNotif'
+import { actionTypes as evt, IDeletedNote, IConnectSelf, IDisconnectUserBroadcast } from '~/socket-logic'
+import { useNotifsContext } from '~/hooks'
 import { useGlobalAppContext } from './GlobalAppContext'
 
 const NEXT_APP_SOCKET_API_ENDPOINT = process.env.NEXT_APP_SOCKET_API_ENDPOINT
@@ -39,8 +34,9 @@ function reducer(state: any, action: any) {
 export const SocketContextProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const isClient = useMemo(() => typeof window !== 'undefined', [typeof window])
+  const { addInfoNotif } = useNotifsContext()
   const handleMeConnected = (arg: IConnectSelf, socket: any) => {
-    console.log(arg)
+    // console.log(arg)
     addInfoNotif({
       title: 'Me connected',
       message: arg.data.msg,
@@ -49,14 +45,10 @@ export const SocketContextProvider = ({ children }: any) => {
     dispatch({ type: evt.ME_CONNECTED, payload: socket })
   }
   // ---
-  const {
-    handleUpdateOneNote,
-    handleRemoveOneNote,
-    handleAddOneNote,
-  } = useGlobalAppContext()
+  const { handleUpdateOneNote, handleRemoveOneNote, handleAddOneNote } = useGlobalAppContext()
   // ---
   const handleCreateNote = (arg: any) => {
-    console.log(arg)
+    // console.log(arg)
     try {
       const title: string = arg.data.title
 
@@ -68,11 +60,11 @@ export const SocketContextProvider = ({ children }: any) => {
       // TODO: Add if validated by current filter settings
       handleAddOneNote(arg.data)
     } catch (err) {
-      console.log(err)
+      // console.log(err)
     }
   }
   const handleUpdateNote = (arg: any) => {
-    console.log(arg)
+    // console.log(arg)
     try {
       const {
         data: { _id },
@@ -87,7 +79,7 @@ export const SocketContextProvider = ({ children }: any) => {
       // @ts-ignore
       handleUpdateOneNote(arg.data)
     } catch (err) {
-      console.log(err)
+      // console.log(err)
     }
   }
   // ---
@@ -96,7 +88,7 @@ export const SocketContextProvider = ({ children }: any) => {
   }
   // ---
   const handleDeleteNote = (arg: IDeletedNote) => {
-    console.log(arg)
+    // console.log(arg)
     try {
       const {
         data: { id },
@@ -110,11 +102,11 @@ export const SocketContextProvider = ({ children }: any) => {
       handleUpdateDeletedNoteId(id)
       handleRemoveOneNote(id)
     } catch (err) {
-      console.log(err)
+      // console.log(err)
     }
   }
   const handleSomebodyConnected = (arg: any) => {
-    console.log(arg)
+    // console.log(arg)
     try {
       const {
         data: { msg },
@@ -126,11 +118,11 @@ export const SocketContextProvider = ({ children }: any) => {
         type: 'info',
       })
     } catch (err) {
-      console.log(err)
+      // console.log(err)
     }
   }
   const handleSomebodyDisconnected = (arg: IDisconnectUserBroadcast) => {
-    console.log(arg)
+    // console.log(arg)
     try {
       const {
         data: { msg },
@@ -142,7 +134,7 @@ export const SocketContextProvider = ({ children }: any) => {
         type: 'info',
       })
     } catch (err) {
-      console.log(err)
+      // console.log(err)
     }
   }
 
