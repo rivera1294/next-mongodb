@@ -3,7 +3,7 @@ import io from 'socket.io-client'
 import {
   actionTypes as evt,
   IDeletedNote,
-  IConnectUserBroadcast,
+  IConnectSelf,
   IDisconnectUserBroadcast,
 } from '~/socket-logic'
 import { addInfoNotif } from '~/common/react-notifications-component/addInfoNotif'
@@ -39,10 +39,22 @@ function reducer(state: any, action: any) {
 export const SocketContextProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const isClient = useMemo(() => typeof window !== 'undefined', [typeof window])
-  const handleMeConnected = (arg: IConnectUserBroadcast, socket: any) => {
+  const handleMeConnected = (arg: IConnectSelf, socket: any) => {
     console.log(arg)
+    addInfoNotif({
+      title: 'Me connected',
+      message: arg.data.msg,
+      type: 'info',
+    })
     dispatch({ type: evt.ME_CONNECTED, payload: socket })
   }
+  // ---
+  const {
+    handleUpdateOneNote,
+    handleRemoveOneNote,
+    handleAddOneNote,
+  } = useGlobalAppContext()
+  // ---
   const handleCreateNote = (arg: any) => {
     console.log(arg)
     try {
@@ -53,13 +65,12 @@ export const SocketContextProvider = ({ children }: any) => {
         message: title,
         type: 'info',
       })
+      // TODO: Add if validated by current filter settings
+      handleAddOneNote(arg.data)
     } catch (err) {
       console.log(err)
     }
   }
-  // ---
-  const { handleUpdateOneNote, handleRemoveOneNote } = useGlobalAppContext()
-  // ---
   const handleUpdateNote = (arg: any) => {
     console.log(arg)
     try {

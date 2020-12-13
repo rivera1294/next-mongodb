@@ -24,7 +24,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [ ] **UI**
     - [ ] socket
       - [ ] subscribers for webhooks
-        - [ ] ~~create: nothing?~~
+        - [ ] create
+          - [ ] add if validated by current filter settings?
+          - [x] add to list
         - [x] detete: remove from list
           - [x] is `activeNote` on /notes page
           - [x] inactive on /notes page

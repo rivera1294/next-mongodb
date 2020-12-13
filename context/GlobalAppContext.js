@@ -56,6 +56,9 @@ export const GlobalAppContext = createContext({
   handleRemoveOneNote: (id) => {
     throw new Error('handleRemoveOneNote method should be implemented')
   },
+  handleAddOneNote: (note) => {
+    throw new Error('handleAddOneNote method should be implemented')
+  },
 })
 
 function reducer(state, action) {
@@ -94,9 +97,11 @@ function reducer(state, action) {
 
       return state
     case 'REMOVE_ONE_NOTE':
-      // console.log(state.notes)
-
       newState.notes = newState.notes.filter(({ _id }) => _id !== action.payload)
+
+      return newState
+    case 'ADD_ONE_NOTE':
+      newState.notes = [...newState.notes, action.payload]
 
       return newState
     default:
@@ -170,6 +175,9 @@ export const GlobalAppContextProvider = ({ children }) => {
   const handleRemoveOneNote = (id) => {
     dispatch({ type: 'REMOVE_ONE_NOTE', payload: id })
   }
+  const handleAddOneNote = (note) => {
+    dispatch({ type: 'ADD_ONE_NOTE', payload: note })
+  }
 
   return (
     <GlobalAppContext.Provider
@@ -186,6 +194,7 @@ export const GlobalAppContextProvider = ({ children }) => {
         handleSearchByTitleSetText,
         handleUpdateOneNote,
         handleRemoveOneNote,
+        handleAddOneNote,
       }}
     >
       {children}

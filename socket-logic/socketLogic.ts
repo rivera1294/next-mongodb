@@ -6,12 +6,14 @@ const stateMap = new Map()
 
 export function socketLogic(io: any) {
   io.on('connection', function (socket: any) {
+    const ip = socket.handshake.address
+
     // console.log('=== Somebody connected ===')
     const body0: IConnectSelf = {
       data: {
-        msg: "I'm connected",
+        msg: `${socket.id}; ${ip}`,
         socketId: socket.id,
-        ip: socket.handshake.address,
+        ip,
         totalConnections: stateMap.size,
       },
     }
@@ -19,11 +21,10 @@ export function socketLogic(io: any) {
     socket.join(socket.id);
 
     try {
-      const ip = socket.handshake.address
       stateMap.set(socket.id, ip)
       const body1: IConnectUserBroadcast = {
         data: {
-          msg: `${socket.id}, ${ip}`,
+          msg: `${socket.id}; ${ip}`,
           socketId: socket.id,
           ip,
           totalConnections: stateMap.size,
@@ -43,7 +44,7 @@ export function socketLogic(io: any) {
         data: {
           msg: `socketId: ${socket.id}`,
           socketId: socket.id,
-          ip: socket.handshake.address,
+          ip,
           totalConnections: stateMap.size,
         },
       }
