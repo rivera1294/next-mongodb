@@ -28,7 +28,7 @@ const mdParser = new MarkdownIt({
 const MDEditor = loadable(() => import('react-markdown-editor-lite')) // Ленивая загрузка
 
 const EditNote = ({ note }) => {
-  const [form, setForm] = useState({ title: note.title, description: note.description, priority: note.priority || 1 })
+  const [form, setForm] = useState({ title: note.title, description: note.description, priority: note.priority || 0 })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errors, setErrors] = useState({})
   const router = useRouter()
@@ -46,15 +46,29 @@ const EditNote = ({ note }) => {
 
   const updateNote = async () => {
     try {
+      const body = {}
+      Object.keys(form).forEach((key) => {
+        switch (key) {
+          case 'title':
+          case 'description':
+            body[key] = form[key]
+            break
+          case 'priority':
+            if (!!form[key]) body[key] = form[key]
+            break
+          default:
+            break
+        }
+      })
       const _res = await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes/${router.query.id}`, {
         method: 'PUT',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(form),
+        body: JSON.stringify(body),
       })
-      router.push('/')
+      router.push(`/notes/${router.query.id}`)
     } catch (_err) {
       // console.log(err)
       // TODO: logger

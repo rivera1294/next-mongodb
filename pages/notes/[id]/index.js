@@ -33,6 +33,11 @@ const Note = ({ note }) => {
       // TODO: logger
     }
   }
+  const handleEdit = () => {
+    const noteId = router.query.id
+
+    router.push(`/notes/${noteId}/edit`)
+  }
   const handleDelete = async () => {
     setIsDeleting(true)
     close()
@@ -51,9 +56,14 @@ const Note = ({ note }) => {
       </div>
       <div className="standard-container">
         {isLogged && (
-          <Button basic color="red" onClick={open}>
-            Delete
-          </Button>
+          <>
+            <Button basic color="red" onClick={open}>
+              Delete
+            </Button>
+            <Button basic color="blue" onClick={handleEdit}>
+              Edit
+            </Button>
+          </>
         )}
       </div>
     </>

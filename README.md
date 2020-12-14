@@ -22,19 +22,22 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [x] jwt auth
 - [ ] **frontend**
   - [ ] **UI**
+    - [ ] **@material-ui/core** instead of react-semantic-ui?
     - [ ] socket
       - [ ] subscribers for webhooks
         - [ ] create
           - [ ] add if validated by current filter settings?
           - [x] add to list
         - [x] detete: remove from list
-          - [x] is `activeNote` on /notes page
+          - [x] **useFreshNote** hook
+            - [x] is `activeNote` on /notes page
+            - [x] update state on /notes/[id] (Empty template)
           - [x] inactive on /notes page
-          - [x] update state on /notes/[id] (Empty template)
         - [x] update: refresh note when:
-          - [x] is `activeNote` on /notes page (useFreshNote hook)
+          - [x] **useFreshNote** hook
+            - [x] is `activeNote` on /notes page (useFreshNote hook)
+            - [x] update state on /notes/[id]
           - [x] inactive on /notes page
-          - [x] update state on /notes/[id]
       - [x] notifs: [react-notifications-component](https://github.com/teodosii/react-notifications-component) create/delete/update
       - [x] connection support
     - [x] progress line for page loading
@@ -45,12 +48,12 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [ ] **UX**
     - [ ] set filter settings to params (\*)
     - [ ] mobile: fullscreen modal for `activeNote` on main pg
-    - [ ] edit btn from view pg
     - [ ] scroll top btn
     - [x] markdown syntax support
 - [ ] **project DX**
   - [ ] typescript?
-  - [x] qucik deploy
+  - [ ] qucik deploy
+    - [ ] deploy-app?
   - [x] git hooks
   - [x] eslint; prettier
   - [x] could be started by pm2
