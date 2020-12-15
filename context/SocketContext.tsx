@@ -36,7 +36,7 @@ function reducer(state: any, action: any) {
 export const SocketContextProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const isClient = useMemo(() => typeof window !== 'undefined', [typeof window])
-  const { addInfoNotif } = useNotifsContext()
+  const { addInfoNotif, addDangerNotif } = useNotifsContext()
   const handleMeConnected = (arg: IConnectSelf, socket: any) => {
     // console.log(arg)
     addInfoNotif({
@@ -162,6 +162,12 @@ export const SocketContextProvider = ({ children }: any) => {
             handleSetNotesResponse(res)
           })
           .catch((err) => {
+            if (typeof err === 'string') {
+              addDangerNotif({
+                title: 'ERR: Update list by socket connection',
+                message: err,
+              })
+            }
             console.log(err)
           })
         // }
