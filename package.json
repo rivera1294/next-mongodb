@@ -19,7 +19,7 @@
     "deploy-app:init": "node_modules/.bin/deploy-app init"
   },
   "lint-staged": {
-    "*.{js, jsx, ts, tsx} !.storybook/*": [
+    "*.{js, jsx, ts, tsx}": [
       "node_modules/.bin/eslint --max-warnings=0",
       "node_modules/.bin/prettier --write"
     ]
