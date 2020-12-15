@@ -1,8 +1,10 @@
-import { createContext, useReducer, useEffect, useMemo, useContext } from 'react'
+/* eslint-disable no-console */
+import { createContext, useReducer, useEffect, useMemo, useContext, useRef } from 'react'
 import io from 'socket.io-client'
 import { actionTypes as evt, IDeletedNote, IConnectSelf, IDisconnectUserBroadcast } from '~/socket-logic'
 import { useNotifsContext } from '~/hooks'
 import { useGlobalAppContext } from './GlobalAppContext'
+import { httpClient } from '~/utils/httpClient'
 
 const NEXT_APP_SOCKET_API_ENDPOINT = process.env.NEXT_APP_SOCKET_API_ENDPOINT
 
@@ -45,7 +47,7 @@ export const SocketContextProvider = ({ children }: any) => {
     dispatch({ type: evt.ME_CONNECTED, payload: socket })
   }
   // ---
-  const { handleUpdateOneNote, handleRemoveOneNote, handleAddOneNote } = useGlobalAppContext()
+  const { handleUpdateOneNote, handleRemoveOneNote, handleAddOneNote, handleSetNotesResponse } = useGlobalAppContext()
   // ---
   const handleCreateNote = (arg: any) => {
     // console.log(arg)
@@ -137,14 +139,32 @@ export const SocketContextProvider = ({ children }: any) => {
       // console.log(err)
     }
   }
+  const handleGetAllNotes = async () => {
+    const res = await httpClient.getNotes('/notes') // TODO: query
+
+    return res
+  }
+  const renderCounterRef = useRef<number>(0)
 
   useEffect(() => {
+    renderCounterRef.current += 1
     if (isClient) {
       // @ts-ignore
       const socket = io.connect(NEXT_APP_SOCKET_API_ENDPOINT)
 
       socket.on(evt.ME_CONNECTED, (arg: any) => {
         handleMeConnected(arg, socket)
+
+        // NOTE: is reconnect?
+        if (renderCounterRef.current > 1) {
+          handleGetAllNotes()
+            .then((res) => {
+              handleSetNotesResponse(res)
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+        }
       })
       socket.on(evt.NOTE_CREATED, handleCreateNote)
       socket.on(evt.NOTE_UPDATED, handleUpdateNote)

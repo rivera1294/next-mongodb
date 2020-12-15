@@ -59,6 +59,9 @@ export const GlobalAppContext = createContext({
   handleAddOneNote: (note) => {
     throw new Error('handleAddOneNote method should be implemented')
   },
+  handleSetNotesResponse: (notesAndPag) => {
+    throw new Error('handleSetNotesResponse method should be implemented')
+  },
 })
 
 function reducer(state, action) {
@@ -176,6 +179,9 @@ export const GlobalAppContextProvider = ({ children }) => {
   const handleAddOneNote = (note) => {
     dispatch({ type: 'ADD_ONE_NOTE', payload: note })
   }
+  const handleSetNotesResponse = ({ data, pagination }) => {
+    dispatch({ type: 'NOTES_RESPONSE@SET', payload: { data, pagination } })
+  }
 
   return (
     <GlobalAppContext.Provider
@@ -193,6 +199,7 @@ export const GlobalAppContextProvider = ({ children }) => {
         handleUpdateOneNote,
         handleRemoveOneNote,
         handleAddOneNote,
+        handleSetNotesResponse,
       }}
     >
       {children}
