@@ -116,26 +116,10 @@ const EditNote = ({ note }) => {
               value={form.title}
               onChange={handleChange}
             />
-            {/* <Form.TextArea
-                                fluid
-                                label='Descriprtion'
-                                placeholder='Description'
-                                name='description'
-                                error={errors.description ? { content: 'Please enter a description', pointing: 'below' } : null}
-                                value={form.description}
-                                onChange={handleChange}
-                            /> */}
             <MDEditor
               value={form.description}
               style={{ minHeight }}
               renderHTML={(text) => mdParser.render(text)}
-              // renderHTML={(text) => (
-              //     <ReactMarkdown
-              //         plugins={[gfm, {singleTilde: false}]}
-              //         renderers={renderers}
-              //         children={text}
-              //     />
-              // )}
               onChange={({ text }) => {
                 handleChange({ target: { value: text, name: 'description' } })
               }}
