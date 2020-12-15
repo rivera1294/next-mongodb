@@ -180,7 +180,7 @@ export const GlobalAppContextProvider = ({ children }) => {
     dispatch({ type: 'ADD_ONE_NOTE', payload: note })
   }
   const handleSetNotesResponse = ({ data, pagination }) => {
-    dispatch({ type: 'NOTES_RESPONSE@SET', payload: { data, pagination } })
+    dispatch({ type: 'NOTES_RESPONSE@SET', payload: { notes: data, pagination } })
   }
 
   return (
