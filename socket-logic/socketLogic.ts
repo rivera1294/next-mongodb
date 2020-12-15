@@ -18,7 +18,7 @@ export function socketLogic(io: any) {
       },
     }
     io.to(socket.id).emit(eTypes.ME_CONNECTED, body0)
-    socket.join(socket.id);
+    socket.join(socket.id)
 
     try {
       stateMap.set(socket.id, ip)

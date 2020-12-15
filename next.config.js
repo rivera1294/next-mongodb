@@ -12,7 +12,7 @@ const withBundleAnalyzer = require('@zeit/next-bundle-analyzer')
 const nextConfig = {
   exportPathMap: function () {
     return {
-      '/': { page: '/' }
+      '/': { page: '/' },
     }
   },
   webpack(config) {

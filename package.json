@@ -13,8 +13,9 @@
     "analyze": "BUNDLE_ANALYZE=both next build",
     "analyze:server": "BUNDLE_ANALYZE=server next build",
     "analyze:browser": "BUNDLE_ANALYZE=browser next build",
-    "lint": "eslint --debug 'pages/**/*.{js,jsx,ts,tsx}'",
-    "lint:fix": "eslint 'pages/**/*.{js,jsx,ts,tsx}' --fix",
+    "lint": "node_modules/.bin/eslint --debug 'pages/**/*.{js,jsx,ts,tsx}'",
+    "lint:fix": "node_modules/.bin/eslint 'pages/**/*.{js,jsx,ts,tsx}' --fix",
+    "format": "node_modules/.bin/prettier --write \"**/*.{js,jsx,ts,tsx}\" !.next !components",
     "postinstall": "husky install .config/husky",
     "deploy-app:init": "node_modules/.bin/deploy-app init"
   },
@@ -26,7 +27,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged && yarn format"
     }
   },
   "dependencies": {
