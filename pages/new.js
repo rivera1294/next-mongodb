@@ -47,7 +47,7 @@ const NewNote = () => {
           setErrors({ response: err.message })
         })
     } catch (_err) {
-      // TODO: logger
+      // TODO: logger?
     }
   }
 

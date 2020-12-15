@@ -15,7 +15,7 @@ const renderers = {
 
 export const ActiveNote = ({ note: initialNote }) => {
   const note = useFreshNote(initialNote)
-  const { description, priority, title } = note
+  const { description, priority, title, _id } = note
 
   // Links should be opened in new tab:
   useEffect(() => {
@@ -37,7 +37,7 @@ export const ActiveNote = ({ note: initialNote }) => {
       <div style={{ marginBottom: '5px', userSelect: 'none' }}>
         <h3>{title}</h3>
       </div>
-      {!!priority && (
+      {!!_id && (
         <div style={{ marginBottom: '20px', userSelect: 'none' }}>
           <div style={{ marginBottom: '10px', userSelect: 'none' }}>
             <Rating key={priority} maxRating={5} rating={priority} disabled />
