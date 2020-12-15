@@ -45,12 +45,8 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
             loading={isLoading}
             disabled={isLoading}
             iconPosition="left"
-            // fluid
-            // icon
             placeholder="Search by title..."
-            // icon={<Icon name='search' inverted circular link />}
             onChange={(e) => {
-              // setPage(1)
               handleSearchByTitleSetText(e.target.value)
             }}
             value={state.searchByTitle}
@@ -62,12 +58,8 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
             loading={isLoading}
             disabled={isLoading}
             iconPosition="left"
-            // fluid
-            // icon
             placeholder="Search by description..."
-            // icon={<Icon name='search' inverted circular link />}
             onChange={(e) => {
-              // setPage(1)
               handleSearchByDescriptionSetText(e.target.value)
             }}
             value={state.searchByDescription}
@@ -81,7 +73,6 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
         </div>
         {state.notes.length > 0 && totalPages > 0 && !!currentPage && !!state.pagination && (
           <Pagination
-            // boundaryRange={0}
             defaultActivePage={page}
             ellipsisItem={null}
             firstItem={null}
@@ -106,12 +97,10 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
                   <Card>
                     <Card.Content>
                       <Card.Header>
-                        {/* <Link href={`/${note._id}`} hrefAs='/[id]'><a>{note.title}</a></Link> */}
                         <div onClick={() => handleSetAsActiveNote(note)} className="note-title-wrapper">
                           <b>
                             {note.title}
-                            {!!note.priority ? (
-                              // ? <span className='muted'> <i className="fas fa-star"></i> {note.priority}</span>
+                            {!!note.id ? (
                               <span>
                                 {' '}
                                 <Rating disabled size="large" /> <span className="muted">{note.priority}</span>
