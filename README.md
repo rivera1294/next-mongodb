@@ -24,6 +24,11 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [ ] **UI**
     - [ ] **@material-ui/core** instead of react-semantic-ui?
     - [ ] socket
+      - [ ] on connect
+        - [ ] update list on connection
+          - [ ] by global filters
+            - [ ] build-url
+          - [x] default settings
       - [ ] subscribers for webhooks
         - [ ] create
           - [ ] add if validated by current filter settings?
