@@ -156,15 +156,15 @@ export const SocketContextProvider = ({ children }: any) => {
         handleMeConnected(arg, socket)
 
         // NOTE: is reconnect?
-        if (renderCounterRef.current > 1) {
-          handleGetAllNotes()
-            .then((res) => {
-              handleSetNotesResponse(res)
-            })
-            .catch((err) => {
-              console.log(err)
-            })
-        }
+        // if (renderCounterRef.current > 1) {
+        handleGetAllNotes()
+          .then((res) => {
+            handleSetNotesResponse(res)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+        // }
       })
       socket.on(evt.NOTE_CREATED, handleCreateNote)
       socket.on(evt.NOTE_UPDATED, handleUpdateNote)
