@@ -27,8 +27,12 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && yarn format"
+      "pre-commit": "lint-staged && yarn format",
+      "commit-msg": "node ./scripts/write-task-name-to-commit"
     }
+  },
+  "eslintConfig": {
+    "extends": "react-app"
   },
   "dependencies": {
     "@loadable/component": "^5.14.1",
