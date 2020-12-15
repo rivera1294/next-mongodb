@@ -88,8 +88,6 @@ function reducer(state, action) {
     case 'UPDATE_ONE_NOTE':
       const theNoteIndex = state.notes.findIndex(({ _id }) => _id === action.payload._id)
 
-      // console.log(theNoteIndex)
-
       if (theNoteIndex !== -1) {
         newState.notes[theNoteIndex] = action.payload
         return newState
