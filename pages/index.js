@@ -32,7 +32,7 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
   useEffect(() => {
     renderCountRef.current += 1
   })
-  const notes = renderCountRef.current > 1 ? state.notes : initNotes
+  const notes = useMemo(() => (renderCountRef.current >= 1 ? state.notes : initNotes), [JSON.stringify(state.notes)])
   const { isLogged } = useAuthContext()
   const activeNote = useMemo(() => state.activeNote, [JSON.stringify(state.activeNote)])
 
