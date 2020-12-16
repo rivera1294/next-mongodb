@@ -83,13 +83,13 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
           />
         )}
       </div>
-      <div style={{ border: '1px solid red' }}>
+      {/* <div style={{ border: '1px solid red' }}>
         <pre
           style={{ whiteSpace: 'pre-wrap', maxHeight: '100px', minHeight: '100px', overflowY: 'auto', margin: '0px' }}
         >
           {JSON.stringify(activeNote, null, 2)}
         </pre>
-      </div>
+      </div> */}
       <div className="main standard-container">
         <div className="active-note-external-sticky-wrapper">
           {!!activeNote && <ActiveNote note={activeNote} key={activeNote._id} />}

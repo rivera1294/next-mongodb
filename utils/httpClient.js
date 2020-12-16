@@ -123,7 +123,7 @@ class HttpClientSingletone {
 
     this.getNoteCancelTokenSource = null
     if (response.isOk) {
-      return Promise.resolve(response.res)
+      return Promise.resolve(response.res.data)
     }
     if (response.res instanceof HttpError) {
       return Promise.reject(response.res.getErrorMsg())
