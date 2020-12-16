@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { createContext, useReducer, useEffect, useMemo, useContext, useRef, useCallback } from 'react'
+import { createContext, useReducer, useEffect, useMemo, useContext, useRef } from 'react'
 import io from 'socket.io-client'
 import { actionTypes as evt, IDeletedNote, IConnectSelf, IDisconnectUserBroadcast } from '~/socket-logic'
 import { useNotifsContext } from '~/hooks'
