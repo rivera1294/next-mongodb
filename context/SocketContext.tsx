@@ -55,42 +55,39 @@ export const SocketContextProvider = ({ children }: any) => {
 
     return res
   }
-  const handleMeConnected = useCallback(
-    (arg: IConnectSelf, socket: any) => {
-      console.log('--- activeNote')
-      console.log(globalState.activeNote)
-      if (!!globalState.activeNote?._id) {
-        // TODO: Request activeNote._id should be requested
-        console.log('TODO: Request activeNote._id')
-        console.log(globalState.activeNote._id)
+  const handleMeConnected = (arg: IConnectSelf, socket: any) => {
+    console.log('--- activeNote')
+    console.log(globalState.activeNote)
+    if (!!globalState.activeNote?._id) {
+      // TODO: Request activeNote._id should be requested
+      console.log('TODO: Request activeNote._id')
+      console.log(globalState.activeNote._id)
 
-        handleGetNote(globalState.activeNote._id)
-          .then((res) => {
-            console.log('Received:')
-            console.log(res)
-            handleSetAsActiveNote(res)
-          })
-          .catch((err) => {
-            if (typeof err === 'string') {
-              addDangerNotif({
-                title: 'ERR: Update activeNote by new socket connection',
-                message: err,
-              })
-            }
-            console.log(err)
-          })
-      }
+      handleGetNote(globalState.activeNote._id)
+        .then((res) => {
+          console.log('Received:')
+          console.log(res)
+          handleSetAsActiveNote(res)
+        })
+        .catch((err) => {
+          if (typeof err === 'string') {
+            addDangerNotif({
+              title: 'ERR: Update activeNote by new socket connection',
+              message: err,
+            })
+          }
+          console.log(err)
+        })
+    }
 
-      // console.log(arg)
-      addInfoNotif({
-        title: 'Me connected',
-        message: arg.data.msg,
-        type: 'info',
-      })
-      dispatch({ type: evt.ME_CONNECTED, payload: socket })
-    },
-    [globalState.activeNote?._id]
-  )
+    // console.log(arg)
+    addInfoNotif({
+      title: 'Me connected',
+      message: arg.data.msg,
+      type: 'info',
+    })
+    dispatch({ type: evt.ME_CONNECTED, payload: socket })
+  }
   const handleMeConnectedRef = useRef(handleMeConnected)
   const handleCreateNote = (arg: any) => {
     // console.log(arg)
