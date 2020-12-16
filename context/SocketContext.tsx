@@ -46,7 +46,9 @@ export const SocketContextProvider = ({ children }: any) => {
     handleSetAsActiveNote,
     state: globalState,
   } = useGlobalAppContext()
-  const activeNote = useMemo(() => globalState.activeNote, [globalState.activeNote?.id])
+  useEffect(() => {
+    console.log(globalState.activeNote)
+  }, [globalState.activeNote])
   // ---
   const handleGetNote = async (id: number) => {
     const res = await httpClient.getNote(id)
@@ -56,13 +58,13 @@ export const SocketContextProvider = ({ children }: any) => {
   const handleMeConnected = useCallback(
     (arg: IConnectSelf, socket: any) => {
       console.log('--- activeNote')
-      console.log(activeNote)
-      if (!!activeNote?._id) {
+      console.log(globalState.activeNote)
+      if (!!globalState.activeNote?._id) {
         // TODO: Request activeNote._id should be requested
         console.log('TODO: Request activeNote._id')
-        console.log(activeNote._id)
+        console.log(globalState.activeNote._id)
 
-        handleGetNote(activeNote._id)
+        handleGetNote(globalState.activeNote._id)
           .then((res) => {
             console.log('Received:')
             console.log(res)
@@ -87,8 +89,9 @@ export const SocketContextProvider = ({ children }: any) => {
       })
       dispatch({ type: evt.ME_CONNECTED, payload: socket })
     },
-    [activeNote]
+    [globalState.activeNote?.id]
   )
+  const handleMeConnectedRef = useRef(handleMeConnected)
   const handleCreateNote = (arg: any) => {
     // console.log(arg)
     try {
@@ -184,16 +187,16 @@ export const SocketContextProvider = ({ children }: any) => {
 
     return res
   }
-  const renderCounterRef = useRef<number>(0)
+  // const renderCounterRef = useRef<number>(0)
 
   useEffect(() => {
-    renderCounterRef.current += 1
+    // renderCounterRef.current += 1
     if (isClient) {
       // @ts-ignore
       const socket = io.connect(NEXT_APP_SOCKET_API_ENDPOINT)
 
       socket.on(evt.ME_CONNECTED, (arg: any) => {
-        handleMeConnected(arg, socket)
+        handleMeConnectedRef.current(arg, socket)
 
         // NOTE: is reconnect?
         // if (renderCounterRef.current > 1) {
