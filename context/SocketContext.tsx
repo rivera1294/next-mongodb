@@ -89,7 +89,7 @@ export const SocketContextProvider = ({ children }: any) => {
       })
       dispatch({ type: evt.ME_CONNECTED, payload: socket })
     },
-    [globalState.activeNote?.id]
+    [globalState.activeNote?._id]
   )
   const handleMeConnectedRef = useRef(handleMeConnected)
   const handleCreateNote = (arg: any) => {
