@@ -55,6 +55,8 @@ export const SocketContextProvider = ({ children }: any) => {
   }
   const handleMeConnected = useCallback(
     (arg: IConnectSelf, socket: any) => {
+      console.log('--- activeNote')
+      console.log(activeNote)
       if (!!activeNote?._id) {
         // TODO: Request activeNote._id should be requested
         console.log('TODO: Request activeNote._id')
