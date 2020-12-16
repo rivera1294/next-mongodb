@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { createContext, useReducer, useEffect, useMemo, useContext, useRef } from 'react'
+import { createContext, useReducer, useEffect, useMemo, useContext, useRef, useCallback } from 'react'
 import io from 'socket.io-client'
 import { actionTypes as evt, IDeletedNote, IConnectSelf, IDisconnectUserBroadcast } from '~/socket-logic'
 import { useNotifsContext } from '~/hooks'
@@ -46,45 +46,47 @@ export const SocketContextProvider = ({ children }: any) => {
     handleSetAsActiveNote,
     state: globalState,
   } = useGlobalAppContext()
+  const activeNote = useMemo(() => globalState.activeNote, [globalState.activeNote?.id])
   // ---
   const handleGetNote = async (id: number) => {
     const res = await httpClient.getNote(id)
 
     return res
   }
-  const handleMeConnected = (arg: IConnectSelf, socket: any) => {
-    const activeNote = globalState.activeNote
+  const handleMeConnected = useCallback(
+    (arg: IConnectSelf, socket: any) => {
+      if (!!activeNote?._id) {
+        // TODO: Request activeNote._id should be requested
+        console.log('TODO: Request activeNote._id')
+        console.log(activeNote._id)
 
-    if (!!activeNote?._id) {
-      // TODO: Request activeNote._id should be requested
-      console.log('TODO: Request activeNote._id')
-      console.log(activeNote._id)
+        handleGetNote(activeNote._id)
+          .then((res) => {
+            console.log('Received:')
+            console.log(res)
+            handleSetAsActiveNote(res)
+          })
+          .catch((err) => {
+            if (typeof err === 'string') {
+              addDangerNotif({
+                title: 'ERR: Update activeNote by new socket connection',
+                message: err,
+              })
+            }
+            console.log(err)
+          })
+      }
 
-      handleGetNote(activeNote._id)
-        .then((res) => {
-          console.log('Received:')
-          console.log(res)
-          handleSetAsActiveNote(res)
-        })
-        .catch((err) => {
-          if (typeof err === 'string') {
-            addDangerNotif({
-              title: 'ERR: Update activeNote by new socket connection',
-              message: err,
-            })
-          }
-          console.log(err)
-        })
-    }
-
-    // console.log(arg)
-    addInfoNotif({
-      title: 'Me connected',
-      message: arg.data.msg,
-      type: 'info',
-    })
-    dispatch({ type: evt.ME_CONNECTED, payload: socket })
-  }
+      // console.log(arg)
+      addInfoNotif({
+        title: 'Me connected',
+        message: arg.data.msg,
+        type: 'info',
+      })
+      dispatch({ type: evt.ME_CONNECTED, payload: socket })
+    },
+    [activeNote]
+  )
   const handleCreateNote = (arg: any) => {
     // console.log(arg)
     try {
