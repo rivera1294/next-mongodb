@@ -30,7 +30,7 @@ export const GlobalAppContext = createContext({
   handleSearchByDescriptionClear: () => {
     throw new Error('handleSearchByDescriptionClear method should be implemented')
   },
-  handleSetAsActiveNote: () => {
+  handleSetAsActiveNote: (note) => {
     throw new Error('handleSetAsActiveNote method should be implemented')
   },
   handlePageChange: () => {

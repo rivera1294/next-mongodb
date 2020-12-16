@@ -18,6 +18,7 @@ class HttpClientSingletone {
       throw new Error('Instantiation failed: use HttpClientSingletone.getInstance() instead of new.')
     }
     this.getNotesCancelTokenSource = null
+    this.getNoteCancelTokenSource = null
     this.axiosInstance = axios.create({
       baseURL: `${NEXT_APP_API_ENDPOINT}/api/`,
       // timeout: 1000,
@@ -87,6 +88,40 @@ class HttpClientSingletone {
       })
 
     this.getNotesCancelTokenSource = null
+    if (response.isOk) {
+      return Promise.resolve(response.res)
+    }
+    if (response.res instanceof HttpError) {
+      return Promise.reject(response.res.getErrorMsg())
+    }
+    return Promise.reject(this.getErrorMsg(response.res))
+  }
+
+  async getNote(id) {
+    if (!!this.getNoteCancelTokenSource) {
+      this.getNoteCancelTokenSource.cancel('axios request cancelled')
+    }
+    const source = createCancelTokenSource()
+    this.getNoteCancelTokenSource = source
+
+    const response = await this.axiosInstance({
+      method: 'GET',
+      url: `/notes/${id}`,
+      // mode: 'cors',
+      cancelToken: this.getNoteCancelTokenSource.token,
+    })
+      .then(httpErrorHandler)
+      .then(this.responseDataHandlerAfterHttpErrorHandler(({ data, success }) => success && !!data?._id))
+      .catch((err) => {
+        if (axios.isCancel(err)) {
+          console.log('Request canceled', err.message)
+        } else {
+          console.log(err)
+        }
+        return { isOk: false, res: err }
+      })
+
+    this.getNoteCancelTokenSource = null
     if (response.isOk) {
       return Promise.resolve(response.res)
     }

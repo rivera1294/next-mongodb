@@ -37,7 +37,46 @@ export const SocketContextProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const isClient = useMemo(() => typeof window !== 'undefined', [typeof window])
   const { addInfoNotif, addDangerNotif } = useNotifsContext()
+  // ---
+  const {
+    handleUpdateOneNote,
+    handleRemoveOneNote,
+    handleAddOneNote,
+    handleSetNotesResponse,
+    handleSetAsActiveNote,
+    state: globalState,
+  } = useGlobalAppContext()
+  // ---
+  const handleGetNote = async (id: number) => {
+    const res = await httpClient.getNote(id)
+
+    return res
+  }
   const handleMeConnected = (arg: IConnectSelf, socket: any) => {
+    const activeNote = globalState.activeNote
+
+    if (!!activeNote?._id) {
+      // TODO: Request activeNote._id should be requested
+      console.log('TODO: Request activeNote._id')
+      console.log(activeNote._id)
+
+      handleGetNote(activeNote._id)
+        .then((res) => {
+          console.log('Received:')
+          console.log(res)
+          handleSetAsActiveNote(res)
+        })
+        .catch((err) => {
+          if (typeof err === 'string') {
+            addDangerNotif({
+              title: 'ERR: Update activeNote by new socket connection',
+              message: err,
+            })
+          }
+          console.log(err)
+        })
+    }
+
     // console.log(arg)
     addInfoNotif({
       title: 'Me connected',
@@ -46,9 +85,6 @@ export const SocketContextProvider = ({ children }: any) => {
     })
     dispatch({ type: evt.ME_CONNECTED, payload: socket })
   }
-  // ---
-  const { handleUpdateOneNote, handleRemoveOneNote, handleAddOneNote, handleSetNotesResponse } = useGlobalAppContext()
-  // ---
   const handleCreateNote = (arg: any) => {
     // console.log(arg)
     try {
@@ -164,7 +200,7 @@ export const SocketContextProvider = ({ children }: any) => {
           .catch((err) => {
             if (typeof err === 'string') {
               addDangerNotif({
-                title: 'ERR: Update list by socket connection',
+                title: 'ERR: Update list by new socket connection',
                 message: err,
               })
             }
