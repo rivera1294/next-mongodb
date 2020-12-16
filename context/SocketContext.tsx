@@ -46,9 +46,7 @@ export const SocketContextProvider = ({ children }: any) => {
     handleSetAsActiveNote,
     state: globalState,
   } = useGlobalAppContext()
-  useEffect(() => {
-    console.log(globalState.activeNote)
-  }, [globalState.activeNote])
+
   // ---
   const handleGetNote = async (id: number) => {
     const res = await httpClient.getNote(id)
@@ -92,6 +90,9 @@ export const SocketContextProvider = ({ children }: any) => {
     [JSON.stringify(globalState.activeNote)]
   )
   const handleMeConnectedRef = useRef(handleMeConnected)
+  useEffect(() => {
+    handleMeConnectedRef.current = handleMeConnected
+  }, [handleMeConnected])
   const handleCreateNote = (arg: any) => {
     // console.log(arg)
     try {
