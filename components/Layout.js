@@ -25,7 +25,7 @@ const Layout = ({ children }) => (
         display: block;
         position: fixed;
         z-index: 1031;
-        top: 20px;
+        top: 23px;
         right: 15px;
       }
     `}</style>

@@ -9,8 +9,18 @@ import Head from 'next/head'
 import 'react-notifications-component/dist/theme.css'
 // preferred way to import (from `v4`). Uses `animate__` prefix.
 import 'animate.css/animate.min.css'
+import { ThemeProvider } from '@material-ui/core/styles'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import { theme } from '~/styled-mui/common/theme'
 
 class MyApp extends NextApp {
+  componentDidMount() {
+    // Remove the server-side injected CSS.
+    const jssStyles = document.querySelector('#jss-server-side')
+    if (jssStyles) {
+      jssStyles.parentElement.removeChild(jssStyles)
+    }
+  }
   render() {
     const { Component, pageProps } = this.props
     return (
@@ -25,19 +35,23 @@ class MyApp extends NextApp {
           <link rel="stylesheet" href="/static/css/old.styles.css" />
           <link rel="stylesheet" href="/static/css/old.build.editor-js.css" />
         </Head>
-        <NotifsContextProvider>
-          <CookiesProvider>
-            <AuthContextProvider>
-              <GlobalAppContextProvider>
-                <SocketContextProvider>
-                  <Layout>
-                    <Component {...pageProps} />
-                  </Layout>
-                </SocketContextProvider>
-              </GlobalAppContextProvider>
-            </AuthContextProvider>
-          </CookiesProvider>
-        </NotifsContextProvider>
+        <ThemeProvider theme={theme}>
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          <CssBaseline />
+          <NotifsContextProvider>
+            <CookiesProvider>
+              <AuthContextProvider>
+                <GlobalAppContextProvider>
+                  <SocketContextProvider>
+                    <Layout>
+                      <Component {...pageProps} />
+                    </Layout>
+                  </SocketContextProvider>
+                </GlobalAppContextProvider>
+              </AuthContextProvider>
+            </CookiesProvider>
+          </NotifsContextProvider>
+        </ThemeProvider>
       </>
     )
   }

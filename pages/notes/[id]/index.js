@@ -1,9 +1,14 @@
 import fetch from 'isomorphic-unfetch'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { Confirm, Button, Loader } from 'semantic-ui-react'
 import { ActiveNote } from '~/components/ActiveNote'
 import { useAuthContext } from '~/context'
+import Container from '@material-ui/core/Container'
+// import Typography from '@material-ui/core/Typography';
+// See also: https://github.com/hadnazzar/nextjs-with-material-ui/blob/master/pages/about.js
+import Box from '@material-ui/core/Box'
+// import Button from '@material-ui/core/Button'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
 
@@ -43,18 +48,9 @@ const Note = ({ note }) => {
     close()
   }
   const { isLogged } = useAuthContext()
-
-  return (
-    <>
-      <div className="standard-container no-padded">
-        {isDeleting ? (
-          <Loader active />
-        ) : (
-          <div style={{ marginBottom: '20px' }}>{!!note && <ActiveNote note={note} />}</div>
-        )}
-        <Confirm open={confirm} onCancel={close} onConfirm={handleDelete} />
-      </div>
-      <div className="standard-container">
+  const MemoizedBtnsBox = useMemo(
+    () => (
+      <Box my={4}>
         {isLogged && (
           <>
             <Button basic color="red" onClick={open}>
@@ -65,8 +61,24 @@ const Note = ({ note }) => {
             </Button>
           </>
         )}
-      </div>
-    </>
+      </Box>
+    ),
+    [open, handleEdit]
+  )
+
+  return (
+    <Container maxWidth="md">
+      {MemoizedBtnsBox}
+      <Box my={4}>
+        {isDeleting ? (
+          <Loader active />
+        ) : (
+          <div style={{ marginBottom: '20px' }}>{!!note && <ActiveNote note={note} />}</div>
+        )}
+        <Confirm open={confirm} onCancel={close} onConfirm={handleDelete} />
+      </Box>
+      {MemoizedBtnsBox}
+    </Container>
   )
 }
 
