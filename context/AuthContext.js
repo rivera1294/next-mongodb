@@ -8,7 +8,6 @@ const NEXT_APP_COOKIE_MAXAGE_IN_DAYS = process.env.NEXT_APP_COOKIE_MAXAGE_IN_DAY
   : 1
 
 export const getInitialState = (base) => ({
-  // clientData: null,
   isLoading: false,
   isLogged: false,
 
@@ -29,8 +28,6 @@ export const AuthContext = createContext({
 
 function reducer(state, action) {
   switch (action.type) {
-    // case 'SET_CLIENT_DATA':
-    //   return { ...state, clientData: action.payload }
     case 'SET_IS_LOADING':
       return { ...state, isLoading: action.payload }
     case 'SET_IS_LOGGED':
