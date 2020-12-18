@@ -16,7 +16,7 @@
     "lint": "node_modules/.bin/eslint --debug 'pages/**/*.{js,jsx,ts,tsx}'",
     "lint:fix": "node_modules/.bin/eslint 'pages/**/*.{js,jsx,ts,tsx}' --fix",
     "format": "node_modules/.bin/prettier --write \"**/*.{js,jsx,ts,tsx}\" !.next !node_modules",
-    "postinstall": "husky install .config/husky",
+    "postinstall": "node_modules/.bin/husky install .config/husky",
     "deploy-app:init": "node_modules/.bin/deploy-app init"
   },
   "lint-staged": {
