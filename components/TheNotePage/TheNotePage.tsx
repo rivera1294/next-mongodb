@@ -5,7 +5,6 @@ import { Confirm, Button, Loader } from 'semantic-ui-react'
 import { ActiveNote } from '~/components/ActiveNote'
 import { useAuthContext } from '~/context'
 import Container from '@material-ui/core/Container'
-// import Typography from '@material-ui/core/Typography';
 // See also: https://github.com/hadnazzar/nextjs-with-material-ui/blob/master/pages/about.js
 import Box from '@material-ui/core/Box'
 // import Button from '@material-ui/core/Button'
@@ -31,7 +30,6 @@ export const TheNotePage = ({ initNote: note }: any) => {
   const deleteNote = async () => {
     const noteId = router.query.id
     try {
-      // const _deleted =
       await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes/${noteId}`, {
         method: 'Delete',
       })
