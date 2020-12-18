@@ -1,9 +1,9 @@
 const {
-  // CLIEngine,
-  ESLint,
+  CLIEngine,
+  // ESLint,
 } = require('eslint')
 
-const cli = new ESLint({})
+const cli = new CLIEngine({})
 
 module.exports = {
   '*.{js,jsx,ts,tsx}': (files) =>
