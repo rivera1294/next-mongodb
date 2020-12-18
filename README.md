@@ -11,6 +11,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [Learn More](#learn-more)
 - [Deploy on ZEIT Now](#deploy-on-zeit-now)
 
+> https://github.com/typicode/husky/issues/326#issuecomment-692317612
+
 ## roadmap
 
 - [ ] **backend**
