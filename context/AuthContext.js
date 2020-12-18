@@ -16,6 +16,8 @@ export const getInitialState = (base) => ({
 })
 
 export const AuthContext = createContext({
+  isLoading: false,
+  isLogged: false,
   state: getInitialState({}),
   handleLogout: () => {
     throw new Error('handleLogout method should be implemented')

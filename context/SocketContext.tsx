@@ -36,7 +36,7 @@ function reducer(state: any, action: any) {
 export const SocketContextProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const isClient = useMemo(() => typeof window !== 'undefined', [typeof window])
-  const { addInfoNotif, addDangerNotif } = useNotifsContext()
+  const { addDefaultNotif, addDangerNotif } = useNotifsContext()
   // ---
   const {
     handleUpdateOneNote,
@@ -80,7 +80,7 @@ export const SocketContextProvider = ({ children }: any) => {
       }
 
       // console.log(arg)
-      addInfoNotif({
+      addDefaultNotif({
         title: 'Me connected',
         message: arg.data.msg,
         type: 'info',
@@ -98,7 +98,7 @@ export const SocketContextProvider = ({ children }: any) => {
     try {
       const title: string = arg.data.title
 
-      addInfoNotif({
+      addDefaultNotif({
         title: 'Created',
         message: title,
         type: 'info',
@@ -116,7 +116,7 @@ export const SocketContextProvider = ({ children }: any) => {
         data: { _id },
       } = arg
 
-      addInfoNotif({
+      addDefaultNotif({
         title: 'Updated',
         message: `${_id}`,
         type: 'info',
@@ -140,7 +140,7 @@ export const SocketContextProvider = ({ children }: any) => {
         data: { id },
       } = arg
 
-      addInfoNotif({
+      addDefaultNotif({
         title: 'Deleted',
         message: id,
         type: 'info',
@@ -158,7 +158,7 @@ export const SocketContextProvider = ({ children }: any) => {
         data: { msg },
       } = arg
 
-      addInfoNotif({
+      addDefaultNotif({
         title: 'Somebody connected',
         message: msg,
         type: 'info',
@@ -174,7 +174,7 @@ export const SocketContextProvider = ({ children }: any) => {
         data: { msg },
       } = arg
 
-      addInfoNotif({
+      addDefaultNotif({
         title: 'Somebody disconnected',
         message: msg,
         type: 'info',

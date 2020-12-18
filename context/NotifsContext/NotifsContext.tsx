@@ -3,6 +3,7 @@ import { ReactNotificationOptions as IReactNotificationOptions } from 'react-not
 import { addInfoNotif as _addInfoNotif } from './addInfoNotif'
 import { addSuccessNotif as _addSuccessNotif } from './addSuccessNotif'
 import { addDangerNotif as _addDangerNotif } from './addDangerNotif'
+import { addDefaultNotif as _addDefaultNotif } from './addDefaultNotif'
 import { useWindowSize } from '~/hooks'
 import ReactNotification from 'react-notifications-component'
 
@@ -15,6 +16,9 @@ export const NotifsContext = createContext({
   },
   addDangerNotif: (_note: Partial<IReactNotificationOptions>): void => {
     throw new Error('addDangerNotif method should be implemented')
+  },
+  addDefaultNotif: (_note: Partial<IReactNotificationOptions>): void => {
+    throw new Error('addDefaultNotif method should be implemented')
   },
 })
 
@@ -31,6 +35,9 @@ export const NotifsContextProvider = ({ children }: any) => {
   const addDangerNotif = (note: Partial<IReactNotificationOptions>) => {
     _addDangerNotif(note)
   }
+  const addDefaultNotif = (note: Partial<IReactNotificationOptions>) => {
+    _addDefaultNotif(note)
+  }
 
   return (
     <NotifsContext.Provider
@@ -38,6 +45,7 @@ export const NotifsContextProvider = ({ children }: any) => {
         addInfoNotif,
         addSuccessNotif,
         addDangerNotif,
+        addDefaultNotif,
       }}
     >
       <>
