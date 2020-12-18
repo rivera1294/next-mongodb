@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "lint-staged": "lint-staged",
     "git:pull": "bash ./bin/pull.sh",
     "make-js-server": "bash ./bin/transpile-server.sh && yarn transpile-socket-logic",
     "transpile-socket-logic": "node_modules/.bin/tsc --project ./tsconfig.socket-logic.json --downlevelIteration",
