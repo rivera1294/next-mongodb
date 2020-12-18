@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import dbConnect from '~/utils/dbConnect'
 
 const express = require('express')

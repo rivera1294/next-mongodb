@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // const dotenv = require('dotenv')
 // const isProduction = process.env.NODE_ENV === 'production'
 // const envFileName = isProduction ? '.env.prod' : '.env.dev'

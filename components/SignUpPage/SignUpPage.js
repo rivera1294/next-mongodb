@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useState, useMemo } from 'react'
 import { Button, Form, Loader, Message } from 'semantic-ui-react'
 import { validate } from './validate'
