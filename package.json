@@ -13,16 +13,16 @@
     "analyze": "BUNDLE_ANALYZE=both next build",
     "analyze:server": "BUNDLE_ANALYZE=server next build",
     "analyze:browser": "BUNDLE_ANALYZE=browser next build",
-    "lint": "node_modules/.bin/eslint --debug 'pages/**/*.{js,jsx,ts,tsx}'",
-    "lint:fix": "node_modules/.bin/eslint 'pages/**/*.{js,jsx,ts,tsx}' --fix",
+    "lint": "node_modules/.bin/eslint . --ext ts --ext tsx --ext js",
+    "lint:fix": "node_modules/.bin/eslint common/** --fix",
     "format": "node_modules/.bin/prettier --write \"**/*.{js,jsx,ts,tsx}\" !.next !node_modules",
     "postinstall": "node_modules/.bin/husky install .config/husky",
     "deploy-app:init": "node_modules/.bin/deploy-app init"
   },
   "lint-staged": {
     "*.@(js|ts|tsx)": [
-      "npm run format",
-      "npm run lint",
+      "yarn format",
+      "yarn lint",
       "git add"
     ]
   },
