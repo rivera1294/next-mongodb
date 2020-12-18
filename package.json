@@ -18,7 +18,8 @@
     "lint:fix": "eslint ./ --fix",
     "format": "node_modules/.bin/prettier --write \"**/*.{js,jsx,ts,tsx}\" !.next !node_modules",
     "postinstall": "husky install .config/husky",
-    "deploy-app:init": "node_modules/.bin/deploy-app init"
+    "deploy-app:init": "node_modules/.bin/deploy-app init",
+    "test": "echo test"
   },
   "lint-staged": {
     "*.@(js|ts|tsx)": [
@@ -30,7 +31,8 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "commit-msg": "node ./scripts/write-task-name-to-commit"
+      "commit-msg": "node ./scripts/write-task-name-to-commit",
+      "pre-push": "yarn test"
     }
   },
   "eslintConfig": {
