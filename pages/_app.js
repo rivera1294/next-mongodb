@@ -26,14 +26,7 @@ class MyApp extends NextApp {
     return (
       <>
         <Head>
-          <meta charSet="utf-8" />
-          <link rel="icon" href="/static/favicon.ico" />
-          <meta name="theme-color" content="#2f2f2f" />
-          <meta name="viewport" content="width=device-width" />
-          <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
           <title>Code Samples</title>
-          <link rel="stylesheet" href="/static/css/old.styles.css" />
-          <link rel="stylesheet" href="/static/css/old.build.editor-js.css" />
         </Head>
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}

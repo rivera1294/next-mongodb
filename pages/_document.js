@@ -9,9 +9,15 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+          <meta charSet="utf-8" />
+          <link rel="icon" href="/static/favicon.ico" />
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
+          <meta name="viewport" content="width=device-width" />
+          <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+          <link rel="stylesheet" href="/static/css/old.styles.css" />
+          <link rel="stylesheet" href="/static/css/old.build.editor-js.css" />
         </Head>
         <body>
           <Main />
