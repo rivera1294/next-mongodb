@@ -1,6 +1,6 @@
 import NextApp from 'next/app'
 import 'semantic-ui-css/semantic.min.css'
-import Layout from '~/components/Layout'
+import { Layout } from '~/components/Layout'
 import 'react-markdown-editor-lite/lib/index.css'
 import '~/public/static/css/style.css'
 import { AuthContextProvider, GlobalAppContextProvider, NotifsContextProvider, SocketContextProvider } from '~/context'
@@ -27,6 +27,13 @@ class MyApp extends NextApp {
       <>
         <Head>
           <title>Code Samples</title>
+          <meta charSet="utf-8" />
+          <link rel="icon" href="/static/favicon.ico" />
+          {/* PWA primary color */}
+          {/* <meta name="theme-color" content={theme.palette.primary.main} /> */}
+          <meta name="theme-color" content="#000" />
+          <meta name="viewport" content="width=device-width" />
+          <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
         </Head>
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}

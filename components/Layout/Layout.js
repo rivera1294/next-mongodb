@@ -1,13 +1,11 @@
 import Head from 'next/head'
-import Navbar from './Navbar'
+import Navbar from '../Navbar'
 import NextNProgress from 'nextjs-progressbar'
 // <NextNProgress color="#FFF" startPosition={0.3} stopDelayMs={200} height={2} options={{ showSpinner: false }} />
 import { theme } from '~/styled-mui/common/theme'
-// import { useScrollPosition } from '~/hooks'
+import { ScrollTopButton } from './components'
 
-const Layout = ({ children }) => {
-  // const { isMoreThanTrackedY } = useScrollPosition(200)
-
+export const Layout = ({ children }) => {
   return (
     <>
       <Head>
@@ -31,6 +29,7 @@ const Layout = ({ children }) => {
       />
       <Navbar />
       {children}
+      <ScrollTopButton />
       <style jsx global>{`
         #nprogress .spinner {
           display: block;
@@ -43,5 +42,3 @@ const Layout = ({ children }) => {
     </>
   )
 }
-
-export default Layout
