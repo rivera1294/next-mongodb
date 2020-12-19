@@ -3,13 +3,14 @@ import { openLinkInNewTab } from '~/utils/openLinkInNewTab'
 import ReactMarkdown from 'react-markdown'
 import gfm from 'remark-gfm'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { materialDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
+// import { materialDark as prismTheme } from 'react-syntax-highlighter/dist/cjs/styles/prism'
+import { synthwave84 as prismTheme } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import { Rating } from 'semantic-ui-react'
 import { useFreshNote } from '~/hooks'
 
 const renderers = {
   code: ({ language, value }) => {
-    return <SyntaxHighlighter style={materialDark} language={language} children={value} />
+    return <SyntaxHighlighter showLineNumbers={true} style={prismTheme} language={language} children={value} />
   },
 }
 
@@ -38,7 +39,7 @@ export const ActiveNote = ({ note: initialNote }) => {
         <h3>{title}</h3>
       </div>
       {!!_id && (
-        <div style={{ marginBottom: '20px', userSelect: 'none' }}>
+        <div style={{ userSelect: 'none' }}>
           <div style={{ marginBottom: '10px', userSelect: 'none' }}>
             <Rating key={priority} maxRating={5} rating={priority} disabled />
           </div>

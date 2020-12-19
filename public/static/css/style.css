@@ -41,7 +41,7 @@ h1 {
     width: 490px;
   }
   .main > div:first-child > div {
-    padding: 10px 10px 40px 10px !important;
+    padding: 10px 10px 10px 10px !important;
     border: 2px solid lightgray;
   }
   .active-note-external-sticky-wrapper {
@@ -51,7 +51,7 @@ h1 {
   }
   .active-note-external-sticky-wrapper > div {
     max-height: 100%;
-    overflow-y: auto;
+    overflow-y: hidden;
     border-radius: 6px;
   }
   .main > div:nth-child(2) {
@@ -207,7 +207,9 @@ h1 {
 }
 
 .description-markdown {
+  padding-top: 20px;
   white-space: pre-wrap;
+  overflow-y: auto;
 }
 .description-markdown blockquote {
   margin-left: 0px;

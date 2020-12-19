@@ -65,6 +65,11 @@ export const Navbar = (_props: IProps) => {
     handleMenuClose()
     router.push('/users/auth/signin')
   }
+  const createNew = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault()
+    handleMenuClose()
+    router.push('/new')
+  }
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState<null | HTMLElement>(null)
 
@@ -104,14 +109,24 @@ export const Navbar = (_props: IProps) => {
         router.push('/profile')
       }}>Profile</MenuItem> */}
       {isLogged && (
-        <MenuItem
-          onClick={(e) => {
-            logout(e)
-            handleMenuClose()
-          }}
-        >
-          Logout
-        </MenuItem>
+        <>
+          <MenuItem
+            onClick={(e) => {
+              handleMenuClose()
+              logout(e)
+            }}
+          >
+            Logout
+          </MenuItem>
+          <MenuItem
+            onClick={(e) => {
+              handleMenuClose()
+              createNew(e)
+            }}
+          >
+            Create new
+          </MenuItem>
+        </>
       )}
       {!isLogged && <MenuItem onClick={login}>Login</MenuItem>}
     </Menu>
