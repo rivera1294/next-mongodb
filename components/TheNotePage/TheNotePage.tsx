@@ -88,8 +88,8 @@ export const TheNotePage = ({ initNote: note }: any) => {
                 descriptionRenderer={({ description }) => {
                   return (
                     <div className="description-markdown">
-                      {/* @ts-ignore */}
                       <ReactMarkdown
+                        // @ts-ignore
                         plugins={[gfm, { singleTilde: false }]}
                         renderers={renderers}
                         children={description}
