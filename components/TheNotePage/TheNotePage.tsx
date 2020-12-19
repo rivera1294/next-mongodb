@@ -9,6 +9,16 @@ import Container from '@material-ui/core/Container'
 import Box from '@material-ui/core/Box'
 // import Button from '@material-ui/core/Button'
 import { useStyles } from './styles'
+import ReactMarkdown from 'react-markdown'
+import gfm from 'remark-gfm'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { materialDark as prismTheme } from 'react-syntax-highlighter/dist/cjs/styles/prism'
+
+const renderers = {
+  code: ({ language, value }: any) => {
+    return <SyntaxHighlighter showLineNumbers={true} style={prismTheme} language={language} children={value} />
+  },
+}
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
 
@@ -68,7 +78,29 @@ export const TheNotePage = ({ initNote: note }: any) => {
     <Container maxWidth="md" className={classes.noPaddingMobile}>
       {isLogged && MemoizedBtnsBox}
       <Box my={4} className={classes.noMarginTopBottomMobile}>
-        {isDeleting ? <Loader active /> : <div>{!!note && <ActiveNote note={note} />}</div>}
+        {isDeleting ? (
+          <Loader active />
+        ) : (
+          <div>
+            {!!note && (
+              <ActiveNote
+                note={note}
+                descriptionRenderer={({ description }) => {
+                  return (
+                    <div className="description-markdown">
+                      {/* @ts-ignore */}
+                      <ReactMarkdown
+                        plugins={[gfm, { singleTilde: false }]}
+                        renderers={renderers}
+                        children={description}
+                      />
+                    </div>
+                  )
+                }}
+              />
+            )}
+          </div>
+        )}
         <Confirm open={confirm} onCancel={close} onConfirm={handleDelete} />
       </Box>
       {isLogged && MemoizedBtnsBox}
