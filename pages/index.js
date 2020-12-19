@@ -5,6 +5,7 @@ import { Button, Card, Icon, Input, Label, Pagination, Rating } from 'semantic-u
 import { ActiveNote } from '~/components/ActiveNote'
 import clsx from 'clsx'
 import { useGlobalAppContext, getInitialState, useAuthContext } from '~/context'
+import { useWindowSize } from '~/hooks'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
 
@@ -35,37 +36,42 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
   const notes = useMemo(() => (renderCountRef.current >= 1 ? state.notes : initNotes), [JSON.stringify(state.notes)])
   const { isLogged } = useAuthContext()
   const activeNote = useMemo(() => state.activeNote, [JSON.stringify(state.activeNote)])
+  const { isMobile } = useWindowSize()
 
   return (
     <div style={{ marginTop: '20px' }}>
       <h1>Notes</h1>
       <div className="standard-container search-wrapper">
-        <div>
-          <Input
-            loading={isLoading}
-            disabled={isLoading}
-            iconPosition="left"
-            placeholder="Search by title..."
-            onChange={(e) => {
-              handleSearchByTitleSetText(e.target.value)
-            }}
-            value={state.searchByTitle}
-            action={{ icon: 'close', onClick: handleSearchByTitleClear }}
-          />
-        </div>
-        <div>
-          <Input
-            loading={isLoading}
-            disabled={isLoading}
-            iconPosition="left"
-            placeholder="Search by description..."
-            onChange={(e) => {
-              handleSearchByDescriptionSetText(e.target.value)
-            }}
-            value={state.searchByDescription}
-            action={{ icon: 'close', onClick: handleSearchByDescriptionClear }}
-          />
-        </div>
+        {isMobile && (
+          <>
+            <div>
+              <Input
+                loading={isLoading}
+                disabled={isLoading}
+                iconPosition="left"
+                placeholder="Search by title..."
+                onChange={(e) => {
+                  handleSearchByTitleSetText(e.target.value)
+                }}
+                value={state.searchByTitle}
+                action={{ icon: 'close', onClick: handleSearchByTitleClear }}
+              />
+            </div>
+            <div>
+              <Input
+                loading={isLoading}
+                disabled={isLoading}
+                iconPosition="left"
+                placeholder="Search by description..."
+                onChange={(e) => {
+                  handleSearchByDescriptionSetText(e.target.value)
+                }}
+                value={state.searchByDescription}
+                action={{ icon: 'close', onClick: handleSearchByDescriptionClear }}
+              />
+            </div>
+          </>
+        )}
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Label>
             <Icon name="file" /> {totalNotes}

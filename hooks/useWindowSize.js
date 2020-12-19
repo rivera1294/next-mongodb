@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { md } from '~/styled-mui/common/theme'
 
 export function useWindowSize() {
   // Initialize state with undefined width/height so server and client renders match
@@ -7,14 +8,23 @@ export function useWindowSize() {
   const [windowSize, setWindowSize] = useState({
     width: undefined,
     height: undefined,
+    isMobile: false,
+    isDesktop: false,
   })
 
   useEffect(() => {
     function handleResize() {
+      const width = window?.innerWidth
+      const height = window?.innerHeight
+      const isMobile = width <= md
+      const isDesktop = width > md
+
       // Set window width/height to state
       setWindowSize({
-        width: window?.innerWidth,
-        height: window?.innerHeight,
+        width,
+        height,
+        isMobile,
+        isDesktop,
       })
     }
 

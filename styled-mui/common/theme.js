@@ -11,6 +11,9 @@ export const defaultTheme = {
       xl: 1920,
     },
   },
+  common: {
+    white: '#FFF',
+  },
   palette: {
     primary: {
       main: '#3882C4',

@@ -5,7 +5,7 @@ import Headroom from 'react-headroom'
 import { useRouter } from 'next/router'
 import clsx from 'clsx'
 
-const Navbar = () => {
+export const Navbar = () => {
   const { isLogged, handleLogout } = useAuthContext()
   const logout = (e) => {
     e.preventDefault()
@@ -91,5 +91,3 @@ const Navbar = () => {
     </Headroom>
   )
 }
-
-export default Navbar

@@ -1,8 +1,8 @@
 import Head from 'next/head'
-import Navbar from '../Navbar'
+import { Navbar } from './components/Navbar'
 import NextNProgress from 'nextjs-progressbar'
 // <NextNProgress color="#FFF" startPosition={0.3} stopDelayMs={200} height={2} options={{ showSpinner: false }} />
-import { theme } from '~/styled-mui/common/theme'
+import { theme, md } from '~/styled-mui/common/theme'
 import { ScrollTopButton } from './components'
 
 export const Layout = ({ children }) => {
@@ -21,7 +21,8 @@ export const Layout = ({ children }) => {
         />
       </Head>
       <NextNProgress
-        color={theme.palette.primary.main}
+        // color={theme.palette.primary.main}
+        color="rgb(252, 191, 44)"
         startPosition={0.3}
         stopDelayMs={200}
         height={2}
@@ -35,8 +36,17 @@ export const Layout = ({ children }) => {
           display: block;
           position: fixed;
           z-index: 1031;
-          top: 23px;
           right: 15px;
+        }
+        @media (min-width: ${md + 1}px) {
+          #nprogress .spinner {
+            top: 22px;
+          }
+        }
+        @media (max-width: ${md}px) {
+          #nprogress .spinner {
+            top: 15px;
+          }
         }
       `}</style>
     </>
