@@ -32,7 +32,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       '&:hover': {
         backgroundColor: fade(theme.palette.common.white, 0.25),
       },
-      marginRight: theme.spacing(2),
+      // marginRight: theme.spacing(2),
       marginLeft: 0,
       width: '100%',
       [theme.breakpoints.up('sm')]: {
@@ -54,10 +54,19 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     inputRoot: {
       color: 'inherit',
+      // FIX:
+      '& > .MuiInputBase-input::placeholder': {
+        color: '#FFF',
+        opacity: '0.42',
+        transition: 'opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+        padding: '8px 8px 8px calc(1em + 32px) !important',
+      },
     },
     inputInput: {
-      // border: '1px solid red',
-      padding: theme.spacing(1, 1, 1, 0),
+      caretColor: '#FFF !important',
+      color: '#FFF !important',
+      // padding: theme.spacing(1, 1, 1, 0),
+      padding: '8px 8px 8px calc(1em + 32px) !important',
       // vertical padding + font size from searchIcon
       paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
       transition: theme.transitions.create('width'),
@@ -65,6 +74,12 @@ export const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up('md')]: {
         width: '20ch',
       },
+    },
+    clearAll: {
+      '& > button': {
+        color: '#FFF',
+      },
+      marginLeft: theme.spacing(1),
     },
     sectionDesktop: {
       display: 'none',

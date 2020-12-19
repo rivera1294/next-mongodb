@@ -23,6 +23,7 @@ import IconButton from '@material-ui/core/IconButton'
 import Link from 'next/link'
 import { useGlobalAppContext, useWindowSize, useAuthContext } from '~/hooks'
 import { useRouter } from 'next/router'
+import { Button } from '@material-ui/core'
 
 interface IProps {
   /**
@@ -163,6 +164,8 @@ export const Navbar = (_props: IProps) => {
     handleSearchByTitleSetText,
     isNotesLoading: isLoading,
     handleSearchByDescriptionSetText,
+    handleSearchByDescriptionClear,
+    handleSearchByTitleClear,
   } = useGlobalAppContext()
   // ---
   const { isDesktop } = useWindowSize()
@@ -183,41 +186,55 @@ export const Navbar = (_props: IProps) => {
               </Link>
             </Typography>
             {isDesktop && (
-              <div className={classes.search}>
-                <div className={classes.searchIcon}>
-                  <SearchIcon />
+              <>
+                <div className={classes.search}>
+                  <div className={classes.searchIcon}>
+                    <SearchIcon />
+                  </div>
+                  <InputBase
+                    placeholder="Search by title…"
+                    classes={{
+                      root: classes.inputRoot,
+                      input: classes.inputInput,
+                    }}
+                    inputProps={{
+                      'aria-label': 'search',
+                    }}
+                    value={state.searchByTitle}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      // @ts-ignore
+                      handleSearchByTitleSetText(e.target.value)
+                    }}
+                    disabled={isLoading}
+                  />
+                  <InputBase
+                    placeholder="Search by description…"
+                    classes={{
+                      root: classes.inputRoot,
+                      input: classes.inputInput,
+                    }}
+                    inputProps={{ 'aria-label': 'search' }}
+                    value={state.searchByDescription}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      // @ts-ignore
+                      handleSearchByDescriptionSetText(e.target.value)
+                    }}
+                    disabled={isLoading}
+                  />
                 </div>
-                <InputBase
-                  placeholder="Search by title…"
-                  classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput,
-                  }}
-                  inputProps={{
-                    'aria-label': 'search',
-                  }}
-                  value={state.searchByTitle}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    // @ts-ignore
-                    handleSearchByTitleSetText(e.target.value)
-                  }}
-                  disabled={isLoading}
-                />
-                <InputBase
-                  placeholder="Search by description…"
-                  classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput,
-                  }}
-                  inputProps={{ 'aria-label': 'search' }}
-                  value={state.searchByDescription}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    // @ts-ignore
-                    handleSearchByDescriptionSetText(e.target.value)
-                  }}
-                  disabled={isLoading}
-                />
-              </div>
+                {(!!state.searchByDescription || !!state.searchByTitle) && (
+                  <div className={classes.clearAll}>
+                    <Button
+                      onClick={() => {
+                        handleSearchByTitleClear()
+                        handleSearchByDescriptionClear()
+                      }}
+                    >
+                      Clear all
+                    </Button>
+                  </div>
+                )}
+              </>
             )}
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
