@@ -45,7 +45,7 @@ export const Layout = ({ children }) => {
         }
         @media (max-width: ${md}px) {
           #nprogress .spinner {
-            top: 15px;
+            top: 19px;
           }
         }
       `}</style>
