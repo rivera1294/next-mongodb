@@ -9,19 +9,20 @@ import Container from '@material-ui/core/Container'
 // import Slide from '@material-ui/core/Slide'
 import { useStyles } from './styles'
 import InputBase from '@material-ui/core/InputBase'
-import Badge from '@material-ui/core/Badge'
+// import Badge from '@material-ui/core/Badge'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
 // import MenuIcon from '@material-ui/icons/Menu'
 import SearchIcon from '@material-ui/icons/Search'
 import AccountCircle from '@material-ui/icons/AccountCircle'
-import MailIcon from '@material-ui/icons/Mail'
-import NotificationsIcon from '@material-ui/icons/Notifications'
+// import MailIcon from '@material-ui/icons/Mail'
+// import NotificationsIcon from '@material-ui/icons/Notifications'
 // @ts-ignore
 import MoreIcon from '@material-ui/icons/MoreVert'
 import IconButton from '@material-ui/core/IconButton'
 import Link from 'next/link'
-import { useGlobalAppContext, useWindowSize } from '~/hooks'
+import { useGlobalAppContext, useWindowSize, useAuthContext } from '~/hooks'
+import { useRouter } from 'next/router'
 
 interface IProps {
   /**
@@ -52,6 +53,17 @@ export const Navbar = (_props: IProps) => {
   const classes = useStyles()
 
   // --- MENU
+  const router = useRouter()
+  const { isLogged, handleLogout } = useAuthContext()
+  const logout = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault()
+    handleLogout()
+  }
+  const login = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault()
+    handleMenuClose()
+    router.push('/users/auth/signin')
+  }
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState<null | HTMLElement>(null)
 
@@ -77,7 +89,7 @@ export const Navbar = (_props: IProps) => {
 
   const menuId = 'primary-search-account-menu'
   // @ts-ignore
-  const renderMenu = (
+  const renderProfileMenu = (
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
@@ -87,8 +99,20 @@ export const Navbar = (_props: IProps) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      {/* <MenuItem onClick={() => {
+        router.push('/profile')
+      }}>Profile</MenuItem> */}
+      {isLogged && (
+        <MenuItem
+          onClick={(e) => {
+            logout(e)
+            handleMenuClose()
+          }}
+        >
+          Logout
+        </MenuItem>
+      )}
+      {!isLogged && <MenuItem onClick={login}>Login</MenuItem>}
     </Menu>
   )
   const mobileMenuId = 'primary-search-account-menu-mobile'
@@ -103,7 +127,7 @@ export const Navbar = (_props: IProps) => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      {/* <MenuItem>
         <IconButton aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="secondary">
             <MailIcon />
@@ -118,7 +142,7 @@ export const Navbar = (_props: IProps) => {
           </Badge>
         </IconButton>
         <p>Notifications</p>
-      </MenuItem>
+      </MenuItem> */}
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
@@ -195,9 +219,9 @@ export const Navbar = (_props: IProps) => {
                 />
               </div>
             )}
-            {/* <div className={classes.grow} />
+            <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              <IconButton aria-label="show 4 new mails" color="inherit">
+              {/* <IconButton aria-label="show 4 new mails" color="inherit">
                 <Badge badgeContent={4} color="secondary">
                   <MailIcon />
                 </Badge>
@@ -206,7 +230,7 @@ export const Navbar = (_props: IProps) => {
                 <Badge badgeContent={17} color="secondary">
                   <NotificationsIcon />
                 </Badge>
-              </IconButton>
+              </IconButton> */}
               <IconButton
                 edge="end"
                 aria-label="account of current user"
@@ -228,10 +252,10 @@ export const Navbar = (_props: IProps) => {
               >
                 <MoreIcon />
               </IconButton>
-            </div> */}
+            </div>
           </Toolbar>
-          {/* {renderMobileMenu}
-          {renderMenu} */}
+          {renderMobileMenu}
+          {renderProfileMenu}
         </Container>
       </AppBar>
     </div>
