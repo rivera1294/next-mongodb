@@ -8,7 +8,7 @@ import { synthwave84 as prismTheme } from 'react-syntax-highlighter/dist/cjs/sty
 import { Rating } from 'semantic-ui-react'
 import { useFreshNote } from '~/hooks'
 import { Scrollbars } from 'react-custom-scrollbars'
-import { useWindowSize } from '~/hooks'
+// import { useWindowSize } from '~/hooks'
 
 const renderers = {
   code: ({ language, value }: any) => {
@@ -39,7 +39,7 @@ export const ActiveNote = ({ note: initialNote, descriptionRenderer }: IProps) =
     }
   }, [])
   // const handleSetRate = (e, { rating, maxRating }) => {}
-  const { height } = useWindowSize()
+  // const { height } = useWindowSize()
 
   return (
     <div className="todo-item">
@@ -60,8 +60,8 @@ export const ActiveNote = ({ note: initialNote, descriptionRenderer }: IProps) =
         ) : (
           <Scrollbars
             autoHeight
-            autoHeightMin={100}
-            autoHeightMax={!!height ? (height || 0) - 180 : 500}
+            autoHeightMin={400}
+            // autoHeightMax={!!height ? (height || 0) - 180 : 200}
             // This will activate auto hide
             // autoHide
             // Hide delay in ms

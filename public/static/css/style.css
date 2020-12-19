@@ -207,7 +207,8 @@ h1 {
 }
 
 .description-markdown {
-  padding-top: 20px;
+  padding-top: 15px;
+  padding-bottom: 20px;
   white-space: pre-wrap;
   overflow-y: auto;
 }
