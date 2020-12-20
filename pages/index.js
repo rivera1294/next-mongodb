@@ -40,7 +40,6 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
 
   return (
     <div style={{ marginTop: '20px' }}>
-      <h1>Notes</h1>
       <div className="standard-container search-wrapper">
         {isMobile && (
           <>

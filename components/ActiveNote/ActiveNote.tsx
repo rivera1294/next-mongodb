@@ -60,7 +60,7 @@ export const ActiveNote = ({ note: initialNote, descriptionRenderer }: IProps) =
         ) : (
           <Scrollbars
             autoHeight
-            autoHeightMin={400}
+            autoHeightMin={500}
             // autoHeightMax={!!height ? (height || 0) - 180 : 200}
             // This will activate auto hide
             // autoHide
