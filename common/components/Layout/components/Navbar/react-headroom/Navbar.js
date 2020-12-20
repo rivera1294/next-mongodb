@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { useAuthContext } from '~/context'
+import { useAuthContext } from '~/common/context'
 import { Icon, Popup } from 'semantic-ui-react'
 import Headroom from 'react-headroom'
 import { useRouter } from 'next/router'

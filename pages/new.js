@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react'
 import fetch from 'isomorphic-unfetch'
 import { Button, Form, Loader, Message } from 'semantic-ui-react'
 import { useRouter } from 'next/router'
-import { useAuthContext } from '~/context'
+import { useAuthContext } from '~/common/context'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
 

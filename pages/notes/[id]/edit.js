@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { useWindowSize } from 'react-use'
 import MarkdownIt from 'markdown-it'
 import loadable from '@loadable/component'
-import { useAuthContext } from '~/context'
+import { useAuthContext } from '~/common/context'
 import { Rating } from 'semantic-ui-react'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
