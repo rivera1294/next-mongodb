@@ -21,7 +21,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle'
 import MoreIcon from '@material-ui/icons/MoreVert'
 import IconButton from '@material-ui/core/IconButton'
 import Link from 'next/link'
-import { useGlobalAppContext, useWindowSize, useAuthContext } from '~/hooks'
+import { useGlobalAppContext, useWindowSize, useAuthContext } from '~/common/hooks'
 import { useRouter } from 'next/router'
 import { Button } from '@material-ui/core'
 

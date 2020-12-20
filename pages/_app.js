@@ -1,9 +1,14 @@
 import NextApp from 'next/app'
 import 'semantic-ui-css/semantic.min.css'
-import { Layout } from '~/components/Layout'
+import { Layout } from '~/common/components/Layout'
 import 'react-markdown-editor-lite/lib/index.css'
 import '~/public/static/css/style.css'
-import { AuthContextProvider, GlobalAppContextProvider, NotifsContextProvider, SocketContextProvider } from '~/context'
+import {
+  AuthContextProvider,
+  GlobalAppContextProvider,
+  NotifsContextProvider,
+  SocketContextProvider,
+} from '~/common/context'
 import { CookiesProvider } from 'react-cookie'
 import Head from 'next/head'
 import 'react-notifications-component/dist/theme.css'
@@ -11,7 +16,7 @@ import 'react-notifications-component/dist/theme.css'
 import 'animate.css/animate.min.css'
 import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import { theme } from '~/styled-mui/common/theme'
+import { theme } from '~/common/styled-mui/theme'
 
 class MyApp extends NextApp {
   componentDidMount() {

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { md } from '~/styled-mui/common/theme'
+import { md } from '~/common/styled-mui/theme'
 
 export function useWindowSize() {
   // Initialize state with undefined width/height so server and client renders match

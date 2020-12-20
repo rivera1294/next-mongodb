@@ -1,4 +1,4 @@
-import { TheNotePage } from '~/components/TheNotePage'
+import { TheNotePage } from '~/common/components/TheNotePage'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
 

@@ -2,10 +2,10 @@ import { useEffect, useRef, useMemo } from 'react'
 import Link from 'next/link'
 import fetch from 'isomorphic-unfetch'
 import { Button, Card, Icon, Input, Label, Pagination, Rating } from 'semantic-ui-react'
-import { ActiveNote } from '~/components/ActiveNote'
+import { ActiveNote } from '~/common/components/ActiveNote'
 import clsx from 'clsx'
-import { useGlobalAppContext, getInitialState, useAuthContext } from '~/context'
-import { useWindowSize } from '~/hooks'
+import { useGlobalAppContext, getInitialState, useAuthContext } from '~/common/context'
+import { useWindowSize } from '~/common/hooks'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
 

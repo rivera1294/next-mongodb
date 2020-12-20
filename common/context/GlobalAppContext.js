@@ -1,6 +1,6 @@
 import { createContext, useReducer, useState, useEffect, useRef, useContext } from 'react'
 import buildUrl from 'build-url'
-import { useDebounce } from '~/hooks/useDebounce'
+import { useDebounce } from '~/common/hooks/useDebounce'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
 

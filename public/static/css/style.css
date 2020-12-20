@@ -252,6 +252,19 @@ h1 {
 .description-markdown > table td {
   padding: 5px;
 }
+.description-markdown img {
+  transition: max-width 0.3s;
+  margin: 0 auto;
+  display: block;
+
+  border-radius: 4px;
+}
+.description-markdown img.small {
+  max-width: 200px;
+}
+.description-markdown img.large {
+  max-width: 100%;
+}
 
 .custom-html-style code {
   box-shadow: unset;

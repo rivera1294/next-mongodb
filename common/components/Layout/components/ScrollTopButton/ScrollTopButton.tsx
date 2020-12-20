@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useStyles } from './styles'
 import clsx from 'clsx'
 import React, { useRef, useCallback } from 'react'
-import { useScrollPosition } from '~/hooks/useScrollPosition'
+import { useScrollPosition } from '~/common/hooks/useScrollPosition'
 import { scrollTop } from '~/utils/scrollTo'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 

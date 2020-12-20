@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { Navbar } from './components/Navbar'
 import NextNProgress from 'nextjs-progressbar'
 // <NextNProgress color="#FFF" startPosition={0.3} stopDelayMs={200} height={2} options={{ showSpinner: false }} />
-import { theme, md } from '~/styled-mui/common/theme'
+import { theme, md } from '~/common/styled-mui/theme'
 import { ScrollTopButton } from './components'
 
 export const Layout = ({ children }) => {

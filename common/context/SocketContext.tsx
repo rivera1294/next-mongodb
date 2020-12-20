@@ -2,7 +2,7 @@
 import { createContext, useReducer, useEffect, useMemo, useContext, useRef, useCallback } from 'react'
 import io from 'socket.io-client'
 import { actionTypes as evt, IDeletedNote, IConnectSelf, IDisconnectUserBroadcast } from '~/socket-logic'
-import { useNotifsContext } from '~/hooks'
+import { useNotifsContext } from '~/common/hooks'
 import { useGlobalAppContext } from './GlobalAppContext'
 import { httpClient } from '~/utils/httpClient'
 

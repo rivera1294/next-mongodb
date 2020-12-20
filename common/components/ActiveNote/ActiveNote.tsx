@@ -2,18 +2,15 @@ import { useEffect } from 'react'
 import { openLinkInNewTab } from '~/utils/openLinkInNewTab'
 import ReactMarkdown from 'react-markdown'
 import gfm from 'remark-gfm'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-// import { materialDark as prismTheme } from 'react-syntax-highlighter/dist/cjs/styles/prism'
-import { synthwave84 as prismTheme } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import { Rating } from 'semantic-ui-react'
-import { useFreshNote } from '~/hooks'
+import { useFreshNote } from '~/common/hooks'
 import { Scrollbars } from 'react-custom-scrollbars'
 // import { useWindowSize } from '~/hooks'
+import { CodeRendererSynthwave84, ImageRenderer } from '~/common/react-markdown-renderers'
 
 const renderers = {
-  code: ({ language, value }: any) => {
-    return <SyntaxHighlighter showLineNumbers={true} style={prismTheme} language={language} children={value} />
-  },
+  code: CodeRendererSynthwave84,
+  image: ImageRenderer,
 }
 
 interface IProps {

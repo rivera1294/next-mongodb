@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
-import { useSocketContext } from '~/context'
+import { useSocketContext } from '~/common/context'
 
 export function useFreshNote(initialNote) {
   const [refreshedNote, setNote] = useState(initialNote)

@@ -4,7 +4,7 @@ import { addInfoNotif as _addInfoNotif } from './addInfoNotif'
 import { addSuccessNotif as _addSuccessNotif } from './addSuccessNotif'
 import { addDangerNotif as _addDangerNotif } from './addDangerNotif'
 import { addDefaultNotif as _addDefaultNotif } from './addDefaultNotif'
-import { useWindowSize } from '~/hooks'
+import { useWindowSize } from '~/common/hooks'
 import ReactNotification from 'react-notifications-component'
 
 export const NotifsContext = createContext({

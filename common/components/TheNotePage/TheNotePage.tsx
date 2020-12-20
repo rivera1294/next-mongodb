@@ -2,8 +2,8 @@ import fetch from 'isomorphic-unfetch'
 import { useState, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { Confirm, Button, Loader } from 'semantic-ui-react'
-import { ActiveNote } from '~/components/ActiveNote'
-import { useAuthContext } from '~/context'
+import { ActiveNote } from '~/common/components/ActiveNote'
+import { useAuthContext } from '~/common/context'
 import Container from '@material-ui/core/Container'
 // See also: https://github.com/hadnazzar/nextjs-with-material-ui/blob/master/pages/about.js
 import Box from '@material-ui/core/Box'
@@ -11,13 +11,11 @@ import Box from '@material-ui/core/Box'
 import { useStyles } from './styles'
 import ReactMarkdown from 'react-markdown'
 import gfm from 'remark-gfm'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { materialDark as prismTheme } from 'react-syntax-highlighter/dist/cjs/styles/prism'
+import { CodeRendererMaterialDark, ImageRenderer } from '~/common/react-markdown-renderers'
 
 const renderers = {
-  code: ({ language, value }: any) => {
-    return <SyntaxHighlighter showLineNumbers={true} style={prismTheme} language={language} children={value} />
-  },
+  code: CodeRendererMaterialDark,
+  image: ImageRenderer,
 }
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
