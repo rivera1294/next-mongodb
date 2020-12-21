@@ -65,6 +65,7 @@
     "react-cookie": "^4.0.3",
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "16.13.1",
+    "react-emoji-render": "^1.2.4",
     "react-headroom": "^3.1.0",
     "react-markdown": "^5.0.3",
     "react-markdown-editor-lite": "^1.2.2",

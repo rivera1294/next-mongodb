@@ -6,12 +6,7 @@ import { Rating } from 'semantic-ui-react'
 import { useFreshNote } from '~/common/hooks'
 import { Scrollbars } from 'react-custom-scrollbars'
 // import { useWindowSize } from '~/hooks'
-import { CodeRendererSynthwave84, ImageRenderer } from '~/common/react-markdown-renderers'
-
-const renderers = {
-  code: CodeRendererSynthwave84,
-  image: ImageRenderer,
-}
+import { baseRenderers } from '~/common/react-markdown-renderers'
 
 interface IProps {
   note: any
@@ -68,7 +63,7 @@ export const ActiveNote = ({ note: initialNote, descriptionRenderer }: IProps) =
           >
             <div className="description-markdown">
               {/* @ts-ignore */}
-              <ReactMarkdown plugins={[gfm, { singleTilde: false }]} renderers={renderers} children={description} />
+              <ReactMarkdown plugins={[gfm, { singleTilde: false }]} renderers={baseRenderers} children={description} />
             </div>
           </Scrollbars>
         ))}

@@ -11,12 +11,18 @@ import Box from '@material-ui/core/Box'
 import { useStyles } from './styles'
 import ReactMarkdown from 'react-markdown'
 import gfm from 'remark-gfm'
-import { CodeRendererMaterialDark, ImageRenderer, HeadingRenderer } from '~/common/react-markdown-renderers'
+import {
+  CodeRendererMaterialDark,
+  EmojiRenderer,
+  ImageRenderer,
+  HeadingRenderer,
+} from '~/common/react-markdown-renderers'
 
 const renderers = {
   code: CodeRendererMaterialDark,
   image: ImageRenderer,
   heading: HeadingRenderer,
+  text: EmojiRenderer,
 }
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
