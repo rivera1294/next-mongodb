@@ -152,6 +152,10 @@ export const GlobalAppContextProvider = ({ children }) => {
 
     fetchData()
   }, [debouncedPage, debouncedSearchByTitle, debouncedSearchByDescription])
+  // useEffect(() => {
+  //   // eslint-disable-next-line no-console
+  //   console.log('ROUTE')
+  // }, [debouncedSearchByTitle, debouncedSearchByDescription])
   const handleSearchByTitleClear = () => {
     dispatch({ type: 'SEARCH_BY_TITLE@SET', payload: '' })
   }
