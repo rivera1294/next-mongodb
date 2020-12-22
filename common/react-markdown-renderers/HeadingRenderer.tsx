@@ -1,8 +1,8 @@
 import React from 'react'
+import slugify from 'slugify'
 
 function flatten(text: string, child: any): React.ReactElement {
   // @ts-ignore
-
   return typeof child === 'string' ? text + child : React.Children.toArray(child.props.children).reduce(flatten, text)
 }
 
@@ -15,7 +15,7 @@ export function HeadingRenderer(props: any) {
 
   // @ts-ignore
 
-  var slug = text.toLowerCase().replace(/\W/g, '-')
+  var slug = slugify(`${props.level}-${text}`).toLowerCase() // .replace(/\W/g, '-')
 
   return React.createElement('h' + props.level, { id: slug }, props.children)
 }

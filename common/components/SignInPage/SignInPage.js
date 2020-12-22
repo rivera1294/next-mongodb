@@ -49,8 +49,6 @@ export const SignInPage = () => {
             url = decodeURIComponent(router.query.from)
           }
 
-          console.log(url)
-
           router.push(url)
         })
         .catch((err) => {
