@@ -13,6 +13,7 @@ export default class MyDocument extends Document {
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
           <link rel="stylesheet" href="/static/css/old.styles.css" />
           <link rel="stylesheet" href="/static/css/old.build.editor-js.css" />
+          <link rel="stylesheet" href="/static/css/react-notifications-component.css" />
         </Head>
         <body>
           <Main />

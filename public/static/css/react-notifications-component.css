@@ -1,0 +1,31 @@
+.notification__item {
+  font-family: Fira Sans, Montserrat, sans-serif;
+}
+
+.notification__item--danger {
+  background-color: #c84f4f !important;
+  border-left: 8px solid #821a1a !important;
+  /* light: E37C7C */
+}
+
+.notification__item--info {
+  background-color: #3882c4 !important;
+  border-left: 8px solid #124c7f !important;
+  /* light: 69A8E2 */
+}
+
+.notification__item--success {
+  background-color: #71bc81 !important;
+  border-left: 8px solid #257a38 !important;
+  /* light: 9BDEAA */
+}
+
+.notification__item--warning {
+  background-color: #f5984e !important;
+  border-left: 8px solid #9f5519 !important;
+  /* light: FAB37A */
+}
+
+.notification__timer {
+  background-color: rgba(255, 255, 255, 0.3) !important;
+}

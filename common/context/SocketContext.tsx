@@ -83,7 +83,7 @@ export const SocketContextProvider = ({ children }: any) => {
       addDefaultNotif({
         title: 'Me connected',
         message: arg.data.msg,
-        type: 'info',
+        type: 'success',
       })
       dispatch({ type: evt.ME_CONNECTED, payload: socket })
     },
