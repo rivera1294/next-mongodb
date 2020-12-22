@@ -8,21 +8,16 @@ import Container from '@material-ui/core/Container'
 // See also: https://github.com/hadnazzar/nextjs-with-material-ui/blob/master/pages/about.js
 import Box from '@material-ui/core/Box'
 // import Button from '@material-ui/core/Button'
-import { useStyles } from './styles'
+// import { useStyles } from './styles'
 import ReactMarkdown from 'react-markdown'
 import gfm from 'remark-gfm'
-import {
-  CodeRendererMaterialDark,
-  EmojiRenderer,
-  ImageRenderer,
-  HeadingRenderer,
-} from '~/common/react-markdown-renderers'
+import { CodeRendererMaterialDark, ImageRenderer, HeadingRenderer } from '~/common/react-markdown-renderers'
+import { useBaseStyles } from '~/common/styled-mui/baseStyles'
 
 const renderers = {
   code: CodeRendererMaterialDark,
   image: ImageRenderer,
   heading: HeadingRenderer,
-  text: EmojiRenderer,
 }
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
@@ -32,7 +27,7 @@ export const TheNotePage = ({ initNote: note }: any) => {
   const [isDeleting, setIsDeleting] = useState(false)
   const router = useRouter()
   // const note = useMemo(() => initNote, [JSON.stringify(initNote)])
-  const classes = useStyles()
+  const baseClasses = useBaseStyles()
 
   useEffect(() => {
     if (isDeleting) {
@@ -40,8 +35,8 @@ export const TheNotePage = ({ initNote: note }: any) => {
     }
   }, [isDeleting])
 
-  const open = () => setConfirm(true)
-  const close = () => setConfirm(false)
+  const handleOpen = () => setConfirm(true)
+  const handleClose = () => setConfirm(false)
   const deleteNote = async () => {
     const noteId = router.query.id
     try {
@@ -62,13 +57,13 @@ export const TheNotePage = ({ initNote: note }: any) => {
   }
   const handleDelete = async () => {
     setIsDeleting(true)
-    close()
+    handleClose()
   }
   const { isLogged } = useAuthContext()
   const MemoizedBtnsBox = useMemo(
     () => (
-      <Box my={4} className={classes.btnsBox}>
-        <Button basic color="red" onClick={open}>
+      <Box my={4} className={baseClasses.btnsBox}>
+        <Button basic color="red" onClick={handleOpen}>
           Delete
         </Button>
         <Button basic color="blue" onClick={handleEdit}>
@@ -76,13 +71,13 @@ export const TheNotePage = ({ initNote: note }: any) => {
         </Button>
       </Box>
     ),
-    [open, handleEdit]
+    [isLogged, handleOpen, handleEdit]
   )
 
   return (
-    <Container maxWidth="md" className={classes.noPaddingMobile}>
+    <Container maxWidth="md" className={baseClasses.noPaddingMobile}>
       {isLogged && MemoizedBtnsBox}
-      <Box my={4} className={classes.noMarginTopBottomMobile}>
+      <Box my={4} className={baseClasses.noMarginTopBottomMobile}>
         {isDeleting ? (
           <Loader active />
         ) : (
@@ -106,7 +101,7 @@ export const TheNotePage = ({ initNote: note }: any) => {
             )}
           </div>
         )}
-        <Confirm open={confirm} onCancel={close} onConfirm={handleDelete} />
+        <Confirm handleOpen={confirm} onCancel={handleClose} onConfirm={handleDelete} />
       </Box>
       {isLogged && MemoizedBtnsBox}
     </Container>

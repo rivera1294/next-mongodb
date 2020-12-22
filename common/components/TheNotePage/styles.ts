@@ -1,24 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles'
 
 export const useStyles = makeStyles(
-  (theme) => ({
-    noPaddingMobile: {
-      [theme.breakpoints.down('sm')]: {
-        padding: '0px',
-      },
-    },
-    btnsBox: {
-      [theme.breakpoints.down('sm')]: {
-        padding: theme.spacing(1, 2, 1, 2),
-      },
-    },
-    noMarginTopBottomMobile: {
-      [theme.breakpoints.down('sm')]: {
-        marginTop: '0px',
-        marginBottom: '0px',
-      },
-    },
-
+  (_theme) => ({
     header: {
       width: '100%',
       // [theme.breakpoints.down('sm')]: {},
