@@ -42,7 +42,16 @@ export const SignInPage = () => {
         })
         .then(({ token }) => {
           handleLogin(token)
-          router.push('/')
+
+          let url = '/'
+
+          if (!!router.query?.from) {
+            url = decodeURIComponent(router.query.from)
+          }
+
+          console.log(url)
+
+          router.push(url)
         })
         .catch((err) => {
           setIsSubmitting(false)

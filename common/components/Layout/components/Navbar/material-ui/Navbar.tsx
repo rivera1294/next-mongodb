@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -24,6 +24,7 @@ import Link from 'next/link'
 import { useGlobalAppContext, useWindowSize, useAuthContext } from '~/common/hooks'
 import { useRouter } from 'next/router'
 import { Button } from '@material-ui/core'
+import buildUrl from 'build-url'
 
 interface IProps {
   /**
@@ -60,11 +61,27 @@ export const Navbar = (_props: IProps) => {
     e.preventDefault()
     handleLogout()
   }
-  const login = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault()
-    handleMenuClose()
-    router.push('/users/auth/signin')
-  }
+  const login = useCallback(
+    (e: React.MouseEvent<HTMLElement>) => {
+      e.preventDefault()
+      handleMenuClose()
+
+      let url = '/users/auth/signin'
+
+      if (!!router.query?.id) {
+        url = buildUrl('/', {
+          path: '/users/auth/signin',
+          // hash: 'contact',
+          queryParams: {
+            from: `/notes/${router.query.id}`,
+          },
+        })
+      }
+
+      router.push(url)
+    },
+    [router]
+  )
   const createNew = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault()
     handleMenuClose()
@@ -113,18 +130,18 @@ export const Navbar = (_props: IProps) => {
           <MenuItem
             onClick={(e) => {
               handleMenuClose()
-              logout(e)
-            }}
-          >
-            Logout
-          </MenuItem>
-          <MenuItem
-            onClick={(e) => {
-              handleMenuClose()
               createNew(e)
             }}
           >
             Create new
+          </MenuItem>
+          <MenuItem
+            onClick={(e) => {
+              handleMenuClose()
+              logout(e)
+            }}
+          >
+            Logout
           </MenuItem>
         </>
       )}
