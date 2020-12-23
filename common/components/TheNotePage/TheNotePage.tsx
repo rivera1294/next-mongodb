@@ -35,7 +35,9 @@ export const TheNotePage = ({ initNote: note }: any) => {
     }
   }, [isDeleting])
 
-  const handleOpen = () => setConfirm(true)
+  const handleOpen = () => {
+    setConfirm(true)
+  }
   const handleClose = () => setConfirm(false)
   const deleteNote = async () => {
     const noteId = router.query.id
@@ -71,12 +73,12 @@ export const TheNotePage = ({ initNote: note }: any) => {
         </Button>
       </Box>
     ),
-    [isLogged, handleOpen, handleEdit]
+    [handleOpen, handleEdit]
   )
 
   return (
     <Container maxWidth="md" className={baseClasses.noPaddingMobile}>
-      {isLogged && MemoizedBtnsBox}
+      {isLogged && !isDeleting && MemoizedBtnsBox}
       <Box my={4} className={baseClasses.noMarginTopBottomMobile}>
         {isDeleting ? (
           <Loader active />
@@ -101,9 +103,9 @@ export const TheNotePage = ({ initNote: note }: any) => {
             )}
           </div>
         )}
-        <Confirm handleOpen={confirm} onCancel={handleClose} onConfirm={handleDelete} />
+        <Confirm open={confirm} onCancel={handleClose} onConfirm={handleDelete} />
       </Box>
-      {isLogged && MemoizedBtnsBox}
+      {isLogged && !isDeleting && MemoizedBtnsBox}
     </Container>
   )
 }
