@@ -213,13 +213,14 @@ h1 {
   overflow-y: auto;
 }
 .description-markdown blockquote {
-  margin-left: 0px;
-  padding: 5px 0px 5px 15px;
+  margin-left: 5px;
+  padding: 5px 15px 5px 15px;
   color: gray;
-  border: 1px solid transparent;
-  border-left: 10px solid rgba(47, 47, 47, 0.4);
-  box-shadow: 0px 0px 6px rgba(144, 164, 183, 0.35);
-  margin-right: 25px;
+  border: 1px solid rgba(47, 47, 47, 0.15);
+  border-left: 10px solid rgba(47, 47, 47, 0.15);
+  box-shadow: 0px 0px 6px rgba(144, 164, 183, 0.3);
+  margin-right: 15px;
+  border-radius: 4px;
 }
 .description-markdown pre {
   border-radius: 4px;
