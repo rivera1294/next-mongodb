@@ -33,6 +33,8 @@ function reducer(state: any, action: any) {
   }
 }
 
+const firstRendersToSkip: number = 1
+
 export const SocketContextProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const isClient = useMemo(() => typeof window !== 'undefined', [typeof window])
@@ -188,10 +190,11 @@ export const SocketContextProvider = ({ children }: any) => {
 
     return res
   }
-  // const renderCounterRef = useRef<number>(0)
+  const renderCounterRef = useRef<number>(0)
 
   useEffect(() => {
-    // renderCounterRef.current += 1
+    renderCounterRef.current += 1
+    if (renderCounterRef.current < firstRendersToSkip) return
     if (isClient) {
       // @ts-ignore
       const socket = io.connect(NEXT_APP_SOCKET_API_ENDPOINT)
@@ -200,21 +203,21 @@ export const SocketContextProvider = ({ children }: any) => {
         handleMeConnectedRef.current(arg, socket)
 
         // NOTE: is reconnect?
-        // if (renderCounterRef.current > 1) {
-        handleGetAllNotes()
-          .then((res) => {
-            handleSetNotesResponse(res)
-          })
-          .catch((err) => {
-            if (typeof err === 'string') {
-              addDangerNotif({
-                title: 'ERR: Update list by new socket connection',
-                message: err,
-              })
-            }
-            console.log(err)
-          })
-        // }
+        if (renderCounterRef.current > firstRendersToSkip + 1) {
+          handleGetAllNotes()
+            .then((res) => {
+              handleSetNotesResponse(res)
+            })
+            .catch((err) => {
+              if (typeof err === 'string') {
+                addDangerNotif({
+                  title: 'ERR: Update list by new socket connection',
+                  message: err,
+                })
+              }
+              console.log(err)
+            })
+        }
       })
       socket.on(evt.NOTE_CREATED, handleCreateNote)
       socket.on(evt.NOTE_UPDATED, handleUpdateNote)
