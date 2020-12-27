@@ -11,14 +11,8 @@ import Box from '@material-ui/core/Box'
 // import { useStyles } from './styles'
 import ReactMarkdown from 'react-markdown'
 import gfm from 'remark-gfm'
-import { CodeRendererMaterialDark, ImageRenderer, HeadingRenderer } from '~/common/react-markdown-renderers'
+import { theNotePageRenderers } from '~/common/react-markdown-renderers'
 import { useBaseStyles } from '~/common/styled-mui/baseStyles'
-
-const renderers = {
-  code: CodeRendererMaterialDark,
-  image: ImageRenderer,
-  heading: HeadingRenderer,
-}
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
 
@@ -93,7 +87,7 @@ export const TheNotePage = ({ initNote: note }: any) => {
                       <ReactMarkdown
                         // @ts-ignore
                         plugins={[gfm, { singleTilde: false }]}
-                        renderers={renderers}
+                        renderers={theNotePageRenderers}
                         children={description}
                       />
                     </div>

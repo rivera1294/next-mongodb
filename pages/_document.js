@@ -14,6 +14,7 @@ export default class MyDocument extends Document {
           <link rel="stylesheet" href="/static/css/old.styles.css" />
           <link rel="stylesheet" href="/static/css/old.build.editor-js.css" />
           <link rel="stylesheet" href="/static/css/react-notifications-component.css" />
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400italic" />
         </Head>
         <body>
           <Main />

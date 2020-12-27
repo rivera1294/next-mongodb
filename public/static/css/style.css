@@ -212,18 +212,47 @@ h1 {
   white-space: pre-wrap;
   overflow-y: auto;
 }
-.description-markdown blockquote {
-  margin-left: 5px;
-  padding: 5px 15px 5px 15px;
-  color: gray;
-  border: 1px solid rgba(47, 47, 47, 0.15);
-  border-left: 10px solid rgba(47, 47, 47, 0.15);
-  box-shadow: 0px 0px 6px rgba(144, 164, 183, 0.3);
-  margin-right: 15px;
+
+/* BLOCKQUOTE */
+.description-markdown .otro-blockquote {
+  /* font-size: 1.4em; */
+  font-size: 1em;
+  width: 100%;
   border-radius: 4px;
+  margin: 20px auto;
+  font-family: Open Sans;
+  font-style: italic;
+  color: #555555;
+  /* padding: 1.2em 30px 1.2em 75px; */
+  padding: 1.2em 30px 1.2em 50px;
+  border-left: 8px solid #78c0a8;
+  line-height: 1.6;
+  position: relative;
+  background: #ededed;
 }
+.description-markdown .otro-blockquote::before {
+  font-family: Arial;
+  content: '\201C';
+  color: #78c0a8;
+  font-size: 4em;
+  position: absolute;
+  left: 10px;
+  top: -10px;
+}
+/* .description-markdown .otro-blockquote::after {
+  content: '';
+} */
+.description-markdown .otro-blockquote span {
+  display: block;
+  color: #333333;
+  font-style: normal;
+  font-weight: bold;
+  margin-top: 1em;
+}
+
 .description-markdown pre {
   border-radius: 4px;
+  margin-bottom: 20px !important;
 }
 .description-markdown pre code {
   box-shadow: unset;
