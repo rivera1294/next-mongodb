@@ -1,6 +1,7 @@
 import { createContext, useReducer, useState, useEffect, useRef, useContext } from 'react'
 import buildUrl from 'build-url'
 import { useDebounce } from '~/common/hooks/useDebounce'
+import { useRouter } from 'next/router'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
 
@@ -72,6 +73,8 @@ function reducer(state, action) {
       return { ...state, searchByTitle: action.payload, localPage: 1 }
     case 'SEARCH_BY_DESCRIPTION@SET':
       return { ...state, searchByDescription: action.payload, localPage: 1 }
+    case 'SEARCH_BY_ANYTHING@RESET':
+      return { ...state, searchByDescription: '', searchByTitle: '', localPage: 1 }
     case 'ACTIVE_NOTE@SET':
       return { ...state, activeNote: action.payload }
     case 'ACTIVE_NOTE@RESET':
@@ -162,6 +165,13 @@ export const GlobalAppContextProvider = ({ children }) => {
   const handleSearchByDescriptionClear = () => {
     dispatch({ type: 'SEARCH_BY_DESCRIPTION@SET', payload: '' })
   }
+  const handleSearchByAnythingClear = () => {
+    dispatch({ type: 'SEARCH_BY_ANYTHING@RESET' })
+  }
+  const router = useRouter()
+  useEffect(() => {
+    handleSearchByAnythingClear()
+  }, [router.pathname])
   const handleSetAsActiveNote = (note) => {
     dispatch({ type: 'ACTIVE_NOTE@SET', payload: note })
   }
