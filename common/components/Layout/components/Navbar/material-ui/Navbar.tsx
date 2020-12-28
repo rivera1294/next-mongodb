@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -203,6 +203,7 @@ export const Navbar = (_props: IProps) => {
   } = useGlobalAppContext()
   // ---
   const { isDesktop } = useWindowSize()
+  const isHomePage = useMemo(() => router.pathname === '/', [router.pathname])
 
   return (
     // <HideOnScroll {...props}>
@@ -219,7 +220,7 @@ export const Navbar = (_props: IProps) => {
                 <a className="navbar-brand">Code Samples 2.0</a>
               </Link>
             </Typography>
-            {isDesktop && (
+            {isDesktop && isHomePage && (
               <>
                 <div className={classes.search}>
                   <div className={classes.searchIcon}>

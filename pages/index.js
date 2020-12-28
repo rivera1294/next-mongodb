@@ -9,6 +9,8 @@ import { useWindowSize } from '~/common/hooks'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
 
+let c = 0
+
 const Index = ({ notes: initNotes, pagination: initPag }) => {
   const {
     state,

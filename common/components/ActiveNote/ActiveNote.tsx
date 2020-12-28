@@ -1,5 +1,6 @@
-import { useEffect } from 'react'
-import { openLinkInNewTab } from '~/utils/openLinkInNewTab'
+/* eslint-disable no-console */
+import { memo } from 'react'
+// import { openLinkInNewTab } from '~/utils/openLinkInNewTab'
 import ReactMarkdown from 'react-markdown'
 import gfm from 'remark-gfm'
 import { Rating } from 'semantic-ui-react'
@@ -13,23 +14,23 @@ interface IProps {
   descriptionRenderer?: React.FC<any>
 }
 
-export const ActiveNote = ({ note: initialNote, descriptionRenderer }: IProps) => {
+const MyComponent = ({ note: initialNote, descriptionRenderer }: IProps) => {
   const note = useFreshNote(initialNote)
   const { description, priority, title, _id } = note
 
   // Links should be opened in new tab:
-  useEffect(() => {
-    const descriptionMarkdown = document.querySelector('.description-markdown')
+  // useEffect(() => {
+  //   const descriptionMarkdown = document.querySelector('.description-markdown')
 
-    if (typeof window !== 'undefined') {
-      if (!!descriptionMarkdown) descriptionMarkdown?.addEventListener('click', openLinkInNewTab)
-    }
-    return () => {
-      if (typeof window !== 'undefined') {
-        if (!!descriptionMarkdown) descriptionMarkdown?.removeEventListener('click', openLinkInNewTab)
-      }
-    }
-  }, [])
+  //   if (typeof window !== 'undefined') {
+  //     if (!!descriptionMarkdown) descriptionMarkdown?.addEventListener('click', openLinkInNewTab)
+  //   }
+  //   return () => {
+  //     if (typeof window !== 'undefined') {
+  //       if (!!descriptionMarkdown) descriptionMarkdown?.removeEventListener('click', openLinkInNewTab)
+  //     }
+  //   }
+  // }, [])
   // const handleSetRate = (e, { rating, maxRating }) => {}
   // const { height } = useWindowSize()
 
@@ -71,3 +72,15 @@ export const ActiveNote = ({ note: initialNote, descriptionRenderer }: IProps) =
     </div>
   )
 }
+
+function areEqual(prevProps: any, nextProps: any) {
+  /*
+  возвращает true, если nextProps рендерит
+  тот же результат что и prevProps,
+  иначе возвращает false
+  */
+  return prevProps.note._id === nextProps.note._id && prevProps.note.updatedAt === nextProps.note.updatedAt
+}
+export const ActiveNote = memo(MyComponent, areEqual)
+
+// export const ActiveNote = MyComponent
