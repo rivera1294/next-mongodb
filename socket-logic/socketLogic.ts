@@ -6,7 +6,11 @@ const stateMap = new Map()
 
 export function socketLogic(io: any) {
   io.on('connection', function (socket: any) {
-    const ip = socket.handshake.address
+    // const ip = socket.handshake.address
+    const ip = socket.conn.remoteAddress
+
+    // eslint-disable-next-line no-console
+    // console.log(socket)
 
     // console.log('=== Somebody connected ===')
     const body0: IConnectSelf = {
