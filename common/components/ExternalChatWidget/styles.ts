@@ -8,7 +8,7 @@ const widgetWidthMobile = 280
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     iframe: {
-      border: '1px solid lightgray',
+      border: 'none',
     },
 
     buttonsWrapper: {
