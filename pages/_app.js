@@ -47,7 +47,7 @@ class MyApp extends NextApp {
           <NotifsContextProvider>
             <CookiesProvider>
               <AuthContextProvider>
-                <ExternalChatWidget src="http://selection4test.ru" />
+                <ExternalChatWidget src="http://selection4test.ru:5000" />
                 <GlobalAppContextProvider>
                   <SocketContextProvider>
                     <Layout>
