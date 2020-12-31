@@ -57,24 +57,15 @@ export const useStyles = makeStyles((theme: Theme) =>
       position: 'fixed',
       [theme.breakpoints.up('md')]: {
         top: '90px',
+        transform: `translateX(${widgetWidthDesktop}px)`,
       },
       [theme.breakpoints.down('sm')]: {
         top: '65px',
+        transform: `translateX(${widgetWidthMobile}px)`,
       },
       right: '0px',
       transition: 'transform 0.2s linear',
       zIndex: 6,
-
-      [theme.breakpoints.up('md')]: {
-        transform: `translateX(${widgetWidthDesktop}px)`,
-      },
-      [theme.breakpoints.down('sm')]: {
-        transform: `translateX(${widgetWidthMobile}px)`,
-        // alignItems: 'flex-start',
-        // '& > div:nth-child(2)': {
-        //   width: '100%',
-        // },
-      },
     },
     openedWidget: {
       transform: 'translateX(0px)',
