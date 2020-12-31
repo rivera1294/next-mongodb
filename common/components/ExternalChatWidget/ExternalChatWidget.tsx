@@ -34,7 +34,7 @@ export const ExternalChatWidget = ({ src }: IProps) => {
           >
             {isWidgetOpened ? <CloseIcon /> : widgetTogglerLabel}
           </Button>
-          <iframe title="chat" className={classes.iframe} src={src} style={{ width: '100%', height: '400px' }} />
+          <iframe title="chat" className={classes.iframe} src={src} />
         </Box>
       </div>
     </>

@@ -9,8 +9,15 @@ export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     iframe: {
       border: 'none',
-    },
 
+      width: '100%',
+      [theme.breakpoints.up('md')]: {
+        height: '400px',
+      },
+      [theme.breakpoints.down('sm')]: {
+        height: '200px',
+      },
+    },
     buttonsWrapper: {
       display: 'flex',
       [theme.breakpoints.up('md')]: {
@@ -48,7 +55,12 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     fixedDesktopWidget: {
       position: 'fixed',
-      top: '90px',
+      [theme.breakpoints.up('md')]: {
+        top: '90px',
+      },
+      [theme.breakpoints.down('sm')]: {
+        top: '65px',
+      },
       right: '0px',
       transition: 'transform 0.2s linear',
       zIndex: 6,
