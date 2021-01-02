@@ -1,7 +1,8 @@
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
+import { getNthTop } from '~/common/constants/widgets'
 
 const widgetWidthDesktop = 375
-const widgetWidthMobile = 280
+const widgetWidthMobile = 290
 // const widgetTogglerWidthDesktop = 160
 // const widgetTogglerWidthMobile = 160
 
@@ -56,11 +57,11 @@ export const useStyles = makeStyles((theme: Theme) =>
     fixedDesktopWidget: {
       position: 'fixed',
       [theme.breakpoints.up('md')]: {
-        top: 'calc(90px + 35px)',
+        top: `${getNthTop(2).desktop}px`,
         transform: `translateX(${widgetWidthDesktop}px)`,
       },
       [theme.breakpoints.down('sm')]: {
-        top: 'calc(65px + 15px)',
+        top: `${getNthTop(2).mobile}px`,
         transform: `translateX(${widgetWidthMobile}px)`,
       },
       right: '0px',
