@@ -18,6 +18,7 @@ import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { theme } from '~/common/styled-mui/theme'
 import { ExternalChatWidget } from '~/common/components/ExternalChatWidget'
+import { ExternalPrivateFrameWidget } from '~/common/components/ExternalPrivateFrameWidget'
 
 class MyApp extends NextApp {
   componentDidMount() {
@@ -48,6 +49,7 @@ class MyApp extends NextApp {
             <CookiesProvider>
               <AuthContextProvider>
                 <ExternalChatWidget src="http://selection4test.ru:5000" />
+                <ExternalPrivateFrameWidget src="https://selection4test.ru/projects/threejs-ts-course" />
                 <GlobalAppContextProvider>
                   <SocketContextProvider>
                     <Layout>
