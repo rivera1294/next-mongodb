@@ -293,7 +293,7 @@ h1 {
   border-radius: 4px;
 }
 .description-markdown img.small {
-  max-width: 200px;
+  max-width: 350px;
 }
 .description-markdown img.large {
   max-width: 100%;
