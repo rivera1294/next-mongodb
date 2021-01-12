@@ -14,10 +14,10 @@ import { useRouter } from 'next/router'
 export const SpeedDial = () => {
   const classes = useStyles()
   const [isOpened, setIsOpened] = useState(false)
-  const handleOpen = () => {
+  const handleOpenMe = () => {
     setIsOpened(true)
   }
-  const handleClose = () => {
+  const handleCloseMe = () => {
     setIsOpened(false)
   }
 
@@ -45,6 +45,7 @@ export const SpeedDial = () => {
         onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
           e.preventDefault()
           handleScrollTop()
+          handleCloseMe()
         },
         isVisible: isMoreThanTrackedY,
       },
@@ -61,8 +62,8 @@ export const SpeedDial = () => {
         className={classes.speedDial}
         hidden={false}
         icon={<SpeedDialIcon />}
-        onClose={handleClose}
-        onOpen={handleOpen}
+        onClose={handleCloseMe}
+        onOpen={handleOpenMe}
         open={isOpened}
       >
         {actions.map(({ name, onClick, icon, isVisible }) =>

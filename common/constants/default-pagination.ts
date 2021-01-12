@@ -1,3 +1,3 @@
 export const data = {
-  limit: 50,
+  limit: 3,
 }

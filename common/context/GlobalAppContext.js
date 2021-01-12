@@ -3,6 +3,7 @@ import buildUrl from 'build-url'
 import { useDebounce } from '~/common/hooks/useDebounce'
 import { useRouter } from 'next/router'
 import { data as defaultPaginationData } from '~/common/constants/default-pagination'
+import { scrollTop } from '~/utils/scrollTo'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
 
@@ -117,9 +118,17 @@ export const GlobalAppContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, getInitialState({}))
   const debouncedSearchByTitle = useDebounce(state.searchByTitle, 1000)
   const debouncedSearchByDescription = useDebounce(state.searchByDescription, 1000)
+  const handleScrollTop = () => {
+    setTimeout(() => {
+      scrollTop()
+    }, 0)
+    return Promise.resolve()
+  }
 
   const handlePageChange = (_ev, data) => {
-    dispatch({ type: 'SET_LOCAL_PAGE', payload: data.activePage })
+    handleScrollTop().then(() => {
+      dispatch({ type: 'SET_LOCAL_PAGE', payload: data.activePage })
+    })
   }
   const debouncedPage = useDebounce(state.localPage, 1000)
   const renderCountRef = useRef(0)
