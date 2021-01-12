@@ -99,7 +99,7 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
       </div> */}
       <div className="main standard-container">
         <div className="active-note-external-sticky-wrapper">
-          {!!activeNote ? <ActiveNote note={activeNote} key={activeNote._id} /> : <EmptyTemplate />}
+          {!!activeNote ? <ActiveNote note={activeNote} key={activeNote._id} isTagsNessesary /> : <EmptyTemplate />}
         </div>
         <div>
           <div className="grid wrapper">

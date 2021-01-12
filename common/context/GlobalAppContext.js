@@ -49,7 +49,7 @@ export const GlobalAppContext = createContext({
   handleSearchByDescriptionSetText: () => {
     throw new Error('handleSearchByDescriptionSetText method should be implemented')
   },
-  handleSearchByTitleSetText: () => {
+  handleSearchByTitleSetText: (text) => {
     throw new Error('handleSearchByTitleSetText method should be implemented')
   },
   handleUpdateOneNote: (note) => {

@@ -42,7 +42,7 @@ h1 {
   }
   .main > div:first-child > div {
     padding: 10px 10px 10px 10px !important;
-    border: 2px solid lightgray;
+    /* border: 2px solid lightgray; */
   }
   .active-note-external-sticky-wrapper {
     position: sticky;

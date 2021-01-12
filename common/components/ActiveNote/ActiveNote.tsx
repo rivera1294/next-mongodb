@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { memo } from 'react'
+import { memo, useMemo } from 'react'
 // import { openLinkInNewTab } from '~/utils/openLinkInNewTab'
 import ReactMarkdown from 'react-markdown'
 import gfm from 'remark-gfm'
@@ -10,14 +10,19 @@ import { Scrollbars } from 'react-custom-scrollbars'
 import { baseRenderers } from '~/common/react-markdown-renderers'
 import { useBaseStyles } from '~/common/styled-mui/baseStyles'
 import clsx from 'clsx'
+import Button from '@material-ui/core/Button'
+import { useGlobalAppContext } from '~/common/hooks'
+import { useStyles } from './styles'
 
 interface IProps {
   note: any
   descriptionRenderer?: React.FC<any>
+  isTagsNessesary?: boolean
 }
 
-const MyComponent = ({ note: initialNote, descriptionRenderer }: IProps) => {
+const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary }: IProps) => {
   const baseClasses = useBaseStyles()
+  const classes = useStyles()
   const note = useFreshNote(initialNote)
   const { description, priority, title, _id } = note
 
@@ -36,6 +41,8 @@ const MyComponent = ({ note: initialNote, descriptionRenderer }: IProps) => {
   // }, [])
   // const handleSetRate = (e, { rating, maxRating }) => {}
   // const { height } = useWindowSize()
+  const tags = useMemo(() => (!!title ? title.split(' ').filter((elm: string) => elm[0] === '#') : []), [title])
+  const { handleSearchByTitleSetText } = useGlobalAppContext()
 
   return (
     <div className={clsx('todo-item', baseClasses.customizableListingWrapper)}>
@@ -72,6 +79,18 @@ const MyComponent = ({ note: initialNote, descriptionRenderer }: IProps) => {
           </Scrollbars>
         ))}
       {/* <pre style={{ whiteSpace: 'pre-wrap' }}>{JSON.stringify(note, null, 2)}</pre> */}
+      {isTagsNessesary && tags.length > 0 && (
+        <>
+          <div style={{ borderBottom: '2px solid lightgray' }} />
+          <div className={classes.buttonsBox}>
+            {tags.map((tag: string) => (
+              <Button variant="outlined" size="small" onClick={() => handleSearchByTitleSetText(tag)}>
+                {tag}
+              </Button>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   )
 }
