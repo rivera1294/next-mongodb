@@ -7,10 +7,9 @@ import clsx from 'clsx'
 import { useGlobalAppContext, getInitialState, useAuthContext } from '~/common/context'
 import { useWindowSize } from '~/common/hooks'
 import { EmptyTemplate } from '~/common/components/EmptyTemplate'
+import { data as defaultPaginationData } from '~/common/constants/default-pagination'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
-
-let c = 0
 
 const Index = ({ notes: initNotes, pagination: initPag }) => {
   const {
@@ -163,7 +162,7 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
 }
 
 Index.getInitialProps = async () => {
-  const res = await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes`)
+  const res = await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes?limit=${defaultPaginationData.limit}`)
   const { data, pagination } = await res.json()
 
   return { notes: data, pagination }

@@ -2,6 +2,7 @@ import { createContext, useReducer, useState, useEffect, useRef, useContext } fr
 import buildUrl from 'build-url'
 import { useDebounce } from '~/common/hooks/useDebounce'
 import { useRouter } from 'next/router'
+import { data as defaultPaginationData } from '~/common/constants/default-pagination'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
 
@@ -44,7 +45,6 @@ export const GlobalAppContext = createContext({
   initState: () => {
     throw new Error('initState method should be implemented')
   },
-  page: 1,
   handleSearchByDescriptionSetText: () => {
     throw new Error('handleSearchByDescriptionSetText method should be implemented')
   },
@@ -121,7 +121,7 @@ export const GlobalAppContextProvider = ({ children }) => {
   const handlePageChange = (_ev, data) => {
     dispatch({ type: 'SET_LOCAL_PAGE', payload: data.activePage })
   }
-  const debouncedPage = useDebounce(state.page, 1000)
+  const debouncedPage = useDebounce(state.localPage, 1000)
   const renderCountRef = useRef(0)
 
   const [isLoading, setIsLoading] = useState(false)
@@ -132,7 +132,9 @@ export const GlobalAppContextProvider = ({ children }) => {
 
     const fetchData = async () => {
       setIsLoading(true)
-      const queryParams = {}
+      const queryParams = {
+        limit: defaultPaginationData.limit,
+      }
       if (!!debouncedSearchByTitle) {
         queryParams.q_title = debouncedSearchByTitle
       }
