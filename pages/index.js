@@ -6,6 +6,7 @@ import { ActiveNote } from '~/common/components/ActiveNote'
 import clsx from 'clsx'
 import { useGlobalAppContext, getInitialState, useAuthContext } from '~/common/context'
 import { useWindowSize } from '~/common/hooks'
+import { EmptyTemplate } from '~/common/components/EmptyTemplate'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
 
@@ -99,7 +100,7 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
       </div> */}
       <div className="main standard-container">
         <div className="active-note-external-sticky-wrapper">
-          {!!activeNote && <ActiveNote note={activeNote} key={activeNote._id} />}
+          {!!activeNote ? <ActiveNote note={activeNote} key={activeNote._id} /> : <EmptyTemplate />}
         </div>
         <div>
           <div className="grid wrapper">

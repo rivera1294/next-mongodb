@@ -39,8 +39,8 @@ const NewNote = () => {
           }
           return res
         })
-        .then((_res) => {
-          router.push('/')
+        .then((res) => {
+          router.push(`/notes/${res.data._id}`)
         })
         .catch((err) => {
           setIsSubmitting(false)
