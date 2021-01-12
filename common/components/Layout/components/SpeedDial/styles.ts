@@ -11,6 +11,10 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     speedDial: {
       position: 'absolute',
+      '& .MuiSpeedDialIcon-root': {
+        width: '21px',
+        height: '21px',
+      },
       '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
         bottom: theme.spacing(2),
         right: theme.spacing(2),
