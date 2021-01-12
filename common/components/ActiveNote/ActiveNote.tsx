@@ -13,6 +13,8 @@ import clsx from 'clsx'
 import Button from '@material-ui/core/Button'
 import { useGlobalAppContext } from '~/common/hooks'
 import { useStyles } from './styles'
+// import { CircularProgress } from '@material-ui/core'
+import LocalOfferIcon from '@material-ui/icons/LocalOffer'
 
 interface IProps {
   note: any
@@ -42,7 +44,7 @@ const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary }
   // const handleSetRate = (e, { rating, maxRating }) => {}
   // const { height } = useWindowSize()
   const tags = useMemo(() => (!!title ? title.split(' ').filter((elm: string) => elm[0] === '#') : []), [title])
-  const { handleSearchByTitleSetText } = useGlobalAppContext()
+  const { handleSearchByTitleSetText, isNotesLoading } = useGlobalAppContext()
 
   return (
     <div className={clsx('todo-item', baseClasses.customizableListingWrapper)}>
@@ -84,7 +86,16 @@ const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary }
           <div style={{ borderBottom: '2px solid lightgray' }} />
           <div className={classes.buttonsBox}>
             {tags.map((tag: string) => (
-              <Button variant="outlined" size="small" onClick={() => handleSearchByTitleSetText(tag)}>
+              <Button
+                startIcon={<LocalOfferIcon />}
+                disabled={isNotesLoading}
+                variant="outlined"
+                size="small"
+                onClick={() => handleSearchByTitleSetText(tag)}
+                // endIcon={
+                //   isNotesLoading && <CircularProgress size={15} color="inherit" style={{ marginLeft: 'auto' }} />
+                // }
+              >
                 {tag}
               </Button>
             ))}
