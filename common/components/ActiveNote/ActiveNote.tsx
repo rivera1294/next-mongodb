@@ -15,6 +15,9 @@ import { useGlobalAppContext } from '~/common/hooks'
 import { useStyles } from './styles'
 // import { CircularProgress } from '@material-ui/core'
 import LocalOfferIcon from '@material-ui/icons/LocalOffer'
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
+import EditIcon from '@material-ui/icons/Edit'
+import { useRouter } from 'next/router'
 
 interface IProps {
   note: any
@@ -45,6 +48,7 @@ const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary }
   // const { height } = useWindowSize()
   const tags = useMemo(() => (!!title ? title.split(' ').filter((elm: string) => elm[0] === '#') : []), [title])
   const { handleSearchByTitleSetText, isNotesLoading } = useGlobalAppContext()
+  const router = useRouter()
 
   return (
     <div className={clsx('todo-item', baseClasses.customizableListingWrapper)}>
@@ -81,24 +85,50 @@ const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary }
           </Scrollbars>
         ))}
       {/* <pre style={{ whiteSpace: 'pre-wrap' }}>{JSON.stringify(note, null, 2)}</pre> */}
-      {isTagsNessesary && tags.length > 0 && (
+
+      {!!_id && isTagsNessesary && (
         <>
           <div style={{ borderBottom: '2px solid lightgray' }} />
           <div className={classes.buttonsBox}>
-            {tags.map((tag: string) => (
-              <Button
-                startIcon={<LocalOfferIcon />}
-                disabled={isNotesLoading}
-                variant="outlined"
-                size="small"
-                onClick={() => handleSearchByTitleSetText(tag)}
-                // endIcon={
-                //   isNotesLoading && <CircularProgress size={15} color="inherit" style={{ marginLeft: 'auto' }} />
-                // }
-              >
-                {tag}
-              </Button>
-            ))}
+            <Button
+              // disabled={isNotesLoading}
+              variant="contained"
+              size="small"
+              color="primary"
+              onClick={() => {
+                router.push(`/notes/${_id}`)
+              }}
+              startIcon={<ArrowForwardIcon />}
+            >
+              View
+            </Button>
+            <Button
+              // disabled={isNotesLoading}
+              variant="outlined"
+              size="small"
+              color="secondary"
+              onClick={() => {
+                router.push(`/notes/${_id}`)
+              }}
+              startIcon={<EditIcon />}
+            >
+              Edit
+            </Button>
+            {tags.length > 0 &&
+              tags.map((tag: string) => (
+                <Button
+                  startIcon={<LocalOfferIcon />}
+                  disabled={isNotesLoading}
+                  variant="outlined"
+                  size="small"
+                  onClick={() => handleSearchByTitleSetText(tag)}
+                  // endIcon={
+                  //   isNotesLoading && <CircularProgress size={15} color="inherit" style={{ marginLeft: 'auto' }} />
+                  // }
+                >
+                  {tag}
+                </Button>
+              ))}
           </div>
         </>
       )}

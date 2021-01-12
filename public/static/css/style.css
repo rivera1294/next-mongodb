@@ -111,7 +111,7 @@ h1 {
   border: 2px solid transparent;
 }
 .active-card-wrapper > .ui.card {
-  border: 2px dashed #6dffff;
+  border: 2px dashed #3882c4;
 }
 
 .navbar {

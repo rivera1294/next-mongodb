@@ -124,7 +124,7 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
                         </div>
                       </Card.Header>
                     </Card.Content>
-                    <Card.Content extra>
+                    {/* <Card.Content extra>
                       <Link href={`/notes/${note._id}`} hrefAs="/[id]">
                         <Button primary>View</Button>
                       </Link>
@@ -135,7 +135,7 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
                           </Button>
                         </Link>
                       )}
-                    </Card.Content>
+                    </Card.Content> */}
                   </Card>
                 </div>
               )
@@ -143,7 +143,7 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
           </div>
         </div>
       </div>
-      {state.notes.length > 0 && totalPages > 0 && !!currentPage && !!state.pagination && (
+      {/* state.notes.length > 0 && totalPages > 0 && !!currentPage && !!state.pagination && (
         <div className="standard-container search-wrapper">
           <Pagination
             // boundaryRange={0}
@@ -156,7 +156,7 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
             onPageChange={handlePageChange}
           />
         </div>
-      )}
+      ) */}
     </div>
   )
 }

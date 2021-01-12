@@ -17,8 +17,8 @@ import 'animate.css/animate.min.css'
 import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { theme } from '~/common/styled-mui/theme'
-import { ExternalChatWidget } from '~/common/components/ExternalChatWidget'
-import { ExternalPrivateFrameWidget } from '~/common/components/ExternalPrivateFrameWidget'
+// import { ExternalChatWidget } from '~/common/components/ExternalChatWidget'
+// import { ExternalPrivateFrameWidget } from '~/common/components/ExternalPrivateFrameWidget'
 
 class MyApp extends NextApp {
   componentDidMount() {
@@ -48,8 +48,8 @@ class MyApp extends NextApp {
           <NotifsContextProvider>
             <CookiesProvider>
               <AuthContextProvider>
-                <ExternalChatWidget src="http://selection4test.ru:5000" />
-                <ExternalPrivateFrameWidget src="https://selection4test.ru/projects/threejs-ts-course" />
+                {/* <ExternalChatWidget src="http://selection4test.ru:5000" />
+                <ExternalPrivateFrameWidget src="https://selection4test.ru/projects/threejs-ts-course" /> */}
                 <GlobalAppContextProvider>
                   <SocketContextProvider>
                     <Layout>
