@@ -8,6 +8,8 @@ import { useFreshNote } from '~/common/hooks'
 import { Scrollbars } from 'react-custom-scrollbars'
 // import { useWindowSize } from '~/hooks'
 import { baseRenderers } from '~/common/react-markdown-renderers'
+import { useBaseStyles } from '~/common/styled-mui/baseStyles'
+import clsx from 'clsx'
 
 interface IProps {
   note: any
@@ -15,6 +17,7 @@ interface IProps {
 }
 
 const MyComponent = ({ note: initialNote, descriptionRenderer }: IProps) => {
+  const baseClasses = useBaseStyles()
   const note = useFreshNote(initialNote)
   const { description, priority, title, _id } = note
 
@@ -35,7 +38,7 @@ const MyComponent = ({ note: initialNote, descriptionRenderer }: IProps) => {
   // const { height } = useWindowSize()
 
   return (
-    <div className="todo-item">
+    <div className={clsx('todo-item', baseClasses.customizableListingWrapper)}>
       <div style={{ marginBottom: '5px', userSelect: 'none' }}>
         <h3>{title}</h3>
       </div>

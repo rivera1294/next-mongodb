@@ -263,7 +263,7 @@ h1 {
   list-style-type: none;
 }
 .description-markdown ul li input[type='checkbox'] {
-  transform: translateY(3px);
+  transform: translateY(5px);
 }
 .description-markdown ul ul {
   margin: 5px 0 5px 15px;
@@ -294,6 +294,7 @@ h1 {
 }
 .description-markdown img.small {
   max-width: 350px;
+  max-height: 350px;
 }
 .description-markdown img.large {
   max-width: 100%;
