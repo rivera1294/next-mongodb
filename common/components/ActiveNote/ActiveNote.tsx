@@ -108,7 +108,7 @@ const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary }
               size="small"
               color="secondary"
               onClick={() => {
-                router.push(`/notes/${_id}`)
+                router.push(`/notes/${_id}/edit`)
               }}
               startIcon={<EditIcon />}
             >
