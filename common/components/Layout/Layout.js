@@ -3,9 +3,15 @@ import { Navbar } from './components/Navbar'
 import NextNProgress from 'nextjs-progressbar'
 // <NextNProgress color="#FFF" startPosition={0.3} stopDelayMs={200} height={2} options={{ showSpinner: false }} />
 import { theme, md } from '~/common/styled-mui/theme'
-import { ScrollTopButton } from './components'
+import {
+  // ScrollTopButton,
+  SpeedDial,
+} from './components'
+import { useRouter } from 'next/router'
 
 export const Layout = ({ children }) => {
+  const router = useRouter()
+
   return (
     <>
       <Head>
@@ -30,7 +36,7 @@ export const Layout = ({ children }) => {
       />
       <Navbar />
       {children}
-      <ScrollTopButton />
+      {router.pathname !== '/new' && <SpeedDial />}
       <style jsx global>{`
         #nprogress .spinner {
           display: block;
