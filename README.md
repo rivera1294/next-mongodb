@@ -2,6 +2,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 - [Roadmap](#roadmap)
 - [API](#api)
+  - [GraphQL](#gql); _See also [running-an-express-graphql-server](https://graphql.org/graphql-js/running-an-express-graphql-server/)_
 - [Getting Started](#getting-started)
   - [PM2 ecosystem config](#pm2)
 - [Environments](#envs)
@@ -16,6 +17,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## roadmap
 
 - [ ] **backend**
+  - [ ] [graphql](#gql) experience
   - [ ] socket
     - [ ] set filter settings to params? (\*)
     - [ ] req for update list on connection
@@ -67,7 +69,59 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## api
 
-_TODO_
+### gql
+
+> Try GraphiQL tool interface in dev mode [http://localhost:9000/gql-api/graphiql](http://localhost:9000/gql-api/graphiql); See also [original doc](https://graphql.org/graphql-js/running-an-express-graphql-server/)
+
+**Examples**
+
+_Get notes:_
+
+```gql
+# :
+{
+  notes {
+    id
+    title
+  }
+}
+# Output:
+{
+  "data": {
+    "notes": [
+      {
+        "id": "5fcbb65d53ca2e545950a517",
+        "title": "#markdown #sample EDITED"
+      },
+      {
+        "id": "5fde7b057aa2f9617bc65c98",
+        "title": "#ffi 🎓"
+      }
+    ]
+  }
+}
+```
+
+_Get note by id:_
+
+```gql
+# :
+{
+  note(id: "5fde7b057aa2f9617bc65c98") {
+    id
+    title
+  }
+}
+# Output:
+{
+  "data": {
+    "note": {
+      "id": "5fde7b057aa2f9617bc65c98",
+      "title": "#ffi 🎓"
+    }
+  }
+}
+```
 
 ## getting-started
 

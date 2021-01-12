@@ -17,3 +17,5 @@ do
 
     ./node_modules/.bin/babel "./${path}" "${arg}" "${dist_dir}/${path}" || exit 1
 done
+
+cp ./express-tools/gql-api/schema.gql ./server-dist/express-tools/gql-api/schema.gql

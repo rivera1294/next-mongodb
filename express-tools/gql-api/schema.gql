@@ -1,0 +1,11 @@
+type Note {
+  title: String
+  id: ID!
+  description: String
+  priority: Float
+  isDone: Boolean
+}
+type Query {
+  note(id: ID!): Note!
+  notes: [Note]!
+}

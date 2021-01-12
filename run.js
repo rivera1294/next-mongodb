@@ -5,6 +5,7 @@
 // dotenv.config(envFileName);
 
 import { socketLogic } from '~/socket-logic'
+import gqlApi from '~/express-tools/gql'
 
 const next = require('next')
 const expressRouter = require('./express-tools/e-api')
@@ -28,6 +29,7 @@ nextApp
      * Method - *
      */
     app.use('/e-api', expressRouter)
+    app.use('/gql-api', gqlApi)
 
     app.all('*', (req, res) => {
       req.io = _customIO
