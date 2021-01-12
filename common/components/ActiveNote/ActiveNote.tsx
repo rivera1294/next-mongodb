@@ -11,7 +11,7 @@ import { baseRenderers } from '~/common/react-markdown-renderers'
 import { useBaseStyles } from '~/common/styled-mui/baseStyles'
 import clsx from 'clsx'
 import Button from '@material-ui/core/Button'
-import { useGlobalAppContext } from '~/common/hooks'
+import { useGlobalAppContext, useAuthContext } from '~/common/hooks'
 import { useStyles } from './styles'
 // import { CircularProgress } from '@material-ui/core'
 import LocalOfferIcon from '@material-ui/icons/LocalOffer'
@@ -49,6 +49,7 @@ const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary }
   const tags = useMemo(() => (!!title ? title.split(' ').filter((elm: string) => elm[0] === '#') : []), [title])
   const { handleSearchByTitleSetText, isNotesLoading } = useGlobalAppContext()
   const router = useRouter()
+  const { isLogged } = useAuthContext()
 
   return (
     <div className={clsx('todo-item', baseClasses.customizableListingWrapper)}>
@@ -102,18 +103,20 @@ const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary }
             >
               View
             </Button>
-            <Button
-              // disabled={isNotesLoading}
-              variant="outlined"
-              size="small"
-              color="secondary"
-              onClick={() => {
-                router.push(`/notes/${_id}/edit`)
-              }}
-              startIcon={<EditIcon />}
-            >
-              Edit
-            </Button>
+            {isLogged && (
+              <Button
+                // disabled={isNotesLoading}
+                variant="outlined"
+                size="small"
+                color="secondary"
+                onClick={() => {
+                  router.push(`/notes/${_id}/edit`)
+                }}
+                startIcon={<EditIcon />}
+              >
+                Edit
+              </Button>
+            )}
             {tags.length > 0 &&
               tags.map((tag: string) => (
                 <Button
