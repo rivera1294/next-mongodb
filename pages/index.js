@@ -132,7 +132,7 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
                       </Card.Header>
                     </Card.Content>
                     {isMobile && (
-                      <Card.Content extra className={baseClasses.actionsBox}>
+                      <Card.Content extra className={baseClasses.actionsBoxRight}>
                         {isLogged && (
                           <MuiButton
                             // disabled={isNotesLoading}

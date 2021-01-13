@@ -90,7 +90,7 @@ const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary }
       {!!_id && isTagsNessesary && (
         <>
           <div style={{ borderBottom: '2px solid lightgray' }} />
-          <div className={baseClasses.actionsBox}>
+          <div className={baseClasses.actionsBoxLeft}>
             <Button
               // disabled={isNotesLoading}
               variant="contained"
