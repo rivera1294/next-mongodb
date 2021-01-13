@@ -48,7 +48,7 @@ const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary, 
   // const handleSetRate = (e, { rating, maxRating }) => {}
   // const { height } = useWindowSize()
   const tags = useMemo(() => (!!title ? title.split(' ').filter((elm: string) => elm[0] === '#') : []), [title])
-  const { handleSearchByTitleSetText, isNotesLoading } = useGlobalAppContext()
+  const { handleSearchByTitleSetText, isNotesLoading, state } = useGlobalAppContext()
   const router = useRouter()
   const { isLogged } = useAuthContext()
 
@@ -122,7 +122,7 @@ const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary, 
               tags.map((tag: string) => (
                 <Button
                   startIcon={<LocalOfferIcon />}
-                  disabled={isNotesLoading}
+                  disabled={isNotesLoading || tag.toLowerCase() === state.searchByTitle.toLowerCase()}
                   variant="outlined"
                   size="small"
                   onClick={() => handleSearchByTitleSetText(tag)}
