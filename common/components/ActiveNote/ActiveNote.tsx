@@ -12,7 +12,7 @@ import { useBaseStyles } from '~/common/styled-mui/baseStyles'
 import clsx from 'clsx'
 import Button from '@material-ui/core/Button'
 import { useGlobalAppContext, useAuthContext } from '~/common/hooks'
-import { useStyles } from './styles'
+// import { useStyles } from './styles'
 // import { CircularProgress } from '@material-ui/core'
 import LocalOfferIcon from '@material-ui/icons/LocalOffer'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
@@ -27,7 +27,7 @@ interface IProps {
 
 const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary }: IProps) => {
   const baseClasses = useBaseStyles()
-  const classes = useStyles()
+  // const classes = useStyles()
   const note = useFreshNote(initialNote)
   const { description, priority, title, _id } = note
 
@@ -90,7 +90,7 @@ const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary }
       {!!_id && isTagsNessesary && (
         <>
           <div style={{ borderBottom: '2px solid lightgray' }} />
-          <div className={classes.buttonsBox}>
+          <div className={baseClasses.actionsBox}>
             <Button
               // disabled={isNotesLoading}
               variant="contained"

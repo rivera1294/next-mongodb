@@ -169,5 +169,21 @@ export const useBaseStyles = makeStyles((theme: Theme) =>
       },
       */
     },
+
+    // Actions box:
+    actionsBox: {
+      marginTop: '10px',
+
+      display: 'flex',
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'flex-end',
+      '& > button': {
+        marginBottom: theme.spacing(1),
+      },
+      '& > button:not(:last-child)': {
+        marginRight: theme.spacing(1),
+      },
+    },
   })
 )

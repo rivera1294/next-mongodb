@@ -1,13 +1,18 @@
 import { useEffect, useRef, useMemo } from 'react'
 import Link from 'next/link'
 import fetch from 'isomorphic-unfetch'
-import { Button, Card, Icon, Input, Label, Pagination, Rating } from 'semantic-ui-react'
+import { Card, Icon, Input, Label, Pagination, Rating } from 'semantic-ui-react'
 import { ActiveNote } from '~/common/components/ActiveNote'
 import clsx from 'clsx'
 import { useGlobalAppContext, getInitialState, useAuthContext } from '~/common/context'
 import { useWindowSize } from '~/common/hooks'
 import { EmptyTemplate } from '~/common/components/EmptyTemplate'
 import { data as defaultPaginationData } from '~/common/constants/default-pagination'
+import MuiButton from '@material-ui/core/Button'
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
+import EditIcon from '@material-ui/icons/Edit'
+import { useBaseStyles } from '~/common/styled-mui/baseStyles'
+import { useRouter } from 'next/router'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
 
@@ -39,6 +44,8 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
   const { isLogged } = useAuthContext()
   const activeNote = useMemo(() => state.activeNote, [JSON.stringify(state.activeNote)])
   const { isMobile } = useWindowSize()
+  const baseClasses = useBaseStyles()
+  const router = useRouter()
 
   return (
     <div style={{ marginTop: '20px' }}>
@@ -124,18 +131,36 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
                         </div>
                       </Card.Header>
                     </Card.Content>
-                    {/* <Card.Content extra>
-                      <Link href={`/notes/${note._id}`} hrefAs="/[id]">
-                        <Button primary>View</Button>
-                      </Link>
-                      {isLogged && (
-                        <Link href={`/notes/${note._id}/edit`} hrefAs="/[id]">
-                          <Button basic color="blue">
+                    {isMobile && (
+                      <Card.Content extra className={baseClasses.actionsBox}>
+                        {isLogged && (
+                          <MuiButton
+                            // disabled={isNotesLoading}
+                            variant="outlined"
+                            size="small"
+                            color="secondary"
+                            onClick={() => {
+                              router.push(`/notes/${note._id}/edit`)
+                            }}
+                            startIcon={<EditIcon />}
+                          >
                             Edit
-                          </Button>
-                        </Link>
-                      )}
-                    </Card.Content> */}
+                          </MuiButton>
+                        )}
+                        <MuiButton
+                          // disabled={isNotesLoading}
+                          variant="contained"
+                          size="small"
+                          color="primary"
+                          onClick={() => {
+                            router.push(`/notes/${note._id}`)
+                          }}
+                          startIcon={<ArrowForwardIcon />}
+                        >
+                          View
+                        </MuiButton>
+                      </Card.Content>
+                    )}
                   </Card>
                 </div>
               )
