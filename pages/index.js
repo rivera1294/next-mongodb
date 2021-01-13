@@ -106,7 +106,11 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
       </div> */}
       <div className="main standard-container">
         <div className="active-note-external-sticky-wrapper">
-          {!!activeNote ? <ActiveNote note={activeNote} key={activeNote._id} isTagsNessesary /> : <EmptyTemplate />}
+          {!!activeNote ? (
+            <ActiveNote note={activeNote} key={activeNote._id} isTagsNessesary shouldTitleBeTruncated />
+          ) : (
+            <EmptyTemplate />
+          )}
         </div>
         <div>
           <div className="grid wrapper">

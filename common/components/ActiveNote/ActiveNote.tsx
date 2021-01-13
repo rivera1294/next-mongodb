@@ -12,7 +12,7 @@ import { useBaseStyles } from '~/common/styled-mui/baseStyles'
 import clsx from 'clsx'
 import Button from '@material-ui/core/Button'
 import { useGlobalAppContext, useAuthContext } from '~/common/hooks'
-// import { useStyles } from './styles'
+import { useStyles } from './styles'
 // import { CircularProgress } from '@material-ui/core'
 import LocalOfferIcon from '@material-ui/icons/LocalOffer'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
@@ -23,11 +23,12 @@ interface IProps {
   note: any
   descriptionRenderer?: React.FC<any>
   isTagsNessesary?: boolean
+  shouldTitleBeTruncated?: boolean
 }
 
-const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary }: IProps) => {
+const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary, shouldTitleBeTruncated }: IProps) => {
   const baseClasses = useBaseStyles()
-  // const classes = useStyles()
+  const classes = useStyles()
   const note = useFreshNote(initialNote)
   const { description, priority, title, _id } = note
 
@@ -54,7 +55,7 @@ const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary }
   return (
     <div className={clsx('todo-item', baseClasses.customizableListingWrapper)}>
       <div style={{ marginBottom: '5px', userSelect: 'none' }}>
-        <h3>{title}</h3>
+        <h2 className={clsx({ [classes.truncate]: shouldTitleBeTruncated })}>{title}</h2>
       </div>
       {!!_id && (
         <div style={{ userSelect: 'none' }}>
