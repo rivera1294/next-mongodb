@@ -13,7 +13,7 @@ import clsx from 'clsx'
 import Button from '@material-ui/core/Button'
 import { useGlobalAppContext, useAuthContext } from '~/common/hooks'
 import { useStyles } from './styles'
-// import { CircularProgress } from '@material-ui/core'
+import { CircularProgress } from '@material-ui/core'
 import LocalOfferIcon from '@material-ui/icons/LocalOffer'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 import EditIcon from '@material-ui/icons/Edit'
@@ -126,9 +126,12 @@ const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary, 
                   variant="outlined"
                   size="small"
                   onClick={() => handleSearchByTitleSetText(tag)}
-                  // endIcon={
-                  //   isNotesLoading && <CircularProgress size={15} color="inherit" style={{ marginLeft: 'auto' }} />
-                  // }
+                  endIcon={
+                    isNotesLoading &&
+                    tag.toLowerCase() === state.searchByTitle.toLowerCase() && (
+                      <CircularProgress size={15} color="inherit" style={{ marginLeft: 'auto' }} />
+                    )
+                  }
                 >
                   {tag}
                 </Button>

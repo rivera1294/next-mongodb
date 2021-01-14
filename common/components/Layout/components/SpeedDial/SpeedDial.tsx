@@ -6,9 +6,11 @@ import MuiSpeedDial from '@material-ui/lab/SpeedDial'
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon'
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
-import { useScrollPosition } from '~/common/hooks/useScrollPosition'
+import { useScrollPosition, useAuthContext } from '~/common/hooks'
 import { scrollTop } from '~/utils/scrollTo'
 import AddIcon from '@material-ui/icons/Add'
+import InfoIcon from '@material-ui/icons/Info'
+import HomeIcon from '@material-ui/icons/Home'
 import { useRouter } from 'next/router'
 
 export const SpeedDial = () => {
@@ -26,10 +28,30 @@ export const SpeedDial = () => {
     scrollTop()
   }, [])
   const router = useRouter()
+  const { isLogged } = useAuthContext()
+  // NOTE: Снизу вверх -> Сверху вниз
   const actions = useMemo(
     () => [
       // { icon: <FileCopyIcon />, name: 'Copy' },
       // { icon: <SaveIcon />, name: 'Save' },
+      {
+        icon: <HomeIcon />,
+        name: 'Home',
+        onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+          e.preventDefault()
+          router.push('/')
+        },
+        isVisible: router.pathname !== '/',
+      },
+      {
+        icon: <InfoIcon />,
+        name: 'About',
+        onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+          e.preventDefault()
+          router.push('/about')
+        },
+        isVisible: router.pathname !== '/about',
+      },
       {
         icon: <AddIcon />,
         name: 'New',
@@ -37,7 +59,7 @@ export const SpeedDial = () => {
           e.preventDefault()
           router.push('/new')
         },
-        isVisible: router.pathname !== '/new',
+        isVisible: router.pathname !== '/new' && isLogged,
       },
       {
         icon: <KeyboardArrowUpIcon />,
@@ -51,7 +73,7 @@ export const SpeedDial = () => {
       },
       // { icon: <FavoriteIcon />, name: 'Like' },
     ],
-    [router.pathname, isMoreThanTrackedY]
+    [router.pathname, isMoreThanTrackedY, isLogged]
   )
 
   return (
