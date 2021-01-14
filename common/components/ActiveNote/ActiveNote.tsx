@@ -23,9 +23,10 @@ interface IProps {
   note: any
   descriptionRenderer?: React.FC<any>
   isTagsNessesary?: boolean
+  shouldTitleBeTruncated?: boolean
 }
 
-const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary }: IProps) => {
+const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary, shouldTitleBeTruncated }: IProps) => {
   const baseClasses = useBaseStyles()
   const classes = useStyles()
   const note = useFreshNote(initialNote)
@@ -47,14 +48,14 @@ const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary }
   // const handleSetRate = (e, { rating, maxRating }) => {}
   // const { height } = useWindowSize()
   const tags = useMemo(() => (!!title ? title.split(' ').filter((elm: string) => elm[0] === '#') : []), [title])
-  const { handleSearchByTitleSetText, isNotesLoading } = useGlobalAppContext()
+  const { handleSearchByTitleSetText, isNotesLoading, state } = useGlobalAppContext()
   const router = useRouter()
   const { isLogged } = useAuthContext()
 
   return (
     <div className={clsx('todo-item', baseClasses.customizableListingWrapper)}>
       <div style={{ marginBottom: '5px', userSelect: 'none' }}>
-        <h3>{title}</h3>
+        <h2 className={clsx({ [classes.truncate]: shouldTitleBeTruncated })}>{title}</h2>
       </div>
       {!!_id && (
         <div style={{ userSelect: 'none' }}>
@@ -90,7 +91,7 @@ const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary }
       {!!_id && isTagsNessesary && (
         <>
           <div style={{ borderBottom: '2px solid lightgray' }} />
-          <div className={classes.buttonsBox}>
+          <div className={baseClasses.actionsBoxLeft}>
             <Button
               // disabled={isNotesLoading}
               variant="contained"
@@ -121,7 +122,7 @@ const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary }
               tags.map((tag: string) => (
                 <Button
                   startIcon={<LocalOfferIcon />}
-                  disabled={isNotesLoading}
+                  disabled={isNotesLoading || tag.toLowerCase() === state.searchByTitle.toLowerCase()}
                   variant="outlined"
                   size="small"
                   onClick={() => handleSearchByTitleSetText(tag)}
