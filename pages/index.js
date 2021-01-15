@@ -13,6 +13,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 import EditIcon from '@material-ui/icons/Edit'
 import { useBaseStyles } from '~/common/styled-mui/baseStyles'
 import { useRouter } from 'next/router'
+import { Tags } from '~/common/components/Tags'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
 
@@ -137,6 +138,7 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
                     </Card.Content>
                     {isMobile && (
                       <Card.Content extra className={baseClasses.actionsBoxRight}>
+                        <Tags title={note.title} />
                         {isLogged && (
                           <MuiButton
                             // disabled={isNotesLoading}

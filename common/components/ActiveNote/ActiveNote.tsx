@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { memo, useMemo } from 'react'
+import { memo } from 'react'
 // import { openLinkInNewTab } from '~/utils/openLinkInNewTab'
 import ReactMarkdown from 'react-markdown'
 import gfm from 'remark-gfm'
@@ -11,13 +11,12 @@ import { baseRenderers } from '~/common/react-markdown-renderers'
 import { useBaseStyles } from '~/common/styled-mui/baseStyles'
 import clsx from 'clsx'
 import Button from '@material-ui/core/Button'
-import { useGlobalAppContext, useAuthContext } from '~/common/hooks'
+import { useAuthContext } from '~/common/hooks'
 import { useStyles } from './styles'
-import { CircularProgress } from '@material-ui/core'
-import LocalOfferIcon from '@material-ui/icons/LocalOffer'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 import EditIcon from '@material-ui/icons/Edit'
 import { useRouter } from 'next/router'
+import { Tags } from '~/common/components/Tags'
 
 interface IProps {
   note: any
@@ -47,8 +46,6 @@ const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary, 
   // }, [])
   // const handleSetRate = (e, { rating, maxRating }) => {}
   // const { height } = useWindowSize()
-  const tags = useMemo(() => (!!title ? title.split(' ').filter((elm: string) => elm[0] === '#') : []), [title])
-  const { handleSearchByTitleSetText, isNotesLoading, state } = useGlobalAppContext()
   const router = useRouter()
   const { isLogged } = useAuthContext()
 
@@ -118,24 +115,7 @@ const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary, 
                 Edit
               </Button>
             )}
-            {tags.length > 0 &&
-              tags.map((tag: string) => (
-                <Button
-                  startIcon={<LocalOfferIcon />}
-                  disabled={isNotesLoading || tag.toLowerCase() === state.searchByTitle.toLowerCase()}
-                  variant="outlined"
-                  size="small"
-                  onClick={() => handleSearchByTitleSetText(tag)}
-                  endIcon={
-                    isNotesLoading &&
-                    tag.toLowerCase() === state.searchByTitle.toLowerCase() && (
-                      <CircularProgress size={15} color="inherit" style={{ marginLeft: 'auto' }} />
-                    )
-                  }
-                >
-                  {tag}
-                </Button>
-              ))}
+            <Tags title={title} />
           </div>
         </>
       )}
