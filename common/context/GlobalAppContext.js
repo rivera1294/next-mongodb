@@ -36,6 +36,9 @@ export const GlobalAppContext = createContext({
   handleSetAsActiveNote: (note) => {
     throw new Error('handleSetAsActiveNote method should be implemented')
   },
+  handleResetActiveNote: () => {
+    throw new Error('handleResetActiveNote method should be implemented')
+  },
   handlePageChange: () => {
     throw new Error('handlePageChange method should be implemented')
   },
@@ -186,6 +189,9 @@ export const GlobalAppContextProvider = ({ children }) => {
   const handleSetAsActiveNote = (note) => {
     dispatch({ type: 'ACTIVE_NOTE@SET', payload: note })
   }
+  const handleResetActiveNote = (note) => {
+    dispatch({ type: 'ACTIVE_NOTE@RESET', payload: note })
+  }
   const initState = (state) => {
     dispatch({ type: 'INIT_STATE', payload: state })
   }
@@ -215,6 +221,7 @@ export const GlobalAppContextProvider = ({ children }) => {
         handleSearchByTitleClear,
         handleSearchByDescriptionClear,
         handleSetAsActiveNote,
+        handleResetActiveNote,
         handlePageChange,
         isNotesLoading: isLoading,
         initState,

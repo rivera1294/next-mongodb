@@ -19,12 +19,15 @@ export const Tags = ({ title }: IProps) => {
           <Button
             key={`${i}-${tag}`}
             startIcon={<LocalOfferIcon />}
-            disabled={isNotesLoading || tag.toLowerCase() === state.searchByTitle.toLowerCase()}
+            disabled={
+              isNotesLoading || (!!state.searchByTitle && tag.toLowerCase() === state.searchByTitle.toLowerCase())
+            }
             variant="outlined"
             size="small"
             onClick={() => handleSearchByTitleSetText(tag)}
             endIcon={
               isNotesLoading &&
+              !!state.searchByTitle &&
               tag.toLowerCase() === state.searchByTitle.toLowerCase() && (
                 <CircularProgress size={15} color="inherit" style={{ marginLeft: 'auto' }} />
               )

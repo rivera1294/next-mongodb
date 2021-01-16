@@ -129,7 +129,10 @@ function areEqual(prevProps: any, nextProps: any) {
   тот же результат что и prevProps,
   иначе возвращает false
   */
-  return prevProps.note._id === nextProps.note._id && prevProps.note.updatedAt === nextProps.note.updatedAt
+  return (
+    (!!prevProps.note?._id && !nextProps.note?._id) ||
+    (prevProps.note._id === nextProps.note._id && prevProps.note.updatedAt === nextProps.note.updatedAt)
+  )
 }
 export const ActiveNote = memo(MyComponent, areEqual)
 

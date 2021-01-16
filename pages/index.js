@@ -2,7 +2,7 @@ import { useEffect, useRef, useMemo } from 'react'
 import Link from 'next/link'
 import fetch from 'isomorphic-unfetch'
 import { Card, Icon, Input, Label, Pagination, Rating } from 'semantic-ui-react'
-import { ActiveNote } from '~/common/components/ActiveNote'
+import { ActiveNote, MobileDialogIfNecessary } from '~/common/components/ActiveNote'
 import clsx from 'clsx'
 import { useGlobalAppContext, getInitialState, useAuthContext } from '~/common/context'
 import { useWindowSize } from '~/common/hooks'
@@ -105,6 +105,7 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
           {JSON.stringify(activeNote, null, 2)}
         </pre>
       </div> */}
+      <MobileDialogIfNecessary />
       <div className="main standard-container">
         <div className="active-note-external-sticky-wrapper">
           {!!activeNote ? (
