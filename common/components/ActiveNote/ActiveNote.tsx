@@ -28,8 +28,8 @@ interface IProps {
 const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary, shouldTitleBeTruncated }: IProps) => {
   const baseClasses = useBaseStyles()
   const classes = useStyles()
-  const note = useFreshNote(initialNote)
-  const { description, priority, title, _id } = note
+  const { description, priority, title, _id } = useFreshNote(initialNote)
+  // const { description, priority, title, _id } = note
 
   // Links should be opened in new tab:
   // useEffect(() => {
