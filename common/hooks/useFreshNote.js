@@ -23,7 +23,7 @@ export function useFreshNote(initialNote) {
       handleUpdateThisNote({ title: 'DELETED' })
       currentNoteUpdatedAtRef.current = new Date()
     }
-  }, [JSON.stringify(state.updatedNote), state.deletedNoteId, handleUpdateThisNote])
+  }, [JSON.stringify(state.updatedNote), state.deletedNoteId, JSON.stringify(initialNote), handleUpdateThisNote])
   useEffect(() => {
     handleUpdateThisNote(initialNote)
   }, [JSON.stringify(initialNote), handleUpdateThisNote])
