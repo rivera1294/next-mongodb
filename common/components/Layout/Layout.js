@@ -35,6 +35,7 @@ export const Layout = ({ children }) => {
         options={{ showSpinner: true }}
       />
       <Navbar />
+      <div className="bg-fixed" />
       {children}
       {router.pathname !== '/new' && <SpeedDial />}
       <style jsx global>{`

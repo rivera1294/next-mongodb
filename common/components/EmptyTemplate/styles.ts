@@ -27,7 +27,7 @@ export const useStyles = makeStyles(
       alignItems: 'center',
       fontSize: '25px',
       fontWeight: 'bold',
-      color: '#A9A9A9',
+      color: '#FFF', // '#A9A9A9',
       // border: '2px dashed #A9A9A9 !important',
     },
   }),
