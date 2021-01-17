@@ -1,6 +1,6 @@
 body {
   /* background-color: #e9e9e9 !important; */
-  background-color: #4485BF !important;
+  background-color: #4485bf !important;
 }
 body .bg-fixed {
   width: 100%;
@@ -11,20 +11,51 @@ body .bg-fixed {
   /* background-color: rgb(105, 168, 226); #69A8E2 */
   background-color: rgb(105, 168, 226);
   background-blend-mode: lighten;
-  
+
   position: fixed;
   z-index: -1;
+}
+body .bg-fixed_the-note-page {
+  width: 100%;
+  background-image: url(/static/img/meta-tags-prev1300b.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  /* background-color: rgb(105, 168, 226); #69A8E2 */
+  background-color: rgb(105, 168, 226);
+  background-blend-mode: lighten;
+
+  position: fixed;
+  z-index: -1;
+
+  mask-image: url(/static/img/mask-3.png);
 }
 @media (min-width: 768px) {
   body .bg-fixed {
     height: calc(100vh - 64px);
     clip-path: polygon(80% 0, 100% 0, 100% 85%, 20% 100%, 0 100%, 0 15%);
   }
+  body .bg-fixed_the-note-page {
+    height: calc(100vh - 64px);
+
+    /* mask-size: 100vw calc(100vh - 64px); */
+    mask-size: cover;
+    mask-repeat: no-repeat;
+    mask-position: center;
+  }
 }
 @media (max-width: 767px) {
   body .bg-fixed {
     height: calc(100vh - 56px);
     clip-path: polygon(80% 0, 100% 0, 100% 80%, 20% 100%, 0 100%, 0 20%);
+  }
+  body .bg-fixed_the-note-page {
+    height: calc(100vh - 56px);
+
+    /* mask-size: 100vw calc(100vh - 56px); */
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
   }
 }
 

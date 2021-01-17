@@ -8,9 +8,11 @@ import {
   SpeedDial,
 } from './components'
 import { useRouter } from 'next/router'
+import clsx from 'clsx'
 
 export const Layout = ({ children }) => {
   const router = useRouter()
+  const isTheNotePage = router.pathname === '/notes/[id]'
 
   return (
     <>
@@ -35,7 +37,7 @@ export const Layout = ({ children }) => {
         options={{ showSpinner: true }}
       />
       <Navbar />
-      <div className="bg-fixed" />
+      <div className={clsx({ 'bg-fixed': !isTheNotePage, 'bg-fixed_the-note-page': isTheNotePage })} />
       {children}
       {router.pathname !== '/new' && <SpeedDial />}
       <style jsx global>{`
