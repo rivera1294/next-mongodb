@@ -82,7 +82,7 @@ export const MobileDialogIfNecessary = () => {
       <DialogActions>
         <MuiButton
           color="primary"
-          size="small"
+          size="large"
           variant="outlined"
           onClick={handleCloseModal}
           // endIcon={<EditIcon />}

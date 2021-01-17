@@ -12,6 +12,7 @@ import AddIcon from '@material-ui/icons/Add'
 import InfoIcon from '@material-ui/icons/Info'
 import HomeIcon from '@material-ui/icons/Home'
 import { useRouter } from 'next/router'
+import clsx from 'clsx'
 
 export const SpeedDial = () => {
   const classes = useStyles()
@@ -81,7 +82,7 @@ export const SpeedDial = () => {
       <Backdrop open={isOpened} />
       <MuiSpeedDial
         ariaLabel="SpeedDial tooltip example"
-        className={classes.speedDial}
+        className={clsx(classes.speedDial, { [classes.centered]: isLogged })}
         hidden={false}
         icon={<SpeedDialIcon />}
         onClose={handleCloseMe}
