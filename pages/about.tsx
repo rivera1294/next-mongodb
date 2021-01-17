@@ -1,7 +1,7 @@
 const About = () => {
   return (
     <div style={{ marginTop: '20px' }}>
-      <h1>In progress...</h1>
+      <h1 className="white">In progress...</h1>
     </div>
   )
 }

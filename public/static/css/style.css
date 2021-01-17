@@ -59,6 +59,14 @@ body .bg-fixed_the-note-page {
   }
 }
 
+.white,
+.white .ui.rating .icon {
+  color: #fff;
+}
+.white .ui.rating .active.icon {
+  color: rgb(252, 191, 44);
+}
+
 h1 {
   text-align: center;
 }

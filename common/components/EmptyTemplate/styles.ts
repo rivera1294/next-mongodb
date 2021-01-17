@@ -28,6 +28,7 @@ export const useStyles = makeStyles(
       fontSize: '25px',
       fontWeight: 'bold',
       color: '#FFF', // '#A9A9A9',
+      textShadow: '1px 1px 2px rgba(0,0,0,0.6)',
       // border: '2px dashed #A9A9A9 !important',
     },
   }),
