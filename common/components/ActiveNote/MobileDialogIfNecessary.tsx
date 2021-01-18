@@ -1,4 +1,4 @@
-import { forwardRef, useMemo, useCallback } from 'react'
+import { forwardRef, useMemo, useCallback, useEffect } from 'react'
 import {
   // Accordion,
   // AccordionSummary,
@@ -26,6 +26,7 @@ import { ActiveNote } from './ActiveNote'
 import ReactMarkdown from 'react-markdown'
 import gfm from 'remark-gfm'
 import { theNotePageRenderers } from '~/common/react-markdown-renderers'
+import { useUnscrolledBody } from '~/common/hooks'
 
 const TransitionUp = forwardRef(function Transition(props, ref) {
   // @ts-ignore
@@ -39,6 +40,10 @@ export const MobileDialogIfNecessary = () => {
   const freshNote = useFreshNote(activeNote)
   // useEffect(() => { console.log(freshNote?._id) }, [freshNote?._id])
   const isOpened = useMemo(() => !!freshNote?._id, [freshNote?._id])
+  const { toggleScrollBody } = useUnscrolledBody(false)
+  useEffect(() => {
+    toggleScrollBody(isOpened)
+  }, [isOpened, toggleScrollBody])
   const handleCloseModal = useCallback(() => {
     handleResetActiveNote()
   }, [handleResetActiveNote])
