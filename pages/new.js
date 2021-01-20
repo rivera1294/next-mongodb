@@ -79,7 +79,7 @@ const NewNote = () => {
 
   return (
     <div className="form-container">
-      <h1>Create Note</h1>
+      <h1 className="white">Create Note</h1>
       <div>
         {isSubmitting ? (
           <Loader active inline="centered" />

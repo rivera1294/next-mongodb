@@ -32,13 +32,13 @@ export const useBaseStyles = makeStyles((theme: Theme) =>
           '& > p': {
             display: 'inline',
           },
-          '& input': {
-            transform: 'translateY(-10px)',
-            border: '1px solid red !important',
+          '& input[type="checkbox"]': {
+            display: 'block',
+            transform: 'translateY(-5px)',
           },
         },
         '& > li:not(:last-child)': {
-          marginBottom: '10px',
+          marginBottom: '15px',
         },
       },
 

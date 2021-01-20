@@ -383,3 +383,55 @@ h1 {
   margin-left: 0;
   margin-right: 0;
 }
+
+.description-markdown input[type='checkbox'],
+.description-markdown input[type='checkbox']::before,
+.description-markdown input[type='checkbox']::after {
+  all: unset;
+}
+.description-markdown input[type='checkbox'] {
+  display: block;
+  position: relative;
+  width: 120px !important;
+  height: 30px;
+  background: linear-gradient(0deg, #333, #000);
+  outline: none;
+  border-radius: 20px;
+  box-shadow: 0 0 0 4px #353535, 0 0 0 5px #3e3e3e, inset 0 0 10px rgba(0, 0, 0, 1), 0 0 5px rgba(0, 0, 0, 0.5),
+    inset 0 0 15px rgba(0, 0, 0, 0.2);
+}
+.description-markdown input[type='checkbox']:checked {
+  background: linear-gradient(0deg, #6dd1ff, #20b7ff);
+  box-shadow: 0 0 2px #6dd1ff, 0 0 0 4px #353535, 0 0 0 5px #3e3e3e, inset 0 0 10px rgba(0, 0, 0, 1),
+    0 0 5px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(0, 0, 0, 0.2);
+}
+.description-markdown input[type='checkbox']::before {
+  content: '';
+  position: absolute;
+  width: 80px;
+  height: 30px;
+  background: linear-gradient(0deg, #000, #6b6b6b);
+  border-radius: 20px;
+  box-shadow: 0 0 0 1px #232323;
+  transform: scale(0.98, 0.96);
+  transition: 0.5s;
+}
+.description-markdown input[type='checkbox']:checked::before {
+  left: 40px;
+}
+.description-markdown input[type='checkbox']::after {
+  content: '';
+  position: absolute;
+  top: calc(50% - 2px);
+  left: calc(80px - 15px);
+  width: 4px;
+  height: 4px;
+  background: linear-gradient(0deg, #6b6b6b, #000);
+  border-radius: 50%;
+  transition: 0.5s;
+}
+.description-markdown input[type='checkbox']:checked::after {
+  left: calc(65px + 40px);
+  background: #63cdff;
+  box-shadow: 0 0 5px #13b3ff, 0 0 15px #13b3ff;
+}
