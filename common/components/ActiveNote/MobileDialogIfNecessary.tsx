@@ -5,7 +5,7 @@ import { useFreshNote, useGlobalAppContext, useWindowSize } from '~/common/hooks
 import { ActiveNote } from './ActiveNote'
 import ReactMarkdown from 'react-markdown'
 import gfm from 'remark-gfm'
-import { theNotePageRenderers } from '~/common/react-markdown-renderers'
+import { dialogRenderers } from '~/common/react-markdown-renderers'
 
 const TransitionUp = forwardRef(function Transition(props, ref) {
   // @ts-ignore
@@ -51,7 +51,7 @@ export const MobileDialogIfNecessary = () => {
                 <ReactMarkdown
                   // @ts-ignore
                   plugins={[gfm, { singleTilde: false }]}
-                  renderers={theNotePageRenderers}
+                  renderers={dialogRenderers}
                   children={description}
                 />
               </div>
