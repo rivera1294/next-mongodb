@@ -24,6 +24,10 @@ const NoteSchema = new mongoose.Schema(
       type: Boolean,
       required: false,
     },
+    isPrivate: {
+      type: Boolean,
+      required: false,
+    },
   },
   { timestamps: true }
 )

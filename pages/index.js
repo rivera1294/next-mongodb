@@ -14,8 +14,10 @@ import EditIcon from '@material-ui/icons/Edit'
 import { useBaseStyles } from '~/common/styled-mui/baseStyles'
 import { useRouter } from 'next/router'
 import { Tags } from '~/common/components/Tags'
+import { parseCookies } from '~/utils/parseCookies'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
+const NEXT_APP_EXPRESS_API_ENDPOINT = process.env.NEXT_APP_EXPRESS_API_ENDPOINT
 
 const Index = ({ notes: initNotes, pagination: initPag }) => {
   const {
@@ -120,7 +122,10 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
               const isActive = !!activeNote?._id && activeNote._id === note._id
 
               return (
-                <div key={note._id} className={clsx({ 'active-card-wrapper': isActive })}>
+                <div
+                  key={note._id}
+                  className={clsx({ 'active-card-wrapper': isActive, 'private-card-wrapper': note.isPrivate })}
+                >
                   <Card>
                     <Card.Content>
                       <Card.Header>
@@ -193,8 +198,34 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
   )
 }
 
-Index.getInitialProps = async () => {
-  const res = await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes?limit=${defaultPaginationData.limit}`)
+Index.getInitialProps = async (ctx) => {
+  const headers = ctx.req ? { cookie: ctx.req.headers.cookie } : {}
+  const cookies = parseCookies(ctx.req || null)
+  if (!!cookies['token']) {
+    headers.token = cookies['token']
+  }
+
+  const me = await fetch(`${NEXT_APP_EXPRESS_API_ENDPOINT}/users/me`, {
+    method: 'GET',
+    headers,
+  })
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(res.status)
+      }
+      return res.json()
+    })
+    .then((json) => {
+      return { isOk: true, json }
+    })
+    .catch((err) => {
+      return { isOk: false }
+    })
+
+  const res = await fetch(
+    `${NEXT_APP_API_ENDPOINT}/api/notes?limit=${defaultPaginationData.limit}&all=${me.isOk ? 1 : 0}`,
+    { headers }
+  )
   const { data, pagination } = await res.json()
 
   return { notes: data, pagination }

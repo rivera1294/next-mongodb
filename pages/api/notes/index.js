@@ -7,7 +7,7 @@ dbConnect()
 
 const mainApi = async (req, res) => {
   const {
-    query: { q_title, q_description, limit, page },
+    query: { q_title, q_description, limit, page, all },
     method,
   } = req
 
@@ -25,17 +25,18 @@ const mainApi = async (req, res) => {
     success: false,
   }
   let status = 500
+  const options = {}
 
   switch (method) {
     case 'GET':
-      const options = {}
-
       if (!!q_title) {
         options.title = { $regex: q_title, $options: 'i' }
       }
       if (!!q_description) {
         options.description = { $regex: q_description, $options: 'i' }
       }
+      if (all !== '1') options.isPrivate = { $ne: true }
+
       if (!!normalizedLimit && isNumeric(normalizedLimit)) {
         if (!!normalizedPage && isNumeric(normalizedPage)) {
           try {
@@ -90,9 +91,11 @@ const mainApi = async (req, res) => {
       }
       break
     case 'POST':
+      if (all !== '1') options.isPrivate = { $ne: true }
+
       try {
         const note = await Note.create(req.body)
-        const count = await Note.countDocuments()
+        const count = await Note.find(options).countDocuments()
 
         // res.status(201).json({ success: true, data: note })
         response.data = note

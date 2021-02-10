@@ -1,6 +1,6 @@
 import { createContext, useReducer, useState, useEffect, useRef, useContext } from 'react'
 import buildUrl from 'build-url'
-import { useDebounce } from '~/common/hooks/useDebounce'
+import { useAuthContext, useDebounce } from '~/common/hooks'
 import { useRouter } from 'next/router'
 import { data as defaultPaginationData } from '~/common/constants/default-pagination'
 import { scrollTop } from '~/utils/scrollTo'
@@ -135,7 +135,7 @@ export const GlobalAppContextProvider = ({ children }) => {
   }
   const debouncedPage = useDebounce(state.localPage, 1000)
   const renderCountRef = useRef(0)
-
+  const { isLogged } = useAuthContext()
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
@@ -156,6 +156,7 @@ export const GlobalAppContextProvider = ({ children }) => {
       if (!!debouncedPage && debouncedPage !== 1) {
         queryParams.page = debouncedPage
       }
+      if (isLogged) queryParams.all = 1
       const url = buildUrl(NEXT_APP_API_ENDPOINT, {
         path: '/api/notes',
         queryParams,
@@ -168,7 +169,7 @@ export const GlobalAppContextProvider = ({ children }) => {
     }
 
     fetchData()
-  }, [debouncedPage, debouncedSearchByTitle, debouncedSearchByDescription])
+  }, [debouncedPage, debouncedSearchByTitle, debouncedSearchByDescription, isLogged])
   // useEffect(() => {
   //   // eslint-disable-next-line no-console
   //   console.log('ROUTE')

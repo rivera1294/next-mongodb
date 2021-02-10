@@ -182,6 +182,10 @@ h1 {
 .active-card-wrapper > .ui.card {
   border: 2px dashed #3882c4;
 }
+.private-card-wrapper > .ui.card {
+  /* border: 2px dashed red; */
+  background-color: #fff2ca;
+}
 
 .navbar {
   padding: 20px;

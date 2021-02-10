@@ -52,6 +52,7 @@
     "body-parser": "^1.19.0",
     "build-url": "^6.0.1",
     "clsx": "^1.1.1",
+    "cookie": "^0.4.1",
     "core-js": "2",
     "deploy-app": "^1.0.3",
     "dotenv": "^8.2.0",
