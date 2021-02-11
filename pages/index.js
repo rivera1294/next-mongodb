@@ -14,10 +14,9 @@ import EditIcon from '@material-ui/icons/Edit'
 import { useBaseStyles } from '~/common/styled-mui/baseStyles'
 import { useRouter } from 'next/router'
 import { Tags } from '~/common/components/Tags'
-import { parseCookies } from '~/utils/parseCookies'
+import { getStandardHeadersByCtx } from '~/utils/next/getStandardHeadersByCtx'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
-const NEXT_APP_EXPRESS_API_ENDPOINT = process.env.NEXT_APP_EXPRESS_API_ENDPOINT
 
 const Index = ({ notes: initNotes, pagination: initPag }) => {
   const {
@@ -199,33 +198,20 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
 }
 
 Index.getInitialProps = async (ctx) => {
-  const headers = ctx.req ? { cookie: ctx.req.headers.cookie } : {}
-  const cookies = parseCookies(ctx.req || null)
-  if (!!cookies['token']) {
-    headers.token = cookies['token']
-  }
+  const headers = getStandardHeadersByCtx(ctx)
 
-  const me = await fetch(`${NEXT_APP_EXPRESS_API_ENDPOINT}/users/me`, {
-    method: 'GET',
-    headers,
-  })
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error(res.status)
-      }
-      return res.json()
-    })
-    .then((json) => {
-      return { isOk: true, json }
-    })
-    .catch((err) => {
-      return { isOk: false }
-    })
+  // const me = await fetch(`${NEXT_APP_EXPRESS_API_ENDPOINT}/users/me`, {
+  //   method: 'GET',
+  //   headers,
+  // })
+  //   .then((res) => {
+  //     if (!res.ok) throw new Error(res.status)
+  //     return res.json()
+  //   })
+  //   .then((json) => ({ isOk: true, json }))
+  //   .catch((err) => ({ isOk: false }))
 
-  const res = await fetch(
-    `${NEXT_APP_API_ENDPOINT}/api/notes?limit=${defaultPaginationData.limit}&all=${me.isOk ? 1 : 0}`,
-    { headers }
-  )
+  const res = await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes?limit=${defaultPaginationData.limit}`, { headers })
   const { data, pagination } = await res.json()
 
   return { notes: data, pagination }

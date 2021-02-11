@@ -4,6 +4,7 @@ import { useAuthContext, useDebounce } from '~/common/hooks'
 import { useRouter } from 'next/router'
 import { data as defaultPaginationData } from '~/common/constants/default-pagination'
 import { scrollTop } from '~/utils/scrollTo'
+import { getStandardHeadersByCtx } from '~/utils/next/getStandardHeadersByCtx'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
 
@@ -156,12 +157,13 @@ export const GlobalAppContextProvider = ({ children }) => {
       if (!!debouncedPage && debouncedPage !== 1) {
         queryParams.page = debouncedPage
       }
-      if (isLogged) queryParams.all = 1
       const url = buildUrl(NEXT_APP_API_ENDPOINT, {
         path: '/api/notes',
         queryParams,
       })
-      const res = await fetch(url)
+      const res = await fetch(url, {
+        headers: getStandardHeadersByCtx(),
+      })
       setIsLoading(false)
       const { data, pagination } = await res.json()
 
