@@ -6,7 +6,7 @@ export const EmptyTemplate = () => {
   return (
     <div className={classes.img}>
       <div className="bg"></div>
-      Click on note header for preview...
+      Click on note title for preview...
     </div>
   )
 }

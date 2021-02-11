@@ -170,7 +170,11 @@ router.get('/me', auth, async (req, res) => {
     const user = await User.findById(req.user.id)
     res.json(user)
   } catch (e) {
-    res.send({ message: 'Error in Fetching user' })
+    res.status(500).send({
+      message: `Error in Fetching user: ${e?.message || '(may be not found)'}; req.user is ${JSON.stringify(
+        req.user
+      )}, Check auth middleware`,
+    })
   }
 })
 

@@ -1,9 +1,10 @@
 import { createContext, useReducer, useState, useEffect, useRef, useContext } from 'react'
 import buildUrl from 'build-url'
-import { useDebounce } from '~/common/hooks/useDebounce'
+import { useAuthContext, useDebounce } from '~/common/hooks'
 import { useRouter } from 'next/router'
 import { data as defaultPaginationData } from '~/common/constants/default-pagination'
 import { scrollTop } from '~/utils/scrollTo'
+import { getStandardHeadersByCtx } from '~/utils/next/getStandardHeadersByCtx'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
 
@@ -35,6 +36,9 @@ export const GlobalAppContext = createContext({
   },
   handleSetAsActiveNote: (note) => {
     throw new Error('handleSetAsActiveNote method should be implemented')
+  },
+  handleResetActiveNote: () => {
+    throw new Error('handleResetActiveNote method should be implemented')
   },
   handlePageChange: () => {
     throw new Error('handlePageChange method should be implemented')
@@ -132,7 +136,7 @@ export const GlobalAppContextProvider = ({ children }) => {
   }
   const debouncedPage = useDebounce(state.localPage, 1000)
   const renderCountRef = useRef(0)
-
+  const { isLogged } = useAuthContext()
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
@@ -154,10 +158,12 @@ export const GlobalAppContextProvider = ({ children }) => {
         queryParams.page = debouncedPage
       }
       const url = buildUrl(NEXT_APP_API_ENDPOINT, {
-        path: '/api/notes',
+        path: '/notes',
         queryParams,
       })
-      const res = await fetch(url)
+      const res = await fetch(url, {
+        headers: getStandardHeadersByCtx(),
+      })
       setIsLoading(false)
       const { data, pagination } = await res.json()
 
@@ -165,7 +171,7 @@ export const GlobalAppContextProvider = ({ children }) => {
     }
 
     fetchData()
-  }, [debouncedPage, debouncedSearchByTitle, debouncedSearchByDescription])
+  }, [debouncedPage, debouncedSearchByTitle, debouncedSearchByDescription, isLogged])
   // useEffect(() => {
   //   // eslint-disable-next-line no-console
   //   console.log('ROUTE')
@@ -185,6 +191,9 @@ export const GlobalAppContextProvider = ({ children }) => {
   }, [router.pathname])
   const handleSetAsActiveNote = (note) => {
     dispatch({ type: 'ACTIVE_NOTE@SET', payload: note })
+  }
+  const handleResetActiveNote = (note) => {
+    dispatch({ type: 'ACTIVE_NOTE@RESET', payload: note })
   }
   const initState = (state) => {
     dispatch({ type: 'INIT_STATE', payload: state })
@@ -215,6 +224,7 @@ export const GlobalAppContextProvider = ({ children }) => {
         handleSearchByTitleClear,
         handleSearchByDescriptionClear,
         handleSetAsActiveNote,
+        handleResetActiveNote,
         handlePageChange,
         isNotesLoading: isLoading,
         initState,

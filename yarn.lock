@@ -3143,7 +3143,7 @@ cookie@0.4.0:
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.4.0.tgz#beb437e7022b3b6d49019d088665303ebe9c14ba"
   integrity sha512-+Hp8fLp57wnUSt0tY0tHEXh4voZRDnoIrZPqlo3DPiI4y9lwg/jqx+1Om94/W6ZaPDOUbnjOt/99w66zk+l1Xg==
 
-cookie@^0.4.0, cookie@~0.4.1:
+cookie@^0.4.0, cookie@^0.4.1, cookie@~0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.4.1.tgz#afd713fe26ebd21ba95ceb61f9a8116e50a537d1"
   integrity sha512-ZwrFkGJxUR3EIoXtO+yVE69Eb7KlixbaeAWfBQB9vVsNn/o+Yw69gBWSSDK825hQNdN+wF8zELf3dFNl/kxkUA==
@@ -7001,7 +7001,7 @@ promise-inflight@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/promise-inflight/-/promise-inflight-1.0.1.tgz#98472870bf228132fcbdd868129bad12c3c029e3"
 
-prop-types@15.7.2, prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@15.7.2, prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   dependencies:
@@ -7173,6 +7173,13 @@ react-emoji-render@^1.2.4:
     lodash.flatten "^4.4.0"
     prop-types "^15.5.8"
     string-replace-to-array "^1.0.1"
+
+react-gist@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/react-gist/-/react-gist-1.2.2.tgz#d915f59d487132121b17189bf187267df845c3c7"
+  integrity sha512-bS8jkqunrsrUYzSe600zYPI6IvudLFsh68Bln+q8+GRZ2uUnrkOuEAxllWbZwaveqby94YXBBmBCC3qw9ee5hQ==
+  dependencies:
+    prop-types "^15.6.0"
 
 react-headroom@^3.1.0:
   version "3.1.0"

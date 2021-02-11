@@ -11,6 +11,9 @@ import Container from '@material-ui/core/Container'
 // See also: https://github.com/hadnazzar/nextjs-with-material-ui/blob/master/pages/about.js
 import Box from '@material-ui/core/Box'
 import { useBaseStyles } from '~/common/styled-mui/baseStyles'
+import FormGroup from '@material-ui/core/FormGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import { Checkbox } from '@material-ui/core'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
 const mdParser = new MarkdownIt({
@@ -21,7 +24,12 @@ const mdParser = new MarkdownIt({
 const MDEditor = loadable(() => import('react-markdown-editor-lite')) // Ленивая загрузка
 
 export const EditNotePage = ({ note }) => {
-  const [form, setForm] = useState({ title: note.title, description: note.description, priority: note.priority || 0 })
+  const [form, setForm] = useState({
+    title: note.title,
+    description: note.description,
+    priority: note.priority || 0,
+    isPrivate: note.isPrivate || false,
+  })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errors, setErrors] = useState({})
   const router = useRouter()
@@ -47,6 +55,9 @@ export const EditNotePage = ({ note }) => {
           case 'description':
             body[key] = form[key]
             break
+          case 'isPrivate':
+            body[key] = form[key]
+            break
           case 'priority':
             if (!!form[key]) body[key] = form[key]
             break
@@ -54,7 +65,7 @@ export const EditNotePage = ({ note }) => {
             break
         }
       })
-      const _res = await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes/${router.query.id}`, {
+      const _res = await fetch(`${NEXT_APP_API_ENDPOINT}/notes/${router.query.id}`, {
         method: 'PUT',
         headers: {
           Accept: 'application/json',
@@ -82,6 +93,15 @@ export const EditNotePage = ({ note }) => {
       [e.target.name]: e.target.value,
     })
   }
+  const handleCheck = (e) => {
+    e.persist()
+    // eslint-disable-next-line no-console
+    // console.log(e)
+    setForm({
+      ...form,
+      [e.target.name]: e.target.checked,
+    })
+  }
 
   const handleSetRate = (e, { rating, maxRating }) => {
     handleChange({ target: { name: 'priority', value: rating } })
@@ -105,8 +125,8 @@ export const EditNotePage = ({ note }) => {
   return (
     <Container maxWidth="md" className={baseClasses.noPaddingMobile}>
       <Box my={4} className={baseClasses.noMarginTopBottomMobile}>
-        <h1>
-          Edit Note{' '}
+        <h1 className="white">
+          <span style={{ marginRight: '15px' }}>Edit</span>
           <Rating onRate={handleSetRate} maxRating={5} defaultRating={form.priority} disabled={isSubmitting} />
         </h1>
       </Box>
@@ -154,6 +174,14 @@ export const EditNotePage = ({ note }) => {
           {isLogged && (
             <Box my={4} className={baseClasses.btnsBox}>
               <Button type="submit">Update</Button>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox checked={form.isPrivate} onChange={handleCheck} name="isPrivate" color="primary" />
+                  }
+                  label="isPrivate"
+                />
+              </FormGroup>
             </Box>
           )}
         </Form>

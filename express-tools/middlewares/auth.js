@@ -1,18 +1,19 @@
 /* eslint-disable no-console */
-const jwt = require('jsonwebtoken')
+import { mutateRequestIfTokenIsCorrect } from '~/utils/express/authTokenValidator'
+// const jwt = require('jsonwebtoken')
 
-const JWT_SECRET = process.env.JWT_SECRET || 'randomString'
+const JWT_SECRET = process.env.JWT_SECRET
+
+if (!JWT_SECRET) throw new Error('Check envs: JWT_SECRET was not provided')
 
 module.exports = function (req, res, next) {
-  const token = req.header('token')
-  if (!token) return res.status(401).json({ message: 'Auth Error' })
+  // if (!req.header('token')) return res.status(401).json({ message: 'Auth Error' })
 
   try {
-    const decoded = jwt.verify(token, JWT_SECRET)
-    req.user = decoded.user
+    mutateRequestIfTokenIsCorrect(req) // NOTE: Must have
     next()
   } catch (e) {
     console.error(e)
-    res.status(500).send({ message: 'Invalid Token' })
+    res.status(500).send({ message: `Auth middleware error: ${e.message || 'Invalid Token'}` })
   }
 }

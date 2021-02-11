@@ -2,6 +2,7 @@ import fetch from 'isomorphic-unfetch'
 import { useState, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { Confirm, Button, Loader } from 'semantic-ui-react'
+// import { Button as MuiButton } from '@material-ui/core'
 import { ActiveNote } from '~/common/components/ActiveNote'
 import { useAuthContext } from '~/common/context'
 import Container from '@material-ui/core/Container'
@@ -36,7 +37,7 @@ export const TheNotePage = ({ initNote: note }: any) => {
   const deleteNote = async () => {
     const noteId = router.query.id
     try {
-      await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes/${noteId}`, {
+      await fetch(`${NEXT_APP_API_ENDPOINT}/notes/${noteId}`, {
         method: 'Delete',
       })
 
@@ -62,9 +63,15 @@ export const TheNotePage = ({ initNote: note }: any) => {
         <Button basic color="red" onClick={handleOpen}>
           Delete
         </Button>
-        <Button basic color="blue" onClick={handleEdit}>
+        <Button basic color="green" onClick={handleEdit}>
           Edit
         </Button>
+        {/* <MuiButton color="default" variant="outlined" onClick={handleEdit}>
+          Edit
+        </MuiButton>
+        <MuiButton color="secondary" variant="outlined" onClick={handleEdit}>
+          Edit
+        </MuiButton> */}
       </Box>
     ),
     [handleOpen, handleEdit]

@@ -28,18 +28,20 @@ export const useBaseStyles = makeStyles((theme: Theme) =>
 
       '& ul, ol': {
         '& > li': {
+          marginBottom: '10px',
           paddingLeft: '5px',
           '& > p': {
             display: 'inline',
           },
-          '& input': {
-            transform: 'translateY(-10px)',
-            border: '1px solid red !important',
+          '& input[type="checkbox"]': {
+            display: 'block',
+            transform: 'translateY(2px)',
+            marginBottom: '10px',
           },
         },
-        '& > li:not(:last-child)': {
-          marginBottom: '10px',
-        },
+        // '& > li:not(:last-child)': {
+        //   marginBottom: '15px',
+        // },
       },
 
       /*

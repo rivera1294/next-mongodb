@@ -2,7 +2,7 @@ import { useEffect, useRef, useMemo } from 'react'
 import Link from 'next/link'
 import fetch from 'isomorphic-unfetch'
 import { Card, Icon, Input, Label, Pagination, Rating } from 'semantic-ui-react'
-import { ActiveNote } from '~/common/components/ActiveNote'
+import { ActiveNote, MobileDialogIfNecessary } from '~/common/components/ActiveNote'
 import clsx from 'clsx'
 import { useGlobalAppContext, getInitialState, useAuthContext } from '~/common/context'
 import { useWindowSize } from '~/common/hooks'
@@ -13,6 +13,8 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 import EditIcon from '@material-ui/icons/Edit'
 import { useBaseStyles } from '~/common/styled-mui/baseStyles'
 import { useRouter } from 'next/router'
+import { Tags } from '~/common/components/Tags'
+import { getStandardHeadersByCtx } from '~/utils/next/getStandardHeadersByCtx'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
 
@@ -104,6 +106,7 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
           {JSON.stringify(activeNote, null, 2)}
         </pre>
       </div> */}
+      <MobileDialogIfNecessary />
       <div className="main standard-container">
         <div className="active-note-external-sticky-wrapper">
           {!!activeNote ? (
@@ -118,7 +121,10 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
               const isActive = !!activeNote?._id && activeNote._id === note._id
 
               return (
-                <div key={note._id} className={clsx({ 'active-card-wrapper': isActive })}>
+                <div
+                  key={note._id}
+                  className={clsx({ 'active-card-wrapper': isActive, 'private-card-wrapper': note.isPrivate })}
+                >
                   <Card>
                     <Card.Content>
                       <Card.Header>
@@ -137,6 +143,7 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
                     </Card.Content>
                     {isMobile && (
                       <Card.Content extra className={baseClasses.actionsBoxRight}>
+                        <Tags title={note.title} />
                         {isLogged && (
                           <MuiButton
                             // disabled={isNotesLoading}
@@ -190,8 +197,21 @@ const Index = ({ notes: initNotes, pagination: initPag }) => {
   )
 }
 
-Index.getInitialProps = async () => {
-  const res = await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes?limit=${defaultPaginationData.limit}`)
+Index.getInitialProps = async (ctx) => {
+  const headers = getStandardHeadersByCtx(ctx)
+
+  // const me = await fetch(`${NEXT_APP_EXPRESS_API_ENDPOINT}/users/me`, {
+  //   method: 'GET',
+  //   headers,
+  // })
+  //   .then((res) => {
+  //     if (!res.ok) throw new Error(res.status)
+  //     return res.json()
+  //   })
+  //   .then((json) => ({ isOk: true, json }))
+  //   .catch((err) => ({ isOk: false }))
+
+  const res = await fetch(`${NEXT_APP_API_ENDPOINT}/notes?limit=${defaultPaginationData.limit}`, { headers })
   const { data, pagination } = await res.json()
 
   return { notes: data, pagination }

@@ -3,15 +3,18 @@ import fetch from 'isomorphic-unfetch'
 import { Button, Form, Loader, Message } from 'semantic-ui-react'
 import { useRouter } from 'next/router'
 import { useAuthContext } from '~/common/context'
+import FormGroup from '@material-ui/core/FormGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import { Checkbox } from '@material-ui/core'
 
 const NEXT_APP_API_ENDPOINT = process.env.NEXT_APP_API_ENDPOINT
 
 const NewNote = () => {
-  const [form, setForm] = useState({ title: '', description: '' })
+  const [form, setForm] = useState({ title: '', description: '', isPrivate: false })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errors, setErrors] = useState({})
   const router = useRouter()
-
+  const { isLogged } = useAuthContext()
   const isCorrect = useMemo(() => Object.keys(errors).length === 0, [JSON.stringify(errors)])
 
   const createNote = async () => {
@@ -19,7 +22,7 @@ const NewNote = () => {
     setErrors(errs)
     setIsSubmitting(true)
     try {
-      await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes`, {
+      await fetch(`${NEXT_APP_API_ENDPOINT}/notes`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -62,6 +65,13 @@ const NewNote = () => {
       [e.target.name]: e.target.value,
     })
   }
+  const handleCheck = (e) => {
+    e.persist()
+    setForm({
+      ...form,
+      [e.target.name]: e.target.checked,
+    })
+  }
 
   const validate = () => {
     let err = {}
@@ -75,11 +85,10 @@ const NewNote = () => {
 
     return err
   }
-  const { isLogged } = useAuthContext()
 
   return (
     <div className="form-container">
-      <h1>Create Note</h1>
+      <h1 className="white">Create Note</h1>
       <div>
         {isSubmitting ? (
           <Loader active inline="centered" />
@@ -103,9 +112,19 @@ const NewNote = () => {
               rows={8}
             />
             {isLogged && (
-              <Button disabled={isSubmitting || !isCorrect} type="submit">
-                Create
-              </Button>
+              <>
+                <Button disabled={isSubmitting || !isCorrect} type="submit">
+                  Create
+                </Button>
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Checkbox checked={form.isPrivate} onChange={handleCheck} name="isPrivate" color="primary" />
+                    }
+                    label="isPrivate"
+                  />
+                </FormGroup>
+              </>
             )}
           </Form>
         )}

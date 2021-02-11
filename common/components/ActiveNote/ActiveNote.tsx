@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { memo, useMemo } from 'react'
+import { memo } from 'react'
 // import { openLinkInNewTab } from '~/utils/openLinkInNewTab'
 import ReactMarkdown from 'react-markdown'
 import gfm from 'remark-gfm'
@@ -11,13 +11,12 @@ import { baseRenderers } from '~/common/react-markdown-renderers'
 import { useBaseStyles } from '~/common/styled-mui/baseStyles'
 import clsx from 'clsx'
 import Button from '@material-ui/core/Button'
-import { useGlobalAppContext, useAuthContext } from '~/common/hooks'
+import { useAuthContext } from '~/common/hooks'
 import { useStyles } from './styles'
-// import { CircularProgress } from '@material-ui/core'
-import LocalOfferIcon from '@material-ui/icons/LocalOffer'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 import EditIcon from '@material-ui/icons/Edit'
 import { useRouter } from 'next/router'
+import { Tags } from '~/common/components/Tags'
 
 interface IProps {
   note: any
@@ -29,8 +28,8 @@ interface IProps {
 const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary, shouldTitleBeTruncated }: IProps) => {
   const baseClasses = useBaseStyles()
   const classes = useStyles()
-  const note = useFreshNote(initialNote)
-  const { description, priority, title, _id } = note
+  const { description, priority, title, _id } = useFreshNote(initialNote)
+  // const { description, priority, title, _id } = note
 
   // Links should be opened in new tab:
   // useEffect(() => {
@@ -47,8 +46,6 @@ const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary, 
   // }, [])
   // const handleSetRate = (e, { rating, maxRating }) => {}
   // const { height } = useWindowSize()
-  const tags = useMemo(() => (!!title ? title.split(' ').filter((elm: string) => elm[0] === '#') : []), [title])
-  const { handleSearchByTitleSetText, isNotesLoading, state } = useGlobalAppContext()
   const router = useRouter()
   const { isLogged } = useAuthContext()
 
@@ -118,21 +115,7 @@ const MyComponent = ({ note: initialNote, descriptionRenderer, isTagsNessesary, 
                 Edit
               </Button>
             )}
-            {tags.length > 0 &&
-              tags.map((tag: string) => (
-                <Button
-                  startIcon={<LocalOfferIcon />}
-                  disabled={isNotesLoading || tag.toLowerCase() === state.searchByTitle.toLowerCase()}
-                  variant="outlined"
-                  size="small"
-                  onClick={() => handleSearchByTitleSetText(tag)}
-                  // endIcon={
-                  //   isNotesLoading && <CircularProgress size={15} color="inherit" style={{ marginLeft: 'auto' }} />
-                  // }
-                >
-                  {tag}
-                </Button>
-              ))}
+            <Tags title={title} />
           </div>
         </>
       )}
@@ -146,7 +129,10 @@ function areEqual(prevProps: any, nextProps: any) {
   тот же результат что и prevProps,
   иначе возвращает false
   */
-  return prevProps.note._id === nextProps.note._id && prevProps.note.updatedAt === nextProps.note.updatedAt
+  return (
+    (!!prevProps.note?._id && !nextProps.note?._id) ||
+    (prevProps.note._id === nextProps.note._id && prevProps.note.updatedAt === nextProps.note.updatedAt)
+  )
 }
 export const ActiveNote = memo(MyComponent, areEqual)
 
