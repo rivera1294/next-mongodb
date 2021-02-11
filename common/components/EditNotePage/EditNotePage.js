@@ -65,7 +65,7 @@ export const EditNotePage = ({ note }) => {
             break
         }
       })
-      const _res = await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes/${router.query.id}`, {
+      const _res = await fetch(`${NEXT_APP_API_ENDPOINT}/notes/${router.query.id}`, {
         method: 'PUT',
         headers: {
           Accept: 'application/json',

@@ -211,7 +211,7 @@ Index.getInitialProps = async (ctx) => {
   //   .then((json) => ({ isOk: true, json }))
   //   .catch((err) => ({ isOk: false }))
 
-  const res = await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes?limit=${defaultPaginationData.limit}`, { headers })
+  const res = await fetch(`${NEXT_APP_API_ENDPOINT}/notes?limit=${defaultPaginationData.limit}`, { headers })
   const { data, pagination } = await res.json()
 
   return { notes: data, pagination }

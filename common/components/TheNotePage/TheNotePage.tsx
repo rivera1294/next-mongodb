@@ -37,7 +37,7 @@ export const TheNotePage = ({ initNote: note }: any) => {
   const deleteNote = async () => {
     const noteId = router.query.id
     try {
-      await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes/${noteId}`, {
+      await fetch(`${NEXT_APP_API_ENDPOINT}/notes/${noteId}`, {
         method: 'Delete',
       })
 

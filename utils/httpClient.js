@@ -4,7 +4,7 @@ import { httpErrorHandler } from '~/utils/errors/http/axios'
 import axios from 'axios'
 import axiosRetry from 'axios-retry'
 
-axiosRetry(axios, { retries: 3 })
+axiosRetry(axios, { retries: 5 })
 
 const createCancelTokenSource = () => new axios.CancelToken.source()
 
@@ -20,7 +20,7 @@ class HttpClientSingletone {
     this.getNotesCancelTokenSource = null
     this.getNoteCancelTokenSource = null
     this.axiosInstance = axios.create({
-      baseURL: `${NEXT_APP_API_ENDPOINT}/api/`,
+      baseURL: `${NEXT_APP_API_ENDPOINT}/`,
       // timeout: 1000,
       // headers: { 'X-Custom-Header': 'foobar' },
     })

@@ -22,7 +22,7 @@ const NewNote = () => {
     setErrors(errs)
     setIsSubmitting(true)
     try {
-      await fetch(`${NEXT_APP_API_ENDPOINT}/api/notes`, {
+      await fetch(`${NEXT_APP_API_ENDPOINT}/notes`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',

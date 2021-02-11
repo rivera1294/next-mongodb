@@ -129,7 +129,7 @@ module.exports = {
 
 ```bash
 MONGO_URI=<YOUR>
-NEXT_APP_API_ENDPOINT=http://localhost:9000
+NEXT_APP_API_ENDPOINT=http://localhost:9000/api
 NEXT_APP_SOCKET_API_ENDPOINT=http://localhost:9000
 NEXT_APP_EXPRESS_API_ENDPOINT=http://localhost:9000/e-api
 NEXT_APP_COOKIE_MAXAGE_IN_DAYS=2
@@ -141,7 +141,7 @@ NEXT_APP_COOKIE_MAXAGE_IN_DAYS=2
 
 ```bash
 MONGO_URI=<YOUR>
-NEXT_APP_API_ENDPOINT=http://<DOMAIN>
+NEXT_APP_API_ENDPOINT=http://<DOMAIN>/api
 NEXT_APP_SOCKET_API_ENDPOINT=http://<DOMAIN>
 NEXT_APP_EXPRESS_API_ENDPOINT=http://<DOMAIN>/e-api
 NEXT_APP_COOKIE_MAXAGE_IN_DAYS=2
@@ -164,6 +164,9 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 Mongoose allows you to query your collections in different ways like: [Official Documentation](https://mongoosejs.com/docs/api.html#model_Model.find)
 
 ```js
+// MyModel.isPrivate not equal true
+MyModel.find({ isPrivate: { $ne: true } })
+
 // named john and at least 18
 MyModel.find({ name: 'john', age: { $gte: 18 } })
 

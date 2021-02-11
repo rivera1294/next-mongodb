@@ -158,7 +158,7 @@ export const GlobalAppContextProvider = ({ children }) => {
         queryParams.page = debouncedPage
       }
       const url = buildUrl(NEXT_APP_API_ENDPOINT, {
-        path: '/api/notes',
+        path: '/notes',
         queryParams,
       })
       const res = await fetch(url, {
